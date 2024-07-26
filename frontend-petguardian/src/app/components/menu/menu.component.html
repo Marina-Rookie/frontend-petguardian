@@ -1,6 +1,7 @@
 <nz-sider class="menu-sidebar"
     nzWidth="256px"
     nzBreakpoint="md"
+    nzTheme="light"
     [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
@@ -9,10 +10,10 @@
       </a>
     </div>
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Datos" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Bienvenidos!</a>
+            <a routerLink="/mascotas">Mascotas</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>Monitor</a>
