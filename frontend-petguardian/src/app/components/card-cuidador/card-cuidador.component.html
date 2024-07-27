@@ -1,1 +1,26 @@
-<p>card-cuidador works!</p>
+<nz-card style="width:300px;" class="m-3" [nzCover]="coverTemplate">
+  <nz-card-meta
+        nzTitle="Marina Panatti"
+        nzDescription="Cuidadora de mascotas"
+      ></nz-card-meta>
+      <p>
+        <span nz-icon nzType="global" nzTheme="outline"> +54 3364314978</span>
+      </p>
+      <div class="row justify-content-center mt-3">
+      <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">
+        <span nz-icon nzType="calendar" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">
+        <span nz-icon nzType="eye" nzTheme="outline"></span>
+      </button>
+    </div>
+</nz-card>
+<ng-template #coverTemplate>
+  <img
+    nz-image
+    width="200px"
+    height="200px"
+    nzSrc="https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg?w=1380&t=st=1722090776~exp=1722091376~hmac=5c5f1247a6ddb9f00241b262f4e3d34787ae45e1496f2728e6925cc36887694f"
+    alt=""
+  />
+</ng-template>
