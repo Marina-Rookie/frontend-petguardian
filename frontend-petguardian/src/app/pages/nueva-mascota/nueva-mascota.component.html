@@ -1,0 +1,27 @@
+<div nz-row>
+  <h2>Agregar nueva mascota</h2>
+</div>
+<div nz-row>
+  <div nz-col>
+    <nz-form-item>
+      <nz-form-label nzFor="nombre">Nombre</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input name="nombre" type="text" />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col>
+    <nz-form-item>
+      <nz-form-label nzFor="tipoMascota">Tipo de mascota</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-select
+            id="tipoMascota"
+            nzPlaceHolder="Elige un tipo de mascota"
+          >
+            <nz-option nzValue="perro" nzLabel="Perro"></nz-option>
+            <nz-option nzValue="gato" nzLabel="Gato"></nz-option>
+          </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>

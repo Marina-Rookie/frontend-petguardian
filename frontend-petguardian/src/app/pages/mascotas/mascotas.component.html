@@ -1,4 +1,14 @@
-<div>
+
+  <nz-page-header>
+    <nz-page-header-title>Tus mascotas </nz-page-header-title>
+    <nz-page-header-extra>
+      <nz-space>
+        <button *nzSpaceItem nz-button nzSize="large" nzType="primary">
+          <a routerLink="nueva">Agregar mascota</a>
+        </button>
+      </nz-space>
+    </nz-page-header-extra>
+  </nz-page-header>
   <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="6">
       <app-card-mascota></app-card-mascota>
@@ -27,4 +37,3 @@
       <app-card-mascota></app-card-mascota>
     </div>
   </div>
-</div>
