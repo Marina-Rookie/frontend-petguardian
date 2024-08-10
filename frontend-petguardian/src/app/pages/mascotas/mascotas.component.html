@@ -1,15 +1,21 @@
-
-  <nz-page-header>
-    <nz-page-header-title>Tus mascotas </nz-page-header-title>
-    <nz-page-header-extra>
-      <nz-space>
-        <button *nzSpaceItem nz-button nzSize="large" nzType="primary">
-          <a routerLink="nueva">Agregar mascota</a>
-        </button>
-      </nz-space>
-    </nz-page-header-extra>
-  </nz-page-header>
-  <div class="row row-cols-auto">
+<nz-page-header>
+  <nz-page-header-title>Tus mascotas </nz-page-header-title>
+  <nz-page-header-extra>
+    <nz-space>
+      <button
+        *nzSpaceItem
+        nz-button
+        nzSize="large"
+        nzType="primary"
+        (click)="showModal()"
+      >
+        <a>Agregar mascota</a>
+      </button>
+    </nz-space>
+  </nz-page-header-extra>
+</nz-page-header>
+<div class="row">
+  <div class="row row-cols-auto justify-content-center">
     <div class="col">
       <app-card-mascota></app-card-mascota>
     </div>
@@ -35,4 +41,15 @@
       <app-card-mascota></app-card-mascota>
     </div>
   </div>
-
+</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Nueva mascota"
+  nzWidth="800px"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <app-nueva-mascota></app-nueva-mascota>
+  </ng-container>
+</nz-modal>

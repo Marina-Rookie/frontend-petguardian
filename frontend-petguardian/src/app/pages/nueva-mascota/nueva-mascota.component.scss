@@ -3,3 +3,8 @@ nz-form-item{
   flex-direction: column;
   align-items: flex-start;
 }
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+}
