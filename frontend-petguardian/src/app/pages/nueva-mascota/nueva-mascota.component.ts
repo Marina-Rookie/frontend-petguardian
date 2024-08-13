@@ -11,6 +11,8 @@ import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 import { TipoMascota } from '../../models/TipoMascota';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EtapaVida } from '../../models/EtapaVida';
 
 @Component({
   selector: 'app-nueva-mascota',
@@ -25,6 +27,8 @@ import { TipoMascota } from '../../models/TipoMascota';
     NzFormModule,
     NzAvatarModule,
     NzUploadModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './nueva-mascota.component.html',
   styleUrl: './nueva-mascota.component.scss',
@@ -33,19 +37,39 @@ export class NuevaMascotaComponent implements OnInit {
   loading = false;
   avatarUrl?: string;
   tiposMascota: TipoMascota[] = [];
+  etapasVida: EtapaVida[] = [];
 
   constructor(private msg: NzMessageService, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.getTiposMascota();
+    this.getEtapasVidaMascota();
   }
 
-  getTipoMascota(){
-    this.apiService.get('tiposMascota').subscribe({
-      next: (data: TipoMascota[]) => {
-        this.tiposMascota = data;
+  formInit(){
+
+  }
+
+  getEtapasVidaMascota(){
+    this.apiService.get('etapasVida').subscribe({
+      next: (data: any) => {
+        this.etapasVida = data;
       },
-      error: () => {}
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
+  getTiposMascota(){
+    this.apiService.get('tiposMascota').subscribe({
+      next: (data: any) => {
+        this.tiposMascota = data;
+        console.log(this.tiposMascota)
+      },
+      error: (error ) => {
+        console.log(error)
+      }
     })
   }
 

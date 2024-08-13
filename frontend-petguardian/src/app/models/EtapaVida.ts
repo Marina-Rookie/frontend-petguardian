@@ -1,4 +1,4 @@
-export class TipoMascota {
+export class EtapaVida {
   _id: number;
   nombre: string;
 
