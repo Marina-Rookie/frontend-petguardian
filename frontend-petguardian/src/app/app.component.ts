@@ -17,12 +17,11 @@ import { LoginComponent } from './pages/login/login.component';
 })
 export class AppComponent {
   isCollapsed = false;
-
   constructor() {
   }
 
-  isLogged(): boolean {
-    return localStorage.getItem('token') != undefined;
+  userIsLogged(): boolean {
+   return localStorage.getItem('token') != undefined;
   }
 
 }

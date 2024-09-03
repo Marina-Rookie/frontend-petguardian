@@ -7,6 +7,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,13 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm;
 
-  constructor(private fb: FormBuilder, private service: ApiService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private service: ApiService,
+    private localStorage: LocalStorageService,
+    private router: Router
+  ) {
+    this.localStorage.crearValues();
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -36,9 +43,9 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.service.post(this.loginForm.value, 'usuarios/login').subscribe({
         next: (data: any) => {
-          localStorage.setItem('token', data['token']);
-          localStorage.setItem('idUsuario', data['idUsuario']);
-          localStorage.setItem('rol', data['rol']);
+          this.localStorage.setItem('token', data['token']);
+          this.localStorage.setItem('idUsuario', data['idUsuario']);
+          this.localStorage.setItem('rol', data['rol']);
           this.router.navigate(['/mascotas']);
         },
       });
