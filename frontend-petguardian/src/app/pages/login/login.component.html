@@ -31,14 +31,14 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="24" nzFor="username">Ingresa tu email</nz-form-label>
           <nz-form-control>
-            <input nz-input formControlName="email" id="username" placeholder="Email" />
+            <input nz-input id="username" placeholder="Email" />
           </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
           <nz-form-label [nzSpan]="24" nzFor="password">Ingresa una contraseña</nz-form-label>
           <nz-form-control>
-            <input nz-input type="password" formControlName="password" id="password" placeholder="Contraseña" />
+            <input nz-input type="password" id="password" placeholder="Contraseña" />
           </nz-form-control>
         </nz-form-item>
 
@@ -46,20 +46,20 @@
           <div class="width-47 mr-auto">
             <nz-form-label nzFor="nombre">Nombre</nz-form-label>
             <nz-form-control>
-              <input nz-input type="text" formControlName="" id="nombre" placeholder="Nombre" />
+              <input nz-input type="text" id="nombre" placeholder="Nombre" />
             </nz-form-control>
           </div>
           <div class="width-47 ml-auto">
             <nz-form-label nzFor="apellido">Apellido</nz-form-label>
             <nz-form-control>
-              <input nz-input type="text" formControlName="" id="apellido" placeholder="Apellido" />
+              <input nz-input type="text" id="apellido" placeholder="Apellido" />
             </nz-form-control>
           </div>
         </nz-form-item>
 
         <nz-form-item>
           <nz-form-control>
-            <label nz-checkbox [(ngModel)]="checked">Quiero registrarme como cuidador</label>
+            <label nz-checkbox [(ngModel)]="checked" [ngModelOptions]="{standalone: true}">Quiero registrarme como cuidador</label>
           </nz-form-control>
         </nz-form-item>
 
