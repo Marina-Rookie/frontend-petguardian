@@ -27,6 +27,9 @@
   nz-form-item {
     width: 100%;
   }
+  a {
+    text-decoration: underline;
+  }
 }
 
 .login-button {
@@ -34,3 +37,16 @@
   width: 50%;
   height: 40px;
 }
+
+.width-47 {
+  width: 47%;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+
+

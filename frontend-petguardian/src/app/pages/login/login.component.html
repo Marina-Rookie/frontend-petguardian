@@ -1,25 +1,77 @@
 <div class="login-container">
   <nz-card nzTitle="Pet Guardian" class="login-card">
-    <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="8" nzFor="username">Email</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="email" id="username" placeholder="Ingrese su email" />
-        </nz-form-control>
-      </nz-form-item>
+    @if(formLogin){
+      <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzFor="username">Ingresa tu email</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="email" id="username" placeholder="Email" />
+          </nz-form-control>
+        </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label [nzSpan]="8" nzFor="password">Contraseña</nz-form-label>
-        <nz-form-control>
-          <input nz-input type="password" formControlName="password" id="password" placeholder="Ingrese su contraseña" />
-        </nz-form-control>
-      </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzFor="password">Ingresa tu contraseña</nz-form-label>
+          <nz-form-control>
+            <input nz-input type="password" formControlName="password" id="password" placeholder="Contraseña" />
+          </nz-form-control>
+        </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-control [nzSpan]="24">
-          <button nz-button nzType="primary" [disabled]="loginForm.invalid" class="login-button">Iniciar sesion</button>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
+        <nz-form-item>
+          <nz-form-control [nzSpan]="24">
+            <button nz-button nzType="primary" [disabled]="loginForm.invalid" class="login-button">Iniciar sesion</button>
+          </nz-form-control>
+          <nz-form-control [nzSpan]="24" class="text-center mt-2">
+            <a (click)="formLogin = false">Clickea acá para registrarte!</a>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    }
+    @else{
+      <form nz-form nzLayout="vertical">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzFor="username">Ingresa tu email</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="email" id="username" placeholder="Email" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzFor="password">Ingresa una contraseña</nz-form-label>
+          <nz-form-control>
+            <input nz-input type="password" formControlName="password" id="password" placeholder="Contraseña" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item nz-row nzJustify="space-between">
+          <div class="width-47 mr-auto">
+            <nz-form-label nzFor="nombre">Nombre</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="" id="nombre" placeholder="Nombre" />
+            </nz-form-control>
+          </div>
+          <div class="width-47 ml-auto">
+            <nz-form-label nzFor="apellido">Apellido</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="" id="apellido" placeholder="Apellido" />
+            </nz-form-control>
+          </div>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <label nz-checkbox [(ngModel)]="checked">Quiero registrarme como cuidador</label>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control [nzSpan]="24">
+            <button nz-button nzType="primary" class="login-button">Registrate</button>
+          </nz-form-control>
+          <nz-form-control [nzSpan]="24" class="text-center mt-2">
+            <a (click)="formLogin = true">Inicia sesion</a>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    }
   </nz-card>
 </div>

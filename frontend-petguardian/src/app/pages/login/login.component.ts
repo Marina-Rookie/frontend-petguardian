@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/localstorage.service';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,16 @@ import { LocalStorageService } from '../../services/localstorage.service';
     NzButtonModule,
     NzCardModule,
     CommonModule,
+    FormsModule,
+    NzCheckboxModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   loginForm;
+  formLogin: boolean = true;
+  checked = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +43,7 @@ export class LoginComponent {
       password: ['', [Validators.required]],
     });
   }
+
 
   onSubmit(): void {
     if (this.loginForm.valid) {
