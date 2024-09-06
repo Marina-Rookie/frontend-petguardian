@@ -11,8 +11,15 @@ import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 import { TipoMascota } from '../../models/TipoMascota';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { EtapaVida } from '../../models/EtapaVida';
+import { LocalStorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-nueva-mascota',
@@ -28,7 +35,8 @@ import { EtapaVida } from '../../models/EtapaVida';
     NzAvatarModule,
     NzUploadModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzButtonModule
   ],
   templateUrl: './nueva-mascota.component.html',
   styleUrl: './nueva-mascota.component.scss',
@@ -38,39 +46,53 @@ export class NuevaMascotaComponent implements OnInit {
   avatarUrl?: string;
   tiposMascota: TipoMascota[] = [];
   etapasVida: EtapaVida[] = [];
+  formMascota: FormGroup = new FormGroup({});
 
-  constructor(private msg: NzMessageService, private apiService: ApiService) {}
+  constructor(
+    private msg: NzMessageService,
+    private apiService: ApiService,
+    private fb: FormBuilder,
+    private localStorageService: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
     this.getTiposMascota();
     this.getEtapasVidaMascota();
+    this.formInit();
   }
 
-  formInit(){
-
+  formInit() {
+    this.formMascota = this.fb.group({
+      nombre: ['', Validators.required],
+      tipoMascota: ['', Validators.required],
+      etapaVida: ['', Validators.required],
+      obsComida: [''],
+      obsEnfermedades: [''],
+      obsOtros: ['']
+    });
   }
 
-  getEtapasVidaMascota(){
+  getEtapasVidaMascota() {
     this.apiService.get('etapasVida').subscribe({
       next: (data: any) => {
         this.etapasVida = data;
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
-  getTiposMascota(){
+  getTiposMascota() {
     this.apiService.get('tiposMascota').subscribe({
       next: (data: any) => {
         this.tiposMascota = data;
-        console.log(this.tiposMascota)
+        console.log(this.tiposMascota);
       },
-      error: (error ) => {
-        console.log(error)
-      }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   beforeUpload = (
@@ -118,5 +140,22 @@ export class NuevaMascotaComponent implements OnInit {
         this.loading = false;
         break;
     }
+  }
+
+  submitForm() {
+    console.log(this.formMascota.value);
+    const nuevaMascota = this.formMascota.value;
+    nuevaMascota.usuario = this.localStorageService.getIdUsuario();
+    console.log(nuevaMascota);
+    this.apiService.post(nuevaMascota, 'mascotas').subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.msg.success('Mascota creada con éxito');
+      },
+      error: (error) => {
+        console.log(error);
+        this.msg.error('Error al crear la mascota');
+      },
+    });
   }
 }

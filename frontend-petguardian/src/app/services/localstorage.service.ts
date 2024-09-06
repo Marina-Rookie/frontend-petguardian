@@ -19,4 +19,8 @@ export class LocalStorageService {
   setItem(key: string, value: string) {
     localStorage.setItem(key, value);
   }
+
+  getIdUsuario() {
+    return localStorage.getItem('idUsuario');
+  }
 }
