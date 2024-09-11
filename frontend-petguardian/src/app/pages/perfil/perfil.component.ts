@@ -5,6 +5,12 @@ import { CardMascotaComponent } from '../../components/card-mascota/card-mascota
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component';
+import { CommonModule } from '@angular/common';
+import { NzUploadComponent } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-perfil',
@@ -15,9 +21,31 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzFormModule,
     CardMascotaComponent,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzCardModule,
+    NzIconModule,
+    NzModalModule,
+    NuevaMascotaComponent,
+    CommonModule,
+    NzUploadComponent
   ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss',
 })
-export class PerfilComponent {}
+export class PerfilComponent {
+  isVisible = false;
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  
+}

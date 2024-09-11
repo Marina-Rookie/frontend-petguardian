@@ -1,3 +1,21 @@
+.add-button {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  margin: 5px;
+  background-color: white;
+  color: #ee9102;
+  border: 1px solid #ee9102;
+  p {
+    font-size: 70px;
+    margin-bottom: 0px;
+  }
+}
 img {
   border-radius: 50%;
+}
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 200px;
+  height: 200px;
+  margin-left: 25%;
 }
