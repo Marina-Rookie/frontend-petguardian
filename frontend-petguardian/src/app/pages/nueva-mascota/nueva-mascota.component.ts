@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -42,6 +42,8 @@ import { LocalStorageService } from '../../services/localstorage.service';
   styleUrl: './nueva-mascota.component.scss',
 })
 export class NuevaMascotaComponent implements OnInit {
+
+  @Input() idMascota: number = 0;
   loading = false;
   avatarUrl?: string;
   tiposMascota: TipoMascota[] = [];

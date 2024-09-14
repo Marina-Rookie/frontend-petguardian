@@ -27,72 +27,74 @@
     </nz-upload>
   </div>
   <div class="col-8">
+    <form [formGroup]="formPerfil">
     <div class="row">
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre">Nombre</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="nombre">Nombre</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="nombre" type="text" formControlName="nombre"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="apellido">Apellido</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="apellido" type="text" formControlName="apellido"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="telefono">Telefono</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="telefono" type="text" formControlName="telefono"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="domicilio">Domicilio</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="domicilio" type="text" formControlName="domicilio"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="email">Email</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="email" type="email"  formControlName="email"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="nombreContactoEmergencia"
+              >Nombre contacto de emergencia</nz-form-label
+            >
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="nombreContactoEmergencia" type="text" formControlName="nombreContactoEmergencia"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="contactoEmergencia"
+              >Telefono contacto de emergencia</nz-form-label
+            >
+            <nz-form-control [nzSpan]="24">
+              <input nz-input name="contactoEmergencia" type="text" formControlName="contactoEmergencia"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+          <button nz-button nzSize="large" nzType="primary" (click)="guardarDatosPerfil()">Guardar datos</button>
+        </div>
       </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre">Apellido</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre">Telefono</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre">Domicilio</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre">Email</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre"
-            >Nombre contacto de emergencia</nz-form-label
-          >
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre"
-            >Telefono contacto de emergencia</nz-form-label
-          >
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6 d-flex justify-content-center align-items-center">
-        <button nz-button nzSize="large" nzType="primary">Guardar datos</button>
-      </div>
+    </form>
     </div>
-  </div>
 </div>
 <div class="row">
   <nz-divider nzText="Mis mascotas"></nz-divider>

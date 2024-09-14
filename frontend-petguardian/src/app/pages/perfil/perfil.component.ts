@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { CardMascotaComponent } from '../../components/card-mascota/card-mascota.component';
@@ -11,6 +11,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component';
 import { CommonModule } from '@angular/common';
 import { NzUploadComponent } from 'ng-zorro-antd/upload';
+import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil',
@@ -27,13 +28,34 @@ import { NzUploadComponent } from 'ng-zorro-antd/upload';
     NzModalModule,
     NuevaMascotaComponent,
     CommonModule,
-    NzUploadComponent
+    NzUploadComponent,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss',
 })
-export class PerfilComponent {
+export class PerfilComponent implements OnInit {
   isVisible = false;
+  formPerfil: FormGroup = new FormGroup({});
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.formPerfil = this.fb.group({
+      nombre: [''],
+      apellido: [''],
+      telefono: [''],
+      email: [''],
+      domicilio: [''],
+      nombreContactoEmergencia: [''],
+      contactoEmergencia: [''],
+    });
+  }
 
   showModal(): void {
     this.isVisible = true;
@@ -47,5 +69,11 @@ export class PerfilComponent {
     this.isVisible = false;
   }
 
-  
+  guardarDatosPerfil() {
+    console.log(this.formPerfil.value);
+  }
+
+  getMascotasPorUsuario() {
+    // Llamada a servicio
+  }
 }
