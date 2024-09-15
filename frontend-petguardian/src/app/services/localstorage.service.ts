@@ -21,6 +21,6 @@ export class LocalStorageService {
   }
 
   getIdUsuario() {
-    return localStorage.getItem('idUsuario');
+    return localStorage.getItem('idUsuario') ?? '';
   }
 }

@@ -45,13 +45,12 @@ export class PerfilComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: ApiService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
+    this.idUsuario = this.localStorageService.getIdUsuario();
     this.initForm();
     this.buscarDatosPerfil();
   }
 
   buscarDatosPerfil() {
-    this.idUsuario = this.localStorageService.getIdUsuario();
-    console.log(this.idUsuario);
     this.service.get('usuarios/' + this.idUsuario).subscribe({
       next: (data) => {
         console.log(data);
@@ -87,6 +86,18 @@ export class PerfilComponent implements OnInit {
     });
   }
 
+  actualizarDatosPerfil() {
+    this.service.put(this.formPerfil.value, 'usuarios/update/' + this.idUsuario).subscribe({
+      next: (data) => {
+        //this.setDatosFormPerfil(data);
+        console.log(data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   showModal(): void {
     this.isVisible = true;
   }
@@ -100,6 +111,7 @@ export class PerfilComponent implements OnInit {
   }
 
   guardarDatosPerfil() {
+    this.actualizarDatosPerfil();
     console.log(this.formPerfil.value);
   }
 
