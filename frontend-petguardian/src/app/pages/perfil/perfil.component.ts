@@ -12,6 +12,8 @@ import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component'
 import { CommonModule } from '@angular/common';
 import { NzUploadComponent } from 'ng-zorro-antd/upload';
 import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
+import { LocalStorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-perfil',
@@ -38,11 +40,39 @@ import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '
 export class PerfilComponent implements OnInit {
   isVisible = false;
   formPerfil: FormGroup = new FormGroup({});
+  idUsuario: string = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private service: ApiService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.buscarDatosPerfil();
+  }
+
+  buscarDatosPerfil() {
+    this.idUsuario = this.localStorageService.getIdUsuario();
+    console.log(this.idUsuario);
+    this.service.get('usuarios/' + this.idUsuario).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.setDatosFormPerfil(data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
+  setDatosFormPerfil(data: any) {
+    this.formPerfil.setValue({
+      nombre: data.nombre,
+      apellido: data.apellido,
+      telefono: data.telefono ?? '',
+      email: data.email,
+      domicilio: data.domicilio ?? '',
+      nombreContactoEmergencia: data.nombreContactoEmergencia ?? '',
+      contactoEmergencia: data.contactoEmergencia ?? ''
+    });
   }
 
   initForm() {
