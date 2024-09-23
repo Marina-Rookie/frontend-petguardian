@@ -12,7 +12,6 @@ import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component'
 import { CommonModule } from '@angular/common';
 import { NzUploadComponent } from 'ng-zorro-antd/upload';
 import {
-  Form,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -20,7 +19,6 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { LocalStorageService } from '../../services/localstorage.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { ModalService } from '../../services/shared/modals.service';
 
 @Component({
@@ -49,6 +47,7 @@ export class PerfilComponent implements OnInit {
   isVisible = false;
   formPerfil: FormGroup = new FormGroup({});
   idUsuario: string = '';
+  mascotas: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -61,6 +60,7 @@ export class PerfilComponent implements OnInit {
     this.idUsuario = this.localStorageService.getIdUsuario();
     this.initForm();
     this.buscarDatosPerfil();
+    this.getMascotasPorUsuario();
   }
 
   buscarDatosPerfil() {
@@ -115,7 +115,6 @@ export class PerfilComponent implements OnInit {
 
   guardarMascota(mascota: any): void {
     console.log(mascota);
-
   }
 
   showModal(): void {
@@ -129,6 +128,14 @@ export class PerfilComponent implements OnInit {
   }
 
   getMascotasPorUsuario() {
-    // Llamada a servicio
+    this.service.get('mascotas/mascotasPorUsuario/' + this.idUsuario).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.mascotas = data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 }
