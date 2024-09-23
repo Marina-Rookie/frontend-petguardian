@@ -16,11 +16,11 @@
       [nzShowUploadList]="false"
     >
       <ng-container >
-        <span
+        <!-- <span
           class="upload-icon"
           nz-icon
           nzType="loading ? 'loading' : 'plus'"
-        ></span>
+        ></span> -->
         <div class="ant-upload-text">Cargar Foto</div>
       </ng-container>
       <!-- <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" /> -->
@@ -121,7 +121,9 @@
     </nz-card>
   </div>
 </div>
-<nz-modal
+<app-nueva-mascota></app-nueva-mascota>
+
+<!-- <nz-modal
   [(nzVisible)]="isVisible"
   nzTitle="Nueva mascota"
   nzWidth="700px"
@@ -129,6 +131,5 @@
   (nzOnOk)="handleOk()"
 >
   <ng-container *nzModalContent>
-    <app-nueva-mascota></app-nueva-mascota>
   </ng-container>
-</nz-modal>
+</nz-modal> -->

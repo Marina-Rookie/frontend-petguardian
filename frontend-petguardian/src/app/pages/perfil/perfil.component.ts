@@ -11,9 +11,17 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component';
 import { CommonModule } from '@angular/common';
 import { NzUploadComponent } from 'ng-zorro-antd/upload';
-import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  Form,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { LocalStorageService } from '../../services/localstorage.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ModalService } from '../../services/shared/modals.service';
 
 @Component({
   selector: 'app-perfil',
@@ -32,7 +40,7 @@ import { LocalStorageService } from '../../services/localstorage.service';
     CommonModule,
     NzUploadComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss',
@@ -42,7 +50,12 @@ export class PerfilComponent implements OnInit {
   formPerfil: FormGroup = new FormGroup({});
   idUsuario: string = '';
 
-  constructor(private fb: FormBuilder, private service: ApiService, private localStorageService: LocalStorageService) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: ApiService,
+    private localStorageService: LocalStorageService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.idUsuario = this.localStorageService.getIdUsuario();
@@ -58,8 +71,8 @@ export class PerfilComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   setDatosFormPerfil(data: any) {
@@ -70,7 +83,7 @@ export class PerfilComponent implements OnInit {
       email: data.email,
       domicilio: data.domicilio ?? '',
       nombreContactoEmergencia: data.nombreContactoEmergencia ?? '',
-      contactoEmergencia: data.contactoEmergencia ?? ''
+      contactoEmergencia: data.contactoEmergencia ?? '',
     });
   }
 
@@ -87,27 +100,27 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizarDatosPerfil() {
-    this.service.put(this.formPerfil.value, 'usuarios/update/' + this.idUsuario).subscribe({
-      next: (data) => {
-        //this.setDatosFormPerfil(data);
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    this.service
+      .put(this.formPerfil.value, 'usuarios/update/' + this.idUsuario)
+      .subscribe({
+        next: (data) => {
+          //this.setDatosFormPerfil(data);
+          console.log(data);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
+  guardarMascota(mascota: any): void {
+    console.log(mascota);
+
   }
 
   showModal(): void {
-    this.isVisible = true;
-  }
-
-  handleOk(): void {
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
+    console.log('showModal');
+    this.modalService.showModal();
   }
 
   guardarDatosPerfil() {

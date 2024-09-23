@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -20,6 +20,8 @@ import {
 } from '@angular/forms';
 import { EtapaVida } from '../../models/EtapaVida';
 import { LocalStorageService } from '../../services/localstorage.service';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ModalService } from '../../services/shared/modals.service';
 
 @Component({
   selector: 'app-nueva-mascota',
@@ -36,7 +38,8 @@ import { LocalStorageService } from '../../services/localstorage.service';
     NzUploadModule,
     FormsModule,
     ReactiveFormsModule,
-    NzButtonModule
+    NzButtonModule,
+    NzModalModule
   ],
   templateUrl: './nueva-mascota.component.html',
   styleUrl: './nueva-mascota.component.scss',
@@ -44,20 +47,28 @@ import { LocalStorageService } from '../../services/localstorage.service';
 export class NuevaMascotaComponent implements OnInit {
 
   @Input() idMascota: number = 0;
+  @Output() nuevaMascota: EventEmitter<any> = new EventEmitter<any>();
   loading = false;
   avatarUrl?: string;
   tiposMascota: TipoMascota[] = [];
   etapasVida: EtapaVida[] = [];
   formMascota: FormGroup = new FormGroup({});
+  isVisible = false;
 
   constructor(
     private msg: NzMessageService,
     private apiService: ApiService,
     private fb: FormBuilder,
-    private localStorageService: LocalStorageService
-  ) {}
+    private localStorageService: LocalStorageService,
+    private modalService: ModalService
+  ) {
+  }
 
   ngOnInit(): void {
+    this.modalService.isVisible$.subscribe((isVisible) => {
+      console.log("Cambio en la suscripcion")
+      this.isVisible = isVisible;
+    });
     this.getTiposMascota();
     this.getEtapasVidaMascota();
     this.formInit();
@@ -159,5 +170,14 @@ export class NuevaMascotaComponent implements OnInit {
         this.msg.error('Error al crear la mascota');
       },
     });
+    this.handleCancel();
+  }
+
+  handleOk(): void {
+    this.submitForm();
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 }

@@ -64,6 +64,7 @@ export class LoginComponent {
     if (this.registerForm.valid) {
       this.service.post(this.registerForm.value, 'usuarios').subscribe({
         next: (data: any) => {
+          console.log(data); //TODO ver que devuelve este endpoint pq no setea bien al loguear
           this.setItemsAndNavigate(data);
         },
       });

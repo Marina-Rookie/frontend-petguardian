@@ -49,7 +49,7 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
 >
-  <ng-container *nzModalContent>
-    <app-nueva-mascota></app-nueva-mascota>
-  </ng-container>
+  <!-- <ng-container *nzModalContent>
+    <app-nueva-mascota (nuevaMascota)="guardarMascota($event)"></app-nueva-mascota>
+  </ng-container> -->
 </nz-modal>

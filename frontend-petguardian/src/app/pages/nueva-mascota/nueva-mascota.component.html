@@ -1,87 +1,110 @@
-<div class="row">
-  <form [formGroup]="formMascota">
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Nueva mascota"
+  nzWidth="700px"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
     <div class="row">
-      <div class="col" style="display: flex; align-items: center">
-        <nz-upload
-          class="avatar-uploader"
-          nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          nzName="avatar"
-          nzListType="picture-card"
-          [nzShowUploadList]="false"
-          [nzBeforeUpload]="beforeUpload"
-          (nzChange)="handleChange($event)"
-        >
-          <ng-container *ngIf="!avatarUrl">
-            <span
-              class="upload-icon"
-              nz-icon
-              nzType="loading ? 'loading' : 'plus'"
-            ></span>
-            <div class="ant-upload-text">Cargar Foto</div>
-          </ng-container>
-          <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
-        </nz-upload>
-      </div>
-      <div class="col">
-        <nz-form-item>
-          <nz-form-label nzFor="nombre">Nombre</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="nombre" type="text" formControlName="nombre" />
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzFor="tipoMascota">Tipo de mascota</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <nz-select
-              id="tipoMascota"
-              formControlName="tipoMascota"
-              nzPlaceHolder="Seleccione un tipo de mascota"
-              nzSize="large"
+      <form [formGroup]="formMascota">
+        <div class="row">
+          <div class="col" style="display: flex; align-items: center">
+            <nz-upload
+              class="avatar-uploader"
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              nzName="avatar"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event)"
             >
-              @for (tipo of tiposMascota; track tipo._id) {
-              <nz-option [nzValue]="tipo._id" [nzLabel]="tipo.nombre"></nz-option>
-              }
-            </nz-select>
+              <ng-container *ngIf="!avatarUrl">
+                <!-- <span
+                  class="upload-icon"
+                  nz-icon
+                  nzType="loading ? 'loading' : 'plus'"
+                ></span> -->
+                <div class="ant-upload-text">Cargar Foto</div>
+              </ng-container>
+              <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+            </nz-upload>
+          </div>
+          <div class="col">
+            <nz-form-item>
+              <nz-form-label nzFor="nombre">Nombre</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <input
+                  nz-input
+                  name="nombre"
+                  type="text"
+                  formControlName="nombre"
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="tipoMascota">Tipo de mascota</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <nz-select
+                  id="tipoMascota"
+                  formControlName="tipoMascota"
+                  nzPlaceHolder="Seleccione un tipo de mascota"
+                  nzSize="large"
+                >
+                  @for (tipo of tiposMascota; track tipo._id) {
+                  <nz-option
+                    [nzValue]="tipo._id"
+                    [nzLabel]="tipo.nombre"
+                  ></nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="tipoMascota">Etapa de vida</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <nz-select
+                  id="etapaVida"
+                  formControlName="etapaVida"
+                  nzPlaceHolder="Seleccione la etapa de vida"
+                  nzSize="large"
+                >
+                  @for (etapa of etapasVida; track etapa._id) {
+                  <nz-option
+                    [nzValue]="etapa._id"
+                    [nzLabel]="etapa.nombre"
+                  ></nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <nz-form-item>
+          <nz-form-label nzFor="nombre">Observaciones comida</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <textarea rows="2" nz-input formControlName="obsComida"></textarea>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label nzFor="tipoMascota">Etapa de vida</nz-form-label>
+          <nz-form-label nzFor="nombre"
+            >Observaciones enfermedades</nz-form-label
+          >
           <nz-form-control [nzSpan]="24">
-            <nz-select
-              id="etapaVida"
-              formControlName="etapaVida"
-              nzPlaceHolder="Seleccione la etapa de vida"
-              nzSize="large"
-            >
-              @for (etapa of etapasVida; track etapa._id) {
-              <nz-option
-                [nzValue]="etapa._id"
-                [nzLabel]="etapa.nombre"
-              ></nz-option>
-              }
-            </nz-select>
+            <textarea
+              rows="2"
+              nz-input
+              formControlName="obsEnfermedades"
+            ></textarea>
           </nz-form-control>
         </nz-form-item>
-      </div>
+        <nz-form-item>
+          <nz-form-label nzFor="nombre">Otras observaciones</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <textarea rows="2" nz-input formControlName="obsOtros"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
     </div>
-      <nz-form-item>
-        <nz-form-label nzFor="nombre">Observaciones comida</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <textarea rows="2" nz-input formControlName="obsComida"></textarea>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzFor="nombre">Observaciones enfermedades</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <textarea rows="2" nz-input formControlName="obsEnfermedades"></textarea>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzFor="nombre">Otras observaciones </nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <textarea rows="2" nz-input formControlName="obsOtros"></textarea>
-        </nz-form-control>
-      </nz-form-item>
-      <button type="submit" (click)="submitForm()">Guardar</button>
-  </form>
-</div>
+  </ng-container>
+</nz-modal>
