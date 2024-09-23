@@ -99,27 +99,33 @@
 <div class="row">
   <nz-divider nzText="Mis mascotas"></nz-divider>
   <div class="d-flex justify-content-center">
-    @for (m of mascotas; track m._id) {
-      <app-card-mascota [mascota]="m"></app-card-mascota>
-    }
-    <!-- card para agregar -->
-    <nz-card
-      style="width: 300px; height: 365px; margin-top: 15px; border-radius: 20px"
-      [nzBodyStyle]="{
-        height: '100%',
-        border: '1px dashed orange',
-        'border-radius': '20px'
-      }"
-    >
-      <div
-        class="row justify-content-center align-items-center"
-        style="height: 100%"
-      >
-        <button class="add-button" (click)="showModal()">
-          <span nz-icon nzType="plus" nzTheme="outline"></span>
-        </button>
+    <div class="row row-cols-auto justify-content-center">
+      @for (m of mascotas; track m._id) {
+        <div class="col">
+          <app-card-mascota [mascota]="m"></app-card-mascota>
+        </div>
+      }
+      <div class="col">
+        <!-- card para agregar -->
+        <nz-card
+          style="width: 300px; height: 365px; margin-top: 15px; border-radius: 20px"
+          [nzBodyStyle]="{
+            height: '100%',
+            border: '1px dashed orange',
+            'border-radius': '20px'
+          }"
+        >
+          <div
+            class="row justify-content-center align-items-center"
+            style="height: 100%"
+          >
+            <button class="add-button" (click)="showModal()">
+              <span nz-icon nzType="plus" nzTheme="outline"></span>
+            </button>
+          </div>
+        </nz-card>
       </div>
-    </nz-card>
+    </div>
   </div>
 </div>
 <app-nueva-mascota></app-nueva-mascota>
