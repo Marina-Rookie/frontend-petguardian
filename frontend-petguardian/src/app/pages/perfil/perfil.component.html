@@ -99,8 +99,9 @@
 <div class="row">
   <nz-divider nzText="Mis mascotas"></nz-divider>
   <div class="d-flex justify-content-center">
-    <app-card-mascota></app-card-mascota>
-    <app-card-mascota></app-card-mascota>
+    @for (m of mascotas; track m._id) {
+      <app-card-mascota [mascota]="m"></app-card-mascota>
+    }
     <!-- card para agregar -->
     <nz-card
       style="width: 300px; height: 365px; margin-top: 15px; border-radius: 20px"

@@ -44,6 +44,7 @@ import { ModalService } from '../../services/shared/modals.service';
   styleUrl: './perfil.component.scss',
 })
 export class PerfilComponent implements OnInit {
+  
   isVisible = false;
   formPerfil: FormGroup = new FormGroup({});
   idUsuario: string = '';

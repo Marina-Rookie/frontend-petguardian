@@ -9,6 +9,7 @@ export class Mascota {
   obsComida: string;
   obsEnfermedades: string;
   obsOtros: string;
+  usuario: any;
 
   constructor(id: number, nombre: string, tipoMascota: TipoMascota, etapaVida: EtapaVida, obsComida: string, obsEnfermedades: string, obsOtros: string){
     this._id = id;
