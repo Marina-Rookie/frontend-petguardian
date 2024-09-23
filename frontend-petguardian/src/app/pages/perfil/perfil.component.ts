@@ -120,6 +120,7 @@ export class PerfilComponent implements OnInit {
 
   showModal(): void {
     console.log('showModal');
+    this.modalService.setMascotaEditModal(null);
     this.modalService.showModal();
   }
 

@@ -4,6 +4,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { Mascota } from '../../models/Mascota';
+import { ModalService } from '../../services/shared/modals.service';
 
 @Component({
   selector: 'app-card-mascota',
@@ -15,7 +16,12 @@ import { Mascota } from '../../models/Mascota';
 export class CardMascotaComponent implements OnInit {
   @Input() mascota: Mascota | undefined;
 
-  constructor() {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}
+
+  editMascota(){
+    this.modalService.showModal();
+    this.modalService.setMascotaEditModal(this.mascota);
+  }
 }

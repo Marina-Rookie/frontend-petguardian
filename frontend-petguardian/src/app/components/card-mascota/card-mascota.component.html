@@ -4,7 +4,7 @@
     nzDescription="Tipo de Mascota: {{ mascota?.tipoMascota?.nombre }}"
   ></nz-card-meta>
   <div class="row justify-content-center mt-3">
-    <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">
+    <button nz-button nzType="primary" [nzSize]="'large'" class="buttons" (click)="editMascota()">
       <span nz-icon nzType="edit" nzTheme="outline"></span>
     </button>
     <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">

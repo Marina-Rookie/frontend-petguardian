@@ -22,6 +22,7 @@ import { EtapaVida } from '../../models/EtapaVida';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ModalService } from '../../services/shared/modals.service';
+import { Mascota } from '../../models/Mascota';
 
 @Component({
   selector: 'app-nueva-mascota',
@@ -50,6 +51,7 @@ export class NuevaMascotaComponent implements OnInit {
   @Output() nuevaMascota: EventEmitter<any> = new EventEmitter<any>();
   loading = false;
   avatarUrl?: string;
+  mascota: any;
   tiposMascota: TipoMascota[] = [];
   etapasVida: EtapaVida[] = [];
   formMascota: FormGroup = new FormGroup({});
@@ -65,13 +67,20 @@ export class NuevaMascotaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.formInit();
     this.modalService.isVisible$.subscribe((isVisible) => {
       console.log("Cambio en la suscripcion")
       this.isVisible = isVisible;
     });
+    this.modalService.mascotaEditModal$.subscribe((mascota) => {
+      console.log(mascota);
+      this.mascota = mascota;
+      this.formMascota.patchValue(mascota);
+      this.formMascota.controls['tipoMascota'].setValue(mascota.tipoMascota._id);
+      this.formMascota.controls['etapaVida'].setValue(mascota.etapaVida._id);
+    });
     this.getTiposMascota();
     this.getEtapasVidaMascota();
-    this.formInit();
   }
 
   formInit() {
@@ -178,6 +187,6 @@ export class NuevaMascotaComponent implements OnInit {
   }
 
   handleCancel(): void {
-    this.isVisible = false;
+    this.modalService.hideModal();
   }
 }

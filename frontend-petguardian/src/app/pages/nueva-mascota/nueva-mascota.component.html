@@ -1,6 +1,6 @@
 <nz-modal
   [(nzVisible)]="isVisible"
-  nzTitle="Nueva mascota"
+  nzTitle="{{mascota ? 'Editar' : 'Nueva'}} mascota"
   nzWidth="700px"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
