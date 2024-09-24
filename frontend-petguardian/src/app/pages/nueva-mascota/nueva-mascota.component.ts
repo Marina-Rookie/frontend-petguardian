@@ -48,7 +48,7 @@ import { Mascota } from '../../models/Mascota';
 export class NuevaMascotaComponent implements OnInit {
 
   @Input() idMascota: number = 0;
-  @Output() nuevaMascota: EventEmitter<any> = new EventEmitter<any>();
+  @Output() recargarMascotas: EventEmitter<any> = new EventEmitter<any>();
   loading = false;
   avatarUrl?: string;
   mascota: any;
@@ -192,5 +192,6 @@ export class NuevaMascotaComponent implements OnInit {
 
   handleCancel(): void {
     this.modalService.hideModal();
+    this.recargarMascotas.emit();
   }
 }
