@@ -75,9 +75,13 @@ export class NuevaMascotaComponent implements OnInit {
     this.modalService.mascotaEditModal$.subscribe((mascota) => {
       console.log(mascota);
       this.mascota = mascota;
-      this.formMascota.patchValue(mascota);
-      this.formMascota.controls['tipoMascota'].setValue(mascota.tipoMascota._id);
-      this.formMascota.controls['etapaVida'].setValue(mascota.etapaVida._id);
+      if(mascota !== null) {
+        this.formMascota.patchValue(mascota);
+        this.formMascota.controls['tipoMascota'].setValue(mascota.tipoMascota._id);
+        this.formMascota.controls['etapaVida'].setValue(mascota.etapaVida._id);
+      } else {
+        this.formMascota.reset();
+      }
     });
     this.getTiposMascota();
     this.getEtapasVidaMascota();
