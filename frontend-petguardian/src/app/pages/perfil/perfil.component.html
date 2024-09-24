@@ -102,7 +102,7 @@
     <div class="row row-cols-auto justify-content-center">
       @for (m of mascotas; track m._id) {
         <div class="col">
-          <app-card-mascota [mascota]="m"></app-card-mascota>
+          <app-card-mascota [mascota]="m" (recargarMascotas)="recargarMascotas()"></app-card-mascota>
         </div>
       }
       <div class="col">
@@ -128,7 +128,7 @@
     </div>
   </div>
 </div>
-<app-nueva-mascota (recargarMascotas)="getMascotasPorUsuario()"></app-nueva-mascota>
+<app-nueva-mascota (recargarMascotas)="recargarMascotas()"></app-nueva-mascota>
 
 <!-- <nz-modal
   [(nzVisible)]="isVisible"

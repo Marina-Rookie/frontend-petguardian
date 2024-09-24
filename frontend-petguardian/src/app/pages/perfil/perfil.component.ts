@@ -141,4 +141,8 @@ export class PerfilComponent implements OnInit {
     });
   }
   
+  recargarMascotas(){
+    console.log('recargarMascotas');
+    this.getMascotasPorUsuario();
+  }
 }

@@ -22,7 +22,6 @@ import { EtapaVida } from '../../models/EtapaVida';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ModalService } from '../../services/shared/modals.service';
-import { Mascota } from '../../models/Mascota';
 
 @Component({
   selector: 'app-nueva-mascota',
