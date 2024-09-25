@@ -31,8 +31,8 @@
               }
             ],
             "styles": [
+              "src/styles.scss",
               "src/theme.less",
-              "src/styles.less",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
@@ -85,7 +85,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/assets/"],
-            "styles": ["src/theme.less", "src/styles.less"],
+            "styles": ["src/styles.scss", "src/theme.less"],
             "scripts": []
           }
         }

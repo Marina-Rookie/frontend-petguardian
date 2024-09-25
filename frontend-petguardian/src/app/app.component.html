@@ -1,4 +1,4 @@
-@if (userIsLogged()) {
+<!-- @if (userIsLogged()) {
   <div class="container-fluid">
       <div class="row">
           <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
@@ -21,6 +21,74 @@
 }
 @else {
   <app-login></app-login>
-}
+} -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer mode="side" [opened]="true">
+    <div class="menu-items">
+      <button mat-icon-button class="menu-icon">
+        <span nz-icon nzType="menu" nzTheme="outline"></span>
+      </button>
+      <nav>
+        <ul>
+          <li>
+            <button mat-button class="sidenav-item" routerLink="/dashboard">
+              <div>
+                <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
+              </div>
+              <div>
+                <span>Inicio</span>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button mat-button class="sidenav-item" routerLink="/recepcion">
+              <div>
+                <span nz-icon nzType="user" nzTheme="outline" class="nz-icon"></span>
+              </div>
+              <div>
+                <span>Perfil</span>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button mat-button class="sidenav-item" routerLink="/caja">
+              <div>
+                <span nz-icon nzType="book" nzTheme="outline"  class="nz-icon"></span>
+              </div>
+              <div>
+                <span>Tus reservas</span>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button mat-button class="sidenav-item" routerLink="/gestion">
+              <div>
+                <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
+              </div>
+              <div>
+                <span>Cuidadores</span>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button mat-button class="sidenav-item" routerLink="/contabilidad">
+              <div>
+                <span nz-icon nzType="logout" nzTheme="outline" class="nz-icon"></span>
+              </div>
+              <div>
+                <span>Cerrar Sesion</span>
+              </div>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="contenedor">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
 

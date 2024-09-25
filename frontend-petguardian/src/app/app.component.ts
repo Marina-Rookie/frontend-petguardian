@@ -7,11 +7,12 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LoginComponent } from './pages/login/login.component';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, NavbarComponent, MenuComponent, LoginComponent],
+  imports: [CommonModule, RouterOutlet, MatSidenavModule, NzIconModule, NzLayoutModule, NzMenuModule, NavbarComponent, MenuComponent, LoginComponent, MatButtonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
