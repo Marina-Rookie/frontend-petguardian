@@ -18,7 +18,7 @@ export class ApiService {
 
   public getParam(url: string, params: string, datos: object) {
     const param = new HttpParams().set(params, JSON.stringify(datos));
-    return this.http.get(this.authURL + url, {
+    return this.http.get(url, {
       params: param
     });
   }
