@@ -85,6 +85,6 @@ export class LoginComponent {
     this.localStorage.setItem('token', data['token']);
     this.localStorage.setItem('idUsuario', data['idUsuario']);
     this.localStorage.setItem('rol', data['rol']);
-    this.router.navigate(['/mascotas']);
+    this.router.navigate(['/perfil']);
   }
 }
