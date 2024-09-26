@@ -8,7 +8,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "https://frontend-petguardian.vercel.app/"
     }
   ]
 }
