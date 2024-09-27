@@ -30,7 +30,12 @@
               <span nz-icon nzType="star" nzTheme="outline"></span>
             </td>
             <td class="text-center">
-              <button nz-button nzType="default" nzDanger>Cancelar</button>
+              @if (reserva.estado == 'Finalizada') {
+                <button nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
+              }
+              @if (reserva.estado == 'Pendiente') {
+                <button nz-button nzType="default" nzDanger>Cancelar</button>
+              }
             </td>
           </tr>
         }
@@ -38,3 +43,15 @@
     </nz-table>
   </div>
 </div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñar cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <div>
+      Puntuacion:
+      <nz-rate [(ngModel)]="puntuacion" [nzAllowHalf]="true"></nz-rate>
+    </div>
+    <div class="mt-2">
+      Comentario:
+      <nz-input [(ngModel)]="comentario" ></nz-input>
+    </div>
+  </ng-container>
+</nz-modal>

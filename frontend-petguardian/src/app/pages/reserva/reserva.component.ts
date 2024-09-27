@@ -5,6 +5,12 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzRateModule } from 'ng-zorro-antd/rate';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 interface Reserva {
   id: number;
   fechaInicio: string;
@@ -18,17 +24,20 @@ interface Reserva {
 @Component({
   selector: 'app-reserva',
   standalone: true,
-  imports: [NzGridModule, NzAvatarModule, NzFormModule, NzTableModule, NzIconModule, NzButtonModule],
+  imports: [NzGridModule, NzAvatarModule, NzFormModule, NzTableModule,NzInputModule, NzIconModule, NzButtonModule,NzModalModule, NzRateModule, CommonModule, FormsModule],
   templateUrl: './reserva.component.html',
   styleUrl: './reserva.component.scss'
 })
 export class ReservaComponent {
+  isVisible = false;
+  puntuacion = 0;
+  comentario = '';
   reservas: Reserva[] = [
     {
       id: 1,
       fechaInicio: '2023-10-01',
       fechaFin: '2023-10-07',
-      estado: 'Confirmada',
+      estado: 'Finalizada',
       cuidador: 'Juan Pérez',
       mascotas: 'Perro, Gato',
       precio: 150.00,
@@ -55,4 +64,18 @@ export class ReservaComponent {
       puntuacion: 3.5
     }
   ];
+
+  openModal(reserva: Reserva): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
 }
