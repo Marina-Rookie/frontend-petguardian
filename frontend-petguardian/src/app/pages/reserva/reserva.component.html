@@ -1,13 +1,40 @@
-<div nz-row nzAlign="middle">
-  <div nz-col class="m-4">
-    <nz-avatar [nzSize]="200" nzSrc="https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg?w=1380&t=st=1722090776~exp=1722091376~hmac=5c5f1247a6ddb9f00241b262f4e3d34787ae45e1496f2728e6925cc36887694f"></nz-avatar>
+<div class="row">
+  <h2>
+    Tus reservas
+  </h2>
+  <div class="mt-4">
+    <nz-table [nzData]="reservas">
+      <thead>
+        <tr>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Estado</th>
+          <th>Cuidador</th>
+          <th>Mascotas</th>
+          <th>Precio</th>
+          <th>Puntuacion</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (reserva of reservas; track reserva.id) {
+          <tr>
+            <td>{{reserva.fechaInicio}}</td>
+            <td>{{reserva.fechaFin}}</td>
+            <td>{{reserva.estado}}</td>
+            <td>{{reserva.cuidador}}</td>
+            <td>{{reserva.mascotas}}</td>
+            <td>${{reserva.precio}}</td>
+            <td>
+              {{reserva.puntuacion}}
+              <span nz-icon nzType="star" nzTheme="outline"></span>
+            </td>
+            <td class="text-center">
+              <button nz-button nzType="default" nzDanger>Cancelar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </nz-table>
   </div>
-  <div nz-col class="m-4">
-    <h2>Reserva a Marina Panatti!</h2>
-  </div>
-</div>
-<div nz-row>
-  <form nz-form>
-    
-  </form>
 </div>
