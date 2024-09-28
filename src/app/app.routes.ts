@@ -11,5 +11,7 @@ export const routes: Routes = [
   { path: 'cuidadores/reserva', component: ReservaComponent},
   { path: 'mascotas/nueva', component: NuevaMascotaComponent},
   { path: 'perfil', component: PerfilComponent},
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
