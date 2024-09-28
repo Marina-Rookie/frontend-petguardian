@@ -1,23 +1,72 @@
 @if (userIsLogged()) {
-  <div class="container-fluid">
-      <div class="row">
-          <!-- <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="position-sticky">
-              <app-menu></app-menu>
-            </div>
-          </nav> -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 class="h2">Perfil</h1>
-              <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group me-2">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer mode="side" [opened]="true">
+      <div class="menu-items">
+        <div class="logo mt-4">
+          <img src="../assets/logo2.png" alt="logo" />
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <button mat-button class="sidenav-item" routerLink="/dashboard">
+                <div>
+                  <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
                 </div>
-              </div>
-            </div>
-          <router-outlet></router-outlet>
-        </main>
+                <div>
+                  <span>Inicio</span>
+                </div>
+              </button>
+            </li>
+            <li>
+              <button mat-button class="sidenav-item" routerLink="/perfil">
+                <div>
+                  <span nz-icon nzType="user" nzTheme="outline" class="nz-icon"></span>
+                </div>
+                <div>
+                  <span>Perfil</span>
+                </div>
+              </button>
+            </li>
+            <li>
+              <button mat-button class="sidenav-item" routerLink="/reservas">
+                <div>
+                  <span nz-icon nzType="book" nzTheme="outline"  class="nz-icon"></span>
+                </div>
+                <div>
+                  <span>Tus reservas</span>
+                </div>
+              </button>
+            </li>
+            <li>
+              <button mat-button class="sidenav-item" routerLink="/cuidadores">
+                <div>
+                  <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
+                </div>
+                <div>
+                  <span>Cuidadores</span>
+                </div>
+              </button>
+            </li>
+            <li>
+              <button mat-button class="sidenav-item" routerLink="/login">
+                <div>
+                  <span nz-icon nzType="logout" nzTheme="outline" class="nz-icon"></span>
+                </div>
+                <div>
+                  <span>Cerrar Sesion</span>
+                </div>
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="contenedor">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 }
 @else {
   <app-login></app-login>

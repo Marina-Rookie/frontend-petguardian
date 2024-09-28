@@ -7,6 +7,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
   { path: 'cuidadores', component: CuidadoresComponent},
+  { path: 'reservas', component: ReservaComponent},
   { path: 'cuidadores/reserva', component: ReservaComponent},
   { path: 'mascotas/nueva', component: NuevaMascotaComponent},
   { path: 'perfil', component: PerfilComponent},

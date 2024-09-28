@@ -1,0 +1,200 @@
+@use '@angular/material' as mat;
+@include mat.core();
+$theme: mat.m2-define-light-theme((
+typography: mat.m2-define-typography-config($font-family: 'Poppins, sans-serif'),
+));
+
+@include mat.all-component-themes($theme);
+@include mat.core();
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Esto asegura que el encabezado esté siempre en la parte superior */
+}
+
+body {
+    font-family:  "Poppins", sans-serif;
+    font-size: 17px;
+    background: var(--background-app-color);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Poppins", sans-serif;
+  color: var(--primary-text-color);
+}
+
+h1 {
+  font-size: 25px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 15px;
+}
+
+.table-icon {
+  font-size: 25px;
+}
+
+.hidemenu > span {
+	padding-left: 10px;
+	padding-top: 15px;
+	background-color: var(--background-app-color);
+	font-size: 35px;
+	cursor: pointer;
+}
+@media screen and (max-width: 992px) {
+	.hidemenu > span {
+		padding-left: 245px;
+	}
+	.hidemenu.isCollapsed > span {
+		padding-left: 10px;
+	}
+}
+
+.page-content {
+    /*width: calc(100vw - 15vw);*/
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    /*adding-right: 1vw;*/
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  padding-bottom: 100px;
+}
+
+section.page-content > section {
+  /*display: flex;
+   justify-content: space-between;
+   box-sizing: border-box;*/
+  padding: 0 20px;
+  /*align-items: center;
+  transform: translateY(-2vw);*/
+  margin-top: -160px;
+}
+
+
+.header-content {
+  display: flex;
+  /*background-position: center;
+  background-size: cover;*/
+  /*justify-content: space-between;*/
+  box-sizing: border-box;
+  height: 250px;
+  align-items: baseline;
+  padding: 10px 20px 0 20px;
+  font-weight: 600;
+  color: #000;
+  cursor: default;
+  width: 100%;
+}
+
+.header-content h1 {
+    color: accent-color;
+    font-family:  "Poppins", sans-serif;
+    margin-left: 15px;
+}
+
+.header-content h1 span {
+  font-weight: 400;
+}
+
+.sidebar {
+  left: 0px !important;
+}
+
+.open-menu .sidebar {
+  left: 235px !important;
+}
+
+.animated {
+    -webkit-animation-duration: .36s;
+    animation-duration: .36s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@media (print),
+(prefers-reduced-motion: reduce) {
+    .animated {
+        -webkit-animation-duration: 1ms !important;
+        animation-duration: 1ms !important;
+        -webkit-transition-duration: 1ms !important;
+        transition-duration: 1ms !important;
+        -webkit-animation-iteration-count: 1 !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+
+/**/
+
+section.container-section,
+section.container-main,
+section.container-filter,
+section.container-main-report {
+    box-shadow: 0 0 10px #eaeaea;
+    background: var(--text-color);
+    margin-right: 20px;
+    margin-left: 25px;
+    border-radius: 20px;
+    padding: 35px 32px !important;
+    min-height: 250px;
+    align-items: center;
+    display: grid;
+}
+
+p {
+	font-size: 14px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
