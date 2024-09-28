@@ -1,28 +1,9 @@
 <div>
   <div class="row row-cols-auto">
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
-    <div class="col">
-      <app-card-cuidador></app-card-cuidador>
-    </div>
+    @for (cuidador of cuidadores; track cuidador._id) {
+      <div class="col">
+        <app-card-cuidador [cuidador]="cuidador"></app-card-cuidador>
+      </div>
+    }
   </div>
 </div>

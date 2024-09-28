@@ -1,10 +1,19 @@
 <nz-card style="width:300px;" class="m-3" [nzCover]="coverTemplate">
   <nz-card-meta
-        nzTitle="Marina Panatti"
-        nzDescription="Cuidadora de mascotas"
+        nzTitle="{{cuidador.nombre}} {{cuidador.apellido}}"
+        nzDescription="{{cuidador.descripcionPersonal}}"
       ></nz-card-meta>
+      <p class="mt-2">
+        <span nz-icon nzType="phone" nzTheme="outline" class="mr-2"></span>
+        {{cuidador.telefono}}
+      </p>
       <p>
-        <span nz-icon nzType="global" nzTheme="outline"> +54 3364314978</span>
+        <span nz-icon nzType="mail" nzTheme="outline" class="mr-2"></span>
+        {{cuidador.email}}
+      </p>
+      <p>
+        <span nz-icon nzType="dollar" nzTheme="outline" class="mr-2"></span>
+        {{cuidador.tarifaHora}}
       </p>
       <div class="row justify-content-center mt-3">
       <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">
