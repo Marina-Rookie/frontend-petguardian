@@ -20,6 +20,7 @@ import {
 import { ApiService } from '../../services/api.service';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { ModalService } from '../../services/shared/modals.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-perfil',
@@ -57,7 +58,8 @@ export class PerfilComponent implements OnInit {
     private fb: FormBuilder,
     private service: ApiService,
     private localStorageService: LocalStorageService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -151,9 +153,11 @@ export class PerfilComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log(data);
+          this.msg.success('Datos actualizados con éxito');
         },
         error: (error) => {
           console.log(error);
+          this.msg.error('Error al actualizar los datos');
         },
       });
   }
