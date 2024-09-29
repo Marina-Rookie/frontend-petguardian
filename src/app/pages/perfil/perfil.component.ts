@@ -44,10 +44,13 @@ import { ModalService } from '../../services/shared/modals.service';
   styleUrl: './perfil.component.scss',
 })
 export class PerfilComponent implements OnInit {
-  
+
   isVisible = false;
-  formPerfil: FormGroup = new FormGroup({});
+  formPerfilCliente: FormGroup = new FormGroup({});
+  formPerfilCuidador: FormGroup = new FormGroup({});
   idUsuario: string = '';
+  isCliente: boolean = false;
+  isCuidadorPendiente: boolean = false;
   mascotas: any = [];
 
   constructor(
@@ -59,16 +62,20 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUsuario = this.localStorageService.getIdUsuario();
+    this.isCliente = this.localStorageService.getIsCliente();
+    this.isCuidadorPendiente = this.localStorageService.getIsCuidadorPendiente();
     this.initForm();
     this.buscarDatosPerfil();
-    this.getMascotasPorUsuario();
+    if(this.isCliente){
+      this.getMascotasPorUsuario();
+    }
   }
 
   buscarDatosPerfil() {
     this.service.get('usuarios/' + this.idUsuario).subscribe({
       next: (data) => {
         console.log(data);
-        this.setDatosFormPerfil(data);
+        this.setDatosformPerfilCliente(data);
       },
       error: (error) => {
         console.log(error);
@@ -76,8 +83,8 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  setDatosFormPerfil(data: any) {
-    this.formPerfil.setValue({
+  setDatosformPerfilCliente(data: any) {
+    this.formPerfilCliente.setValue({
       nombre: data.nombre,
       apellido: data.apellido,
       telefono: data.telefono ?? '',
@@ -89,7 +96,15 @@ export class PerfilComponent implements OnInit {
   }
 
   initForm() {
-    this.formPerfil = this.fb.group({
+    if(this.isCliente){
+      this.initFormPerfilCliente();
+    } else {
+      this.initFormPerfilCuidador();
+    }
+  }
+
+  initFormPerfilCliente() {
+    this.formPerfilCliente = this.fb.group({
       nombre: [''],
       apellido: [''],
       telefono: [''],
@@ -100,12 +115,23 @@ export class PerfilComponent implements OnInit {
     });
   }
 
+  initFormPerfilCuidador() {
+    this.formPerfilCuidador = this.fb.group({
+      nombre: [''],
+      apellido: [''],
+      telefono: [''],
+      email: [''],
+      domicilio: [''],
+      descripcionPersonal: [''],
+      tarifaHora: ['']
+    });
+  }
+
   actualizarDatosPerfil() {
     this.service
-      .put(this.formPerfil.value, 'usuarios/update/' + this.idUsuario)
+      .put(this.formPerfilCliente.value, 'usuarios/update/' + this.idUsuario)
       .subscribe({
         next: (data) => {
-          //this.setDatosFormPerfil(data);
           console.log(data);
         },
         error: (error) => {
@@ -124,11 +150,6 @@ export class PerfilComponent implements OnInit {
     this.modalService.showModal();
   }
 
-  guardarDatosPerfil() {
-    this.actualizarDatosPerfil();
-    console.log(this.formPerfil.value);
-  }
-
   getMascotasPorUsuario() {
     this.service.get('mascotas/mascotasPorUsuario/' + this.idUsuario).subscribe({
       next: (data) => {
@@ -140,7 +161,7 @@ export class PerfilComponent implements OnInit {
       }
     });
   }
-  
+
   recargarMascotas(){
     console.log('recargarMascotas');
     this.getMascotasPorUsuario();

@@ -75,6 +75,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.service.post(this.loginForm.value, 'usuarios/login').subscribe({
         next: (data: any) => {
+          console.log(data);
           this.setItemsAndNavigate(data);
         },
       });
@@ -83,7 +84,7 @@ export class LoginComponent {
 
   setItemsAndNavigate(data: any): void {
     this.localStorage.setItem('token', data['token']);
-    this.localStorage.setItem('idUsuario', data['idUsuario']);
+    this.localStorage.setItem('idUsuario', data['_id']);
     this.localStorage.setItem('rol', data['rol']);
     this.router.navigate(['/perfil']);
   }
