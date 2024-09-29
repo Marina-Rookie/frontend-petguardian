@@ -75,7 +75,13 @@ export class PerfilComponent implements OnInit {
     this.service.get('usuarios/' + this.idUsuario).subscribe({
       next: (data) => {
         console.log(data);
-        this.setDatosformPerfilCliente(data);
+        if(this.isCliente){
+          console.log('cliente', data);
+          this.setDatosformPerfilCliente(data);
+        } else {
+          console.log('cuidador', data);
+          this.setDatosformPerfilCuidador(data);
+        }
       },
       error: (error) => {
         console.log(error);
@@ -92,6 +98,18 @@ export class PerfilComponent implements OnInit {
       domicilio: data.domicilio ?? '',
       nombreContactoEmergencia: data.nombreContactoEmergencia ?? '',
       contactoEmergencia: data.contactoEmergencia ?? '',
+    });
+  }
+
+  setDatosformPerfilCuidador(data: any) {
+    this.formPerfilCuidador.setValue({
+      nombre: data.nombre,
+      apellido: data.apellido,
+      telefono: data.telefono ?? '',
+      email: data.email,
+      domicilio: data.domicilio ?? '',
+      descripcionPersonal: data.descripcionPersonal ?? '',
+      tarifaHora: data.tarifaHora ?? ''
     });
   }
 

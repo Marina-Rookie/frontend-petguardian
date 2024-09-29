@@ -83,8 +83,9 @@ export class LoginComponent {
   }
 
   setItemsAndNavigate(data: any): void {
+    console.log(data);
     this.localStorage.setItem('token', data['token']);
-    this.localStorage.setItem('idUsuario', data['_id']);
+    this.localStorage.setItem('idUsuario', data['idUsuario']);
     this.localStorage.setItem('rol', data['rol']);
     this.router.navigate(['/perfil']);
   }
