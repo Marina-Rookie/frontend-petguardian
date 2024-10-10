@@ -149,7 +149,7 @@ export class PerfilComponent implements OnInit {
 
   actualizarDatosPerfil() {
     this.service
-      .put(this.formPerfilCliente.value, 'usuarios/update/' + this.idUsuario)
+      .put(this.isCliente ? this.formPerfilCliente.value : this.formPerfilCuidador.value, 'usuarios/update/' + this.idUsuario)
       .subscribe({
         next: (data) => {
           console.log(data);
