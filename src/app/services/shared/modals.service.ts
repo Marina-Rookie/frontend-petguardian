@@ -8,6 +8,9 @@ export class ModalService {
   private isVisibleSubject = new BehaviorSubject<boolean>(false);
   isVisible$ = this.isVisibleSubject.asObservable();
 
+  private isVisibleModalReserva = new BehaviorSubject<boolean>(false);
+  isVisibleModalReserva$ = this.isVisibleModalReserva.asObservable();
+
   private mascotaEditModal = new BehaviorSubject<any>(null);
   mascotaEditModal$ = this.mascotaEditModal.asObservable();
 
@@ -23,4 +26,11 @@ export class ModalService {
     this.mascotaEditModal.next(mascota);
   }
 
+  showReservaModal() {
+    this.isVisibleModalReserva.next(true);
+  }
+
+  hideReservaModal() {
+    this.isVisibleModalReserva.next(false);
+  }
 }

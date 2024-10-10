@@ -1,0 +1,53 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Crear reserva para el cuidador {{ cuidador.nombre }} {{
+    cuidador.apellido
+  }}"
+  nzWidth="700px"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <div class="row">
+      <form action="">
+        <nz-form-item>
+          <nz-form-label nzFor="fechaInicio">Fecha Inicio</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <input nz-input name="fechaInicio" type="date" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="fechaFin">Fecha Fin</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <input nz-input name="fechaFin" type="date" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="turno">Turno</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <input nz-input name="turno" type="time" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="mascotas">Mascotas</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <nz-select
+              nzMode="multiple"
+              nzPlaceHolder="Seleccione las mascotas de la reserva"
+            >
+              @for (item of listOfOption; track item) {
+              <nz-option [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="comentarios">Comentarios</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <textarea nz-input type="text"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </ng-container>
+</nz-modal>

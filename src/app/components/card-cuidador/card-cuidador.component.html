@@ -1,23 +1,23 @@
-<nz-card style="width:300px;" class="m-3" [nzCover]="coverTemplate">
+<nz-card style="width:300px; height: 400px;" class="m-3" [nzCover]="coverTemplate">
   <nz-card-meta
         nzTitle="{{cuidador.nombre}} {{cuidador.apellido}}"
-        nzDescription="{{cuidador.descripcionPersonal}}"
+        nzDescription="{{cuidador.descripcionPersonal}} "
       ></nz-card-meta>
-      <p class="mt-2">
+      <!-- <p class="mt-2">
         <span nz-icon nzType="phone" nzTheme="outline" class="mr-2"></span>
         {{cuidador.telefono}}
       </p>
       <p>
         <span nz-icon nzType="mail" nzTheme="outline" class="mr-2"></span>
         {{cuidador.email}}
-      </p>
-      <p>
+      </p> -->
+      <p class="mt-2">
         <span nz-icon nzType="dollar" nzTheme="outline" class="mr-2"></span>
         {{cuidador.tarifaHora}}
       </p>
       <div class="row justify-content-center mt-3">
-      <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">
-          <a nz-icon nzType="calendar" nzTheme="outline" routerLink="reserva"></a>
+      <button nz-button nzType="primary" [nzSize]="'large'" class="buttons" (click)="showModal()">
+          <a nz-icon nzType="calendar" nzTheme="outline"></a>
       </button>
       <button nz-button nzType="primary" [nzSize]="'large'" class="buttons">
         <span nz-icon nzType="eye" nzTheme="outline"></span>
@@ -33,3 +33,4 @@
     alt=""
   />
 </ng-template>
+<app-modal-reserva [cuidador]="cuidador"></app-modal-reserva>
