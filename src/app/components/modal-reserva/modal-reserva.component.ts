@@ -26,9 +26,11 @@ export class ModalReservaComponent {
     });
   }
 
-  handleOk(): void {}
+  handleOk(): void {
+    this.modalService.hideReservaModal();
+  }
 
   handleCancel(): void {
-    this.modalService.hideModal();
+    this.modalService.hideReservaModal();
   }
 }

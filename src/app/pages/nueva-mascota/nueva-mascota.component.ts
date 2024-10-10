@@ -1,12 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { ApiService } from '../../services/api.service';
@@ -20,26 +14,17 @@ import {
 } from '@angular/forms';
 import { EtapaVida } from '../../models/EtapaVida';
 import { LocalStorageService } from '../../services/localstorage.service';
-import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ModalService } from '../../services/shared/modals.service';
+import { NgZorroModule } from '../../ngzorro.module';
 
 @Component({
   selector: 'app-nueva-mascota',
   standalone: true,
   imports: [
     CommonModule,
-    NzGridModule,
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-    NzSelectModule,
-    NzFormModule,
-    NzAvatarModule,
-    NzUploadModule,
     FormsModule,
     ReactiveFormsModule,
-    NzButtonModule,
-    NzModalModule
+    NgZorroModule
   ],
   templateUrl: './nueva-mascota.component.html',
   styleUrl: './nueva-mascota.component.scss',
