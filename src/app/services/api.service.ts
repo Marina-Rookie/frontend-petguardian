@@ -37,10 +37,12 @@ export class ApiService {
   }
 
   put(objeto: object, url: string) {
+    console.log(this.httpOptions);
     return this.http.put(this.authURL + url, objeto, this.httpOptions);
   }
 
   delete(url: string, body?: any) {
+    console.log(this.httpOptions);
     return body
       ? this.http.delete(this.authURL + url, { ...this.httpOptions, body })
       : this.http.delete(this.authURL + url, this.httpOptions);
