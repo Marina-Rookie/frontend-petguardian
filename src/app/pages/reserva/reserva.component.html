@@ -19,8 +19,8 @@
       <tbody>
         @for (reserva of reservas; track reserva._id) {
           <tr>
-            <td>{{reserva.fechaInicio}}</td>
-            <td>{{reserva.fechaFin}}</td>
+            <td>{{reserva.fechaInicio | date: 'dd-MM-yyyy'}}</td>
+            <td>{{reserva.fechaFin | date: 'dd-MM-yyyy'}}</td>
             <td>{{reserva.estado.estado}}</td>
             <td>{{reserva.cuidador.nombre}}</td>
             <td>@for(m of reserva.mascotas; track m){
