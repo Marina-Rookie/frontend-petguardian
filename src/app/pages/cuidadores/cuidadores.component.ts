@@ -4,6 +4,7 @@ import { CardCuidadorComponent } from '../../components/card-cuidador/card-cuida
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { Cuidador } from '../../models/Cuidador';
+import { CuidadorService } from '../../services/cuidador.service';
 
 @Component({
   selector: 'app-cuidadores',
@@ -15,21 +16,15 @@ import { Cuidador } from '../../models/Cuidador';
 export class CuidadoresComponent implements OnInit {
   cuidadores: Cuidador[] = [];
 
-  constructor(private service: ApiService) {}
+  constructor(private cuidadorService: CuidadorService) {}
 
   ngOnInit() {
     this.getCuidadores();
   }
 
   getCuidadores() {
-    this.service.get('usuarios/cuidadores-habilitados').subscribe({
-      next: (data: any) => {
-        console.log(data)
-        this.cuidadores = data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
+    this.cuidadorService.getCuidadoresHabilitados().subscribe((cuidadores) => {
+      this.cuidadores = cuidadores;
     });
   }
 }

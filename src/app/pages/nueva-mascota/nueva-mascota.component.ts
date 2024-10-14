@@ -16,6 +16,9 @@ import { EtapaVida } from '../../models/EtapaVida';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { ModalService } from '../../services/shared/modals.service';
 import { NgZorroModule } from '../../ngzorro.module';
+import { MascotaService } from '../../services/mascota.service';
+import { EtapasVidaService } from '../../services/etapasvida.service';
+import { TiposMascotaService } from '../../services/tiposmascota.service';
 
 @Component({
   selector: 'app-nueva-mascota',
@@ -43,7 +46,9 @@ export class NuevaMascotaComponent implements OnInit {
 
   constructor(
     private msg: NzMessageService,
-    private apiService: ApiService,
+    private mascotaService: MascotaService,
+    private etapaVidaService: EtapasVidaService,
+    private tipoMascotaService: TiposMascotaService,
     private fb: FormBuilder,
     private localStorageService: LocalStorageService,
     private modalService: ModalService
@@ -83,9 +88,10 @@ export class NuevaMascotaComponent implements OnInit {
   }
 
   getEtapasVidaMascota() {
-    this.apiService.get('etapasVida').subscribe({
-      next: (data: any) => {
+    this.etapaVidaService.getAll().subscribe({
+      next: (data) => {
         this.etapasVida = data;
+        console.log(this.etapasVida);
       },
       error: (error) => {
         console.log(error);
@@ -94,8 +100,8 @@ export class NuevaMascotaComponent implements OnInit {
   }
 
   getTiposMascota() {
-    this.apiService.get('tiposMascota').subscribe({
-      next: (data: any) => {
+    this.tipoMascotaService.getAll().subscribe({
+      next: (data) => {
         this.tiposMascota = data;
         console.log(this.tiposMascota);
       },
@@ -157,7 +163,7 @@ export class NuevaMascotaComponent implements OnInit {
     const nuevaMascota = this.formMascota.value;
     nuevaMascota.usuario = this.localStorageService.getIdUsuario();
     console.log(nuevaMascota);
-    this.apiService.post(nuevaMascota, 'mascotas').subscribe({
+    this.mascotaService.post(nuevaMascota).subscribe({
       next: (data: any) => {
         console.log(data);
         this.msg.success('Mascota creada con éxito');

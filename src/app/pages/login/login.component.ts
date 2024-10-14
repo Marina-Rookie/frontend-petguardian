@@ -5,10 +5,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +34,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private service: ApiService,
+    private service: LoginService,
     private localStorage: LocalStorageService,
     private router: Router
   ) {
@@ -62,9 +62,9 @@ export class LoginComponent {
 
   onSubmitRegister(): void {
     if (this.registerForm.valid) {
-      this.service.post(this.registerForm.value, 'usuarios').subscribe({
+      this.service.post(this.registerForm.value).subscribe({
         next: (data: any) => {
-          console.log(data); //TODO ver que devuelve este endpoint pq no setea bien al loguear
+          console.log(data);
           this.setItemsAndNavigate(data);
         },
       });
@@ -73,7 +73,7 @@ export class LoginComponent {
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
-      this.service.post(this.loginForm.value, 'usuarios/login').subscribe({
+      this.service.login(this.loginForm.value).subscribe({
         next: (data: any) => {
           console.log(data);
           this.setItemsAndNavigate(data);

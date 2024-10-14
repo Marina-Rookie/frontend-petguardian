@@ -13,7 +13,7 @@ export class ApiService<T> {
     return this.http.get<T[]>(this.baseUrl).pipe(catchError(this.handleError));
   }
 
-  getById(id: number): Observable<T> {
+  getById(id: string): Observable<T> {
     return this.http.get<T>(`${this.baseUrl}/${id}`).pipe(catchError(this.handleError));
   }
 
@@ -21,11 +21,11 @@ export class ApiService<T> {
     return this.http.post<T>(this.baseUrl, entity).pipe(catchError(this.handleError));
   }
 
-  put(entity: T, id: number): Observable<T> {
+  put(entity: T, id: string): Observable<T> {
     return this.http.put<T>(`${this.baseUrl}/${id}`, entity).pipe(catchError(this.handleError));
   }
 
-  delete(id: number): Observable<T> {
+  delete(id: string): Observable<T> {
     return this.http.delete<T>(`${this.baseUrl}/${id}`).pipe(catchError(this.handleError));
   }
 

@@ -1,7 +1,7 @@
 <nz-card style="width: 300px" class="m-3" [nzCover]="coverTemplate">
   <nz-card-meta
-    nzTitle="{{mascota?.nombre}}"
-    nzDescription="Tipo de Mascota: {{ mascota?.tipoMascota?.nombre }}"
+    nzTitle="{{mascota.nombre}}"
+    nzDescription="Tipo de Mascota: {{ mascota.tipoMascota.nombre }}"
   ></nz-card-meta>
   <div class="row justify-content-center mt-3">
     <button nz-button nzType="primary" [nzSize]="'large'" class="buttons" (click)="editMascota()">

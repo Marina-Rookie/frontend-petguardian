@@ -17,27 +17,22 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { ModalService } from '../../services/shared/modals.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NgZorroModule } from '../../ngzorro.module';
+import { MascotaService } from '../../services/mascota.service';
+import { CuidadorService } from '../../services/cuidador.service';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
   imports: [
-    NzImageModule,
-    NzDividerModule,
-    NzFormModule,
+    NgZorroModule,
     CardMascotaComponent,
-    NzInputModule,
-    NzButtonModule,
-    NzCardModule,
-    NzIconModule,
-    NzModalModule,
     NuevaMascotaComponent,
     CommonModule,
-    NzUploadComponent,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -45,7 +40,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrl: './perfil.component.scss',
 })
 export class PerfilComponent implements OnInit {
-
   isVisible = false;
   formPerfilCliente: FormGroup = new FormGroup({});
   formPerfilCuidador: FormGroup = new FormGroup({});
@@ -56,39 +50,48 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: ApiService,
     private localStorageService: LocalStorageService,
     private modalService: ModalService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private mascotaService: MascotaService,
+    private cuidadorService: CuidadorService,
+    private clienteService: ClienteService
   ) {}
 
   ngOnInit(): void {
     this.idUsuario = this.localStorageService.getIdUsuario();
     this.isCliente = this.localStorageService.getIsCliente();
-    this.isCuidadorPendiente = this.localStorageService.getIsCuidadorPendiente();
+    this.isCuidadorPendiente =
+      this.localStorageService.getIsCuidadorPendiente();
     this.initForm();
     this.buscarDatosPerfil();
-    if(this.isCliente){
+    if (this.isCliente) {
       this.getMascotasPorUsuario();
     }
   }
 
   buscarDatosPerfil() {
-    this.service.get('usuarios/' + this.idUsuario).subscribe({
-      next: (data) => {
-        console.log(data);
-        if(this.isCliente){
-          console.log('cliente', data);
+    if (this.isCliente) {
+      this.clienteService.getById(this.idUsuario).subscribe({
+        next: (data) => {
+          console.log(data);
           this.setDatosformPerfilCliente(data);
-        } else {
-          console.log('cuidador', data);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    } else {
+      this.cuidadorService.getById(this.idUsuario).subscribe({
+        next: (data) => {
+          console.log(data);
           this.setDatosformPerfilCuidador(data);
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
   }
 
   setDatosformPerfilCliente(data: any) {
@@ -111,12 +114,12 @@ export class PerfilComponent implements OnInit {
       email: data.email,
       domicilio: data.domicilio ?? '',
       descripcionPersonal: data.descripcionPersonal ?? '',
-      tarifaHora: data.tarifaHora ?? ''
+      tarifaHora: data.tarifaHora ?? '',
     });
   }
 
   initForm() {
-    if(this.isCliente){
+    if (this.isCliente) {
       this.initFormPerfilCliente();
     } else {
       this.initFormPerfilCuidador();
@@ -143,14 +146,13 @@ export class PerfilComponent implements OnInit {
       email: [''],
       domicilio: [''],
       descripcionPersonal: [''],
-      tarifaHora: ['']
+      tarifaHora: [''],
     });
   }
 
   actualizarDatosPerfil() {
-    this.service
-      .put(this.isCliente ? this.formPerfilCliente.value : this.formPerfilCuidador.value, 'usuarios/update/' + this.idUsuario)
-      .subscribe({
+    if (this.isCliente) {
+      this.clienteService.put(this.formPerfilCliente.value, this.idUsuario).subscribe({
         next: (data) => {
           console.log(data);
           this.msg.success('Datos actualizados con éxito');
@@ -160,6 +162,18 @@ export class PerfilComponent implements OnInit {
           this.msg.error('Error al actualizar los datos');
         },
       });
+    } else {
+      this.cuidadorService.put(this.formPerfilCuidador.value, this.idUsuario).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.msg.success('Datos actualizados con éxito');
+        },
+        error: (error) => {
+          console.log(error);
+          this.msg.error('Error al actualizar los datos');
+        },
+      });
+    }
   }
 
   guardarMascota(mascota: any): void {
@@ -173,18 +187,18 @@ export class PerfilComponent implements OnInit {
   }
 
   getMascotasPorUsuario() {
-    this.service.get('mascotas/mascotasPorUsuario/' + this.idUsuario).subscribe({
+    this.mascotaService.getMascotasPorCliente(this.idUsuario).subscribe({
       next: (data) => {
         console.log(data);
         this.mascotas = data;
       },
       error: (error) => {
         console.log(error);
-      }
+      },
     });
   }
 
-  recargarMascotas(){
+  recargarMascotas() {
     console.log('recargarMascotas');
     this.getMascotasPorUsuario();
   }

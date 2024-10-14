@@ -11,6 +11,9 @@ import {
 } from '@angular/forms';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { TurnosService } from '../../services/turnos.service';
+import { MascotaService } from '../../services/mascota.service';
+import { ReservaService } from '../../services/reserva.service';
 
 @Component({
   selector: 'app-modal-reserva',
@@ -30,10 +33,12 @@ export class ModalReservaComponent {
 
   constructor(
     private modalService: ModalService,
-    private apiService: ApiService,
     private fb: FormBuilder,
     private localStorageService: LocalStorageService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private turnoService: TurnosService,
+    private mascotaService: MascotaService,
+    private reservaService: ReservaService
   ) {}
 
   ngOnInit() {
@@ -69,25 +74,21 @@ export class ModalReservaComponent {
         fechaFin: this.formReserva.get('fechaFin')?.value,
       };
       console.log(body);
-      this.apiService
-        .post(body, 'turnos/disponibilidad')
-        .subscribe((res: any) => {
-          console.log(res);
-          this.turnosDisponibles = res;
-        });
+      this.turnoService.postTurnosDisponiblidad(body).subscribe((res: any) => {
+        console.log(res);
+        this.turnosDisponibles = res;
+      });
     }
   }
 
   getMascotasUsuario() {
-    this.apiService
-      .get('mascotas/mascotasPorUsuario/' + this.idUsuario)
-      .subscribe((res: any) => {
-        this.mascotas = res;
-      });
+    this.mascotaService.getMascotasPorCliente(this.idUsuario).subscribe((res: any) => {
+      this.mascotas = res;
+    });
   }
 
   postFormReserva() {
-    this.apiService.post(this.formReserva.value, 'reservas').subscribe({
+    this.reservaService.post(this.formReserva.value).subscribe({
       next: (res: any) => {
         this.msg.create('success', 'Reserva realizada con éxito');
       },

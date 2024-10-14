@@ -2,7 +2,7 @@ import { EtapaVida } from "./EtapaVida";
 import { TipoMascota } from "./TipoMascota";
 
 export class Mascota {
-  _id: number;
+  _id: string;
   nombre: string;
   tipoMascota: TipoMascota;
   etapaVida: EtapaVida;
@@ -11,7 +11,7 @@ export class Mascota {
   obsOtros: string;
   usuario: any;
 
-  constructor(id: number, nombre: string, tipoMascota: TipoMascota, etapaVida: EtapaVida, obsComida: string, obsEnfermedades: string, obsOtros: string){
+  constructor(id: string, nombre: string, tipoMascota: TipoMascota, etapaVida: EtapaVida, obsComida: string, obsEnfermedades: string, obsOtros: string){
     this._id = id;
     this.nombre = nombre;
     this.tipoMascota = tipoMascota;

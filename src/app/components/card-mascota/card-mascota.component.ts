@@ -7,6 +7,7 @@ import { Mascota } from '../../models/Mascota';
 import { ModalService } from '../../services/shared/modals.service';
 import { ApiService } from '../../services/api.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { MascotaService } from '../../services/mascota.service';
 
 @Component({
   selector: 'app-card-mascota',
@@ -16,15 +17,19 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrl: './card-mascota.component.scss',
 })
 export class CardMascotaComponent implements OnInit {
-  @Input() mascota: Mascota | undefined;
+  @Input() mascota!: Mascota;
   @Output() recargarMascotas = new EventEmitter<true>();
+
+  idMascota: string = '';
   constructor(
     private modalService: ModalService,
-    private service: ApiService,
+    private service: MascotaService,
     private msg: NzMessageService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.idMascota = this.mascota._id;
+  }
 
   editMascota() {
     this.modalService.showModal();
@@ -32,7 +37,7 @@ export class CardMascotaComponent implements OnInit {
   }
 
   eliminarMascota() {
-    this.service.delete('mascotas/' + this.mascota?._id).subscribe({
+    this.service.delete(this.mascota._id).subscribe({
       next: (data) => {
         console.log(data);
         this.msg.success('Mascota eliminada con éxito');
