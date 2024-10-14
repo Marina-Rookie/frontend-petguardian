@@ -17,23 +17,26 @@
         </tr>
       </thead>
       <tbody>
-        @for (reserva of reservas; track reserva.id) {
+        @for (reserva of reservas; track reserva._id) {
           <tr>
             <td>{{reserva.fechaInicio}}</td>
             <td>{{reserva.fechaFin}}</td>
-            <td>{{reserva.estado}}</td>
-            <td>{{reserva.cuidador}}</td>
-            <td>{{reserva.mascotas}}</td>
-            <td>${{reserva.precio}}</td>
-            <td>
-              {{reserva.puntuacion}}
+            <td>{{reserva.estado.estado}}</td>
+            <td>{{reserva.cuidador.nombre}}</td>
+            <td>@for(m of reserva.mascotas; track m){
+                {{m.nombre}}
+            }
+            </td>
+            <td>${{reserva.tarifaTurno * reserva.contadorTurnos}}</td>
+            <td class="text-center">
+              5
               <span nz-icon nzType="star" nzTheme="outline"></span>
             </td>
             <td class="text-center">
-              @if (reserva.estado == 'Finalizada') {
+              @if (reserva.estado.estado == 'Finalizada') {
                 <button nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
               }
-              @if (reserva.estado == 'Pendiente') {
+              @if (reserva.estado.estado == 'Pendiente') {
                 <button nz-button nzType="default" nzDanger>Cancelar</button>
               }
             </td>

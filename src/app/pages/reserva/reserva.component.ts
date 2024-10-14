@@ -10,17 +10,11 @@ import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
+import { LocalStorageService } from '../../services/localstorage.service';
+import { Reserva } from '../../models/Reserva';
 
-interface Reserva {
-  id: number;
-  fechaInicio: string;
-  fechaFin: string;
-  estado: string;
-  cuidador: string;
-  mascotas: string;
-  precio: number;
-  puntuacion: number;
-}
+
 @Component({
   selector: 'app-reserva',
   standalone: true,
@@ -29,41 +23,32 @@ interface Reserva {
   styleUrl: './reserva.component.scss'
 })
 export class ReservaComponent {
+
   isVisible = false;
   puntuacion = 0;
   comentario = '';
-  reservas: Reserva[] = [
-    {
-      id: 1,
-      fechaInicio: '2023-10-01',
-      fechaFin: '2023-10-07',
-      estado: 'Finalizada',
-      cuidador: 'Juan Pérez',
-      mascotas: 'Perro, Gato',
-      precio: 150.00,
-      puntuacion: 4.5
-    },
-    {
-      id: 2,
-      fechaInicio: '2023-11-15',
-      fechaFin: '2023-11-20',
-      estado: 'Pendiente',
-      cuidador: 'María López',
-      mascotas: 'Perro',
-      precio: 100.00,
-      puntuacion: 4.0
-    },
-    {
-      id: 3,
-      fechaInicio: '2023-12-01',
-      fechaFin: '2023-12-05',
-      estado: 'Cancelada',
-      cuidador: 'Carlos García',
-      mascotas: 'Gato',
-      precio: 80.00,
-      puntuacion: 3.5
-    }
-  ];
+  idCliente: string = '';
+  reservas: Reserva[] = [];
+
+  constructor(private apiService: ApiService,
+    private localStorageService: LocalStorageService
+  ) { }
+
+  ngOnInit(): void {
+    this.idCliente = this.localStorageService.getIdUsuario();
+    this.getReservas();
+  }
+
+  getReservas(): void {
+    this.apiService.get('reservas/reservasPorCliente/' + this.idCliente).subscribe({
+      next: (data: Reserva[]) => {
+        this.reservas = data;
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+     });
+  }
 
   openModal(reserva: Reserva): void {
     this.isVisible = true;

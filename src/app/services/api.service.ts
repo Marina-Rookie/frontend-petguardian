@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class ApiService {
     }),
   };
 
-  public get(url: string) {
+  public get(url: string): Observable<any> {
     console.log(localStorage.getItem('token'));
     return this.http.get(this.authURL + url, this.httpOptions);
   }
