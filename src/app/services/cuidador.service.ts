@@ -17,6 +17,6 @@ export class CuidadorService extends ApiService<Cuidador>{
   }
 
   getCuidadoresHabilitados(): Observable<Cuidador[]> {
-    return this.http.get<Cuidador[]>(`${this.authURL}/usuarios/cuidadores-habilitados`);
+    return this.http.get<Cuidador[]>(`${this.authURL}usuarios/cuidadores-habilitados`);
   }
 }
