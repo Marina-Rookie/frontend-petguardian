@@ -1,51 +1,36 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
-import { Observable } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
-  authURL = environment.url_server;
+export class ApiService<T> {
 
-  constructor(private http: HttpClient) {}
+  constructor(protected http: HttpClient, @Inject('BASE_API_URL') protected baseUrl: string) {}
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: localStorage.getItem('token') || '',
-    }),
-  };
-
-  public get(url: string): Observable<any> {
-    console.log(localStorage.getItem('token'));
-    return this.http.get(this.authURL + url, this.httpOptions);
+  getAll(): Observable<T[]> {
+    return this.http.get<T[]>(this.baseUrl).pipe(catchError(this.handleError));
   }
 
-  public getParam(url: string, params: string, datos: object) {
-    const param = new HttpParams().set(params, JSON.stringify(datos));
-    return this.http.get(url, {
-      ...this.httpOptions,
-      params: param,
-    });
+  getById(id: number): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}/${id}`).pipe(catchError(this.handleError));
   }
 
-  post(objeto: any, url: string, options?: any) {
-    return options
-      ? this.http.post(this.authURL + url, objeto, { ...this.httpOptions, ...options })
-      : this.http.post(this.authURL + url, objeto, this.httpOptions);
+  post(entity: T): Observable<T> {
+    return this.http.post<T>(this.baseUrl, entity).pipe(catchError(this.handleError));
   }
 
-  put(objeto: object, url: string) {
-    console.log(this.httpOptions);
-    return this.http.put(this.authURL + url, objeto, this.httpOptions);
+  put(entity: T, id: number): Observable<T> {
+    return this.http.put<T>(`${this.baseUrl}/${id}`, entity).pipe(catchError(this.handleError));
   }
 
-  delete(url: string, body?: any) {
-    console.log(this.httpOptions);
-    return body
-      ? this.http.delete(this.authURL + url, { ...this.httpOptions, body })
-      : this.http.delete(this.authURL + url, this.httpOptions);
+  delete(id: number): Observable<T> {
+    return this.http.delete<T>(`${this.baseUrl}/${id}`).pipe(catchError(this.handleError));
+  }
+
+  protected handleError(error: any): Observable<never> {
+    console.error(error);
+    return new Observable<never>();
   }
 }
