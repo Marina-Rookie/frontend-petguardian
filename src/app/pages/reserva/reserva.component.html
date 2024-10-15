@@ -21,7 +21,17 @@
           <tr>
             <td>{{reserva.fechaInicio | date: 'dd-MM-yyyy'}}</td>
             <td>{{reserva.fechaFin | date: 'dd-MM-yyyy'}}</td>
-            <td>{{reserva.estado.estado}}</td>
+            <td>
+              @if (reserva.estado.estado == 'Cancelada' || reserva.estado.estado == 'No aprobada') {
+                <nz-badge nzStatus="error"></nz-badge>
+              }
+              @if (reserva.estado.estado == 'Pendiente') {
+                <nz-badge nzStatus="processing"></nz-badge>
+              }
+              @if (reserva.estado.estado == 'Finalizada' || reserva.estado.estado == 'Aprobada') {
+                <nz-badge nzStatus="success"></nz-badge>
+              }
+              {{reserva.estado.estado}}</td>
             <td>{{reserva.cuidador.nombre}}</td>
             <td>@for(m of reserva.mascotas; track m){
                 {{m.nombre}}
