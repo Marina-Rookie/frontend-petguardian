@@ -34,6 +34,7 @@ export class ReservaComponent {
   getReservas(): void {
     this.service.getReservasPorCliente(this.idCliente).subscribe({
       next: (data: Reserva[]) => {
+        console.log(data);
         this.reservas = data;
       },
       error: (error: any) => {
