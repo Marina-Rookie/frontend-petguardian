@@ -57,7 +57,7 @@ export class ReservaComponent {
   }
 
   cancelarReserva(reserva: Reserva): void {
-    this.service.cancelarReserva(reserva.estado._id, reserva._id).subscribe({
+    this.service.cancelarReserva(reserva._id).subscribe({
       next: (data: any) => {
         console.log(data);
         this.getReservas();

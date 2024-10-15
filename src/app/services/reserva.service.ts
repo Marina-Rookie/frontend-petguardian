@@ -20,7 +20,7 @@ export class ReservaService extends ApiService<Reserva>{
     return this.http.get<Reserva[]>(`${this.authURL}reservas/reservasPorCliente/${idCliente}`);
   }
 
-  cancelarReserva(idEstado: string, idReserva: string): Observable<any> {
-    return this.http.patch<any>(`${this.authURL}reservas/${idReserva}/estado/${idEstado}`, {});
+  cancelarReserva(idReserva: string): Observable<any> {
+    return this.http.put<any>(`${this.authURL}reservas/cancelar/${idReserva}`, {});
   }
 }
