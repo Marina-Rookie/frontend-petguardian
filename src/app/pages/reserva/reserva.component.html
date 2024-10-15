@@ -37,7 +37,7 @@
                 <button nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
               }
               @if (reserva.estado.estado == 'Pendiente') {
-                <button nz-button nzType="default" nzDanger>Cancelar</button>
+                <button nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
               }
             </td>
           </tr>

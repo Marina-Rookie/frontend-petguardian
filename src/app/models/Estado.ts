@@ -1,8 +1,8 @@
 export class Estado {
-  _id: number;
+  _id: string;
   estado: string;
 
-  constructor(id: number, estado: string){
+  constructor(id: string, estado: string){
     this._id = id;
     this.estado = estado;
   }

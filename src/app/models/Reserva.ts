@@ -3,7 +3,7 @@ import { Estado } from "./Estado";
 import { Mascota } from "./Mascota";
 
 export interface Reserva {
-  _id: number;
+  _id: string;
   fechaInicio: string;
   fechaFin: string;
   tarifaTurno: number;

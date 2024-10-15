@@ -19,4 +19,8 @@ export class ReservaService extends ApiService<Reserva>{
   getReservasPorCliente(idCliente: string): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.authURL}reservas/reservasPorCliente/${idCliente}`);
   }
+
+  cancelarReserva(idEstado: string, idReserva: string): Observable<any> {
+    return this.http.patch<any>(`${this.authURL}reservas/${idReserva}/estado/${idEstado}`, {});
+  }
 }

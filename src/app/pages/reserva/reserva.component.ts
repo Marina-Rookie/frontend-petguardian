@@ -55,4 +55,16 @@ export class ReservaComponent {
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
+
+  cancelarReserva(reserva: Reserva): void {
+    this.service.cancelarReserva(reserva.estado._id, reserva._id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.getReservas();
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+    });
+  }
 }
