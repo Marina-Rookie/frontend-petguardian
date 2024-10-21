@@ -1,30 +1,15 @@
 @if(!isCuidadorPendiente){
   <div class="row">
     <nz-divider nzText="Datos personales"></nz-divider>
-    <div class="col-4 d-flex align-items-center justify-content-center">
-      <!-- <img
-        nz-image
-        width="300px"
-        height="300px"
-        nzSrc="https://pbs.twimg.com/profile_images/1750974116289544192/yQuFQxnQ_400x400.jpg"
-        alt=""
-      /> -->
+    <div class="col-4 d-flex flex-column align-items-center justify-content-center">
+      <img nz-image width="200px" height="200px" [nzSrc]="urlPerfil" alt=""/>
       <nz-upload
-        class="avatar-uploader"
-        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        nzName="avatar"
-        nzListType="picture-card"
-        [nzShowUploadList]="false"
+        nzAction="{{url}}"
       >
-        <ng-container>
-          <!-- <span
-            class="upload-icon"
-            nz-icon
-            nzType="loading ? 'loading' : 'plus'"
-          ></span> -->
-          <div class="ant-upload-text">Cargar Foto</div>
-        </ng-container>
-        <!-- <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" /> -->
+        <button nz-button class="mt-4">
+          <span nz-icon nzType="upload"></span>
+          Cargar foto
+        </button>
       </nz-upload>
     </div>
     <div class="col-8">

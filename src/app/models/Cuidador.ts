@@ -7,8 +7,9 @@ export class Cuidador {
     email: string;
     descripcionPersonal: string;
     tarifaHora: number;
+    imagenPerfil: string;
 
-    constructor(_id: string, nombre: string, apellido: string, telefono: string, email: string, descripcionPersonal: string, tarifaHora: number) {
+    constructor(_id: string, nombre: string, apellido: string, telefono: string, email: string, descripcionPersonal: string, tarifaHora: number, imagenPerfil: string) {
         this._id = _id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -16,5 +17,6 @@ export class Cuidador {
         this.email = email;
         this.descripcionPersonal = descripcionPersonal;
         this.tarifaHora = tarifaHora;
+        this.imagenPerfil = imagenPerfil;
     }
 }

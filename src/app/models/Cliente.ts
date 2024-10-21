@@ -9,4 +9,5 @@ export interface Cliente {
   telefono: string;
   contactoEmergencia: number;
   nombreContactoEmergencia: string;
+  imagenPerfil: string;
 }

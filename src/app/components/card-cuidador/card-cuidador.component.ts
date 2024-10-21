@@ -19,7 +19,7 @@ import { ModalService } from '../../services/shared/modals.service';
   styleUrl: './card-cuidador.component.scss',
 })
 export class CardCuidadorComponent {
-  @Input() cuidador: Cuidador = new Cuidador('', '', '', '', '', '', 0);
+  @Input() cuidador: Cuidador = new Cuidador('', '', '', '', '', '', 0, '');
 
   constructor(private modalService: ModalService) {}
 

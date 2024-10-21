@@ -1,16 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzFormModule } from 'ng-zorro-antd/form';
 import { CardMascotaComponent } from '../../components/card-mascota/card-mascota.component';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzImageModule } from 'ng-zorro-antd/image';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component';
 import { CommonModule } from '@angular/common';
-import { NzUploadComponent } from 'ng-zorro-antd/upload';
 import {
   FormBuilder,
   FormGroup,
@@ -47,6 +38,8 @@ export class PerfilComponent implements OnInit {
   isCliente: boolean = false;
   isCuidadorPendiente: boolean = false;
   mascotas: any = [];
+  url: string = '';
+  urlPerfil: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -56,10 +49,12 @@ export class PerfilComponent implements OnInit {
     private mascotaService: MascotaService,
     private cuidadorService: CuidadorService,
     private clienteService: ClienteService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.idUsuario = this.localStorageService.getIdUsuario();
+    this.url = 'http://localhost:3000/api/usuarios/upload/' + this.idUsuario;
     this.isCliente = this.localStorageService.getIsCliente();
     this.isCuidadorPendiente =
       this.localStorageService.getIsCuidadorPendiente();
@@ -104,6 +99,8 @@ export class PerfilComponent implements OnInit {
       nombreContactoEmergencia: data.nombreContactoEmergencia ?? '',
       contactoEmergencia: data.contactoEmergencia ?? '',
     });
+    this.urlPerfil = data.imagenPerfil;
+    console.log(this.urlPerfil);
   }
 
   setDatosformPerfilCuidador(data: any) {
@@ -116,6 +113,7 @@ export class PerfilComponent implements OnInit {
       descripcionPersonal: data.descripcionPersonal ?? '',
       tarifaHora: data.tarifaHora ?? '',
     });
+    this.urlPerfil = data.imagenPerfil;
   }
 
   initForm() {
