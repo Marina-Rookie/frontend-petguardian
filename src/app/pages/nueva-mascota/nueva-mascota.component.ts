@@ -43,6 +43,8 @@ export class NuevaMascotaComponent implements OnInit {
   etapasVida: EtapaVida[] = [];
   formMascota: FormGroup = new FormGroup({});
   isVisible = false;
+  fileList: NzUploadFile[] = [];
+  formData: FormData = new FormData();
 
   constructor(
     private msg: NzMessageService,
@@ -58,11 +60,9 @@ export class NuevaMascotaComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.modalService.isVisible$.subscribe((isVisible) => {
-      console.log("Cambio en la suscripcion")
       this.isVisible = isVisible;
     });
     this.modalService.mascotaEditModal$.subscribe((mascota) => {
-      console.log(mascota);
       this.mascota = mascota;
       if(mascota !== null) {
         this.formMascota.patchValue(mascota);
@@ -83,7 +83,8 @@ export class NuevaMascotaComponent implements OnInit {
       etapaVida: ['', Validators.required],
       obsComida: [''],
       obsEnfermedades: [''],
-      obsOtros: ['']
+      obsOtros: [''],
+      urlImagen: [''],
     });
   }
 
@@ -91,7 +92,6 @@ export class NuevaMascotaComponent implements OnInit {
     this.etapaVidaService.getAll().subscribe({
       next: (data) => {
         this.etapasVida = data;
-        console.log(this.etapasVida);
       },
       error: (error) => {
         console.log(error);
@@ -103,7 +103,6 @@ export class NuevaMascotaComponent implements OnInit {
     this.tipoMascotaService.getAll().subscribe({
       next: (data) => {
         this.tiposMascota = data;
-        console.log(this.tiposMascota);
       },
       error: (error) => {
         console.log(error);
@@ -111,65 +110,38 @@ export class NuevaMascotaComponent implements OnInit {
     });
   }
 
-  beforeUpload = (
-    file: NzUploadFile,
-    _fileList: NzUploadFile[]
-  ): Observable<boolean> =>
-    new Observable((observer: Observer<boolean>) => {
-      const isJpgOrPng =
-        file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
-        this.msg.error('You can only upload JPG file!');
-        observer.complete();
-        return;
-      }
-      const isLt2M = file.size! / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.msg.error('Image must smaller than 2MB!');
-        observer.complete();
-        return;
-      }
-      observer.next(isJpgOrPng && isLt2M);
-      observer.complete();
-    });
+  beforeUpload = (file: NzUploadFile): boolean => {
+    console.log('Before upload');
 
-  private getBase64(img: File, callback: (img: string) => void): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result!.toString()));
-    reader.readAsDataURL(img);
-  }
+    this.fileList = [file];
+    this.formData.append('file', file as any);
+    return false; // Evita la carga automática
+  };
 
   handleChange(info: { file: NzUploadFile }): void {
-    switch (info.file.status) {
-      case 'uploading':
-        this.loading = true;
-        break;
-      case 'done':
-        // Get this url from response in real world.
-        this.getBase64(info.file!.originFileObj!, (img: string) => {
-          this.loading = false;
-          this.avatarUrl = img;
-        });
-        break;
-      case 'error':
-        this.msg.error('Network error');
-        this.loading = false;
-        break;
+    console.log('handleChange');
+    if (info.file.status === 'removed') {
+      console.log('removed');
     }
   }
 
   submitForm() {
-    console.log(this.formMascota.value);
     const nuevaMascota = this.formMascota.value;
     nuevaMascota.usuario = this.localStorageService.getIdUsuario();
-    console.log(nuevaMascota);
     this.mascotaService.post(nuevaMascota).subscribe({
       next: (data: any) => {
         console.log(data);
+        this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
+          next: (data) => {
+            console.log('Imagen subida con éxito');
+          },
+          error: (error) => {
+            console.log('Error al subir la imagen');
+          },
+        });
         this.msg.success('Mascota creada con éxito');
       },
       error: (error) => {
-        console.log(error);
         this.msg.error('Error al crear la mascota');
       },
     });

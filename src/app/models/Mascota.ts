@@ -10,6 +10,7 @@ export class Mascota {
   obsEnfermedades: string;
   obsOtros: string;
   usuario: any;
+  urlImagen: string = '';
 
   constructor(id: string, nombre: string, tipoMascota: TipoMascota, etapaVida: EtapaVida, obsComida: string, obsEnfermedades: string, obsOtros: string){
     this._id = id;
