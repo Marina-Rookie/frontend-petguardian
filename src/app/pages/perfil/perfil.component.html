@@ -1,205 +1,213 @@
 @if(!isCuidadorPendiente){
-  <div class="row">
-    <nz-divider nzText="Datos personales"></nz-divider>
-    <div class="col-4 d-flex flex-column align-items-center justify-content-center">
-      <img nz-image width="200px" height="200px" [nzSrc]="urlPerfil" alt=""/>
-      <nz-upload
-        nzAction="{{url}}"
-      >
-        <button nz-button class="mt-4">
-          <span nz-icon nzType="upload"></span>
-          Cargar foto
-        </button>
-      </nz-upload>
-    </div>
-    <div class="col-8">
-        <form [formGroup]="isCliente ? formPerfilCliente : formPerfilCuidador">
-          <div class="row">
-            <div class="col-6">
-              <nz-form-item>
-                <nz-form-label nzFor="nombre">Nombre</nz-form-label>
-                <nz-form-control [nzSpan]="24">
-                  <input
-                    nz-input
-                    name="nombre"
-                    type="text"
-                    formControlName="nombre"
-                  />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div class="col-6">
-              <nz-form-item>
-                <nz-form-label nzFor="apellido">Apellido</nz-form-label>
-                <nz-form-control [nzSpan]="24">
-                  <input
-                    nz-input
-                    name="apellido"
-                    type="text"
-                    formControlName="apellido"
-                  />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div class="col-6">
-              <nz-form-item>
-                <nz-form-label nzFor="telefono">Telefono</nz-form-label>
-                <nz-form-control [nzSpan]="24">
-                  <input
-                    nz-input
-                    name="telefono"
-                    type="text"
-                    formControlName="telefono"
-                  />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div class="col-6">
-              <nz-form-item>
-                <nz-form-label nzFor="domicilio">Domicilio</nz-form-label>
-                <nz-form-control [nzSpan]="24">
-                  <input
-                    nz-input
-                    name="domicilio"
-                    type="text"
-                    formControlName="domicilio"
-                  />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div class="col-6">
-              <nz-form-item>
-                <nz-form-label nzFor="email">Email</nz-form-label>
-                <nz-form-control [nzSpan]="24">
-                  <input
-                    nz-input
-                    name="email"
-                    type="email"
-                    formControlName="email"
-                  />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            @if(isCliente){
+  @if(!loadingPerfil){
+    <div class="row">
+      <nz-divider nzText="Datos personales"></nz-divider>
+      <div class="col-4 d-flex flex-column align-items-center justify-content-center">
+        <img nz-image width="200px" height="200px" [nzSrc]="urlPerfil" alt=""/>
+        <nz-upload
+          nzAction="{{url}}"
+        >
+          <button nz-button class="mt-4">
+            <span nz-icon nzType="upload"></span>
+            Cargar foto
+          </button>
+        </nz-upload>
+      </div>
+      <div class="col-8">
+          <form [formGroup]="isCliente ? formPerfilCliente : formPerfilCuidador">
+            <div class="row">
               <div class="col-6">
                 <nz-form-item>
-                  <nz-form-label nzFor="nombreContactoEmergencia"
-                    >Nombre contacto de emergencia</nz-form-label
-                  >
+                  <nz-form-label nzFor="nombre">Nombre</nz-form-label>
                   <nz-form-control [nzSpan]="24">
                     <input
                       nz-input
-                      name="nombreContactoEmergencia"
+                      name="nombre"
                       type="text"
-                      formControlName="nombreContactoEmergencia"
+                      formControlName="nombre"
                     />
                   </nz-form-control>
                 </nz-form-item>
               </div>
               <div class="col-6">
                 <nz-form-item>
-                  <nz-form-label nzFor="contactoEmergencia"
-                    >Telefono contacto de emergencia</nz-form-label
-                  >
+                  <nz-form-label nzFor="apellido">Apellido</nz-form-label>
                   <nz-form-control [nzSpan]="24">
                     <input
                       nz-input
-                      name="contactoEmergencia"
+                      name="apellido"
                       type="text"
-                      formControlName="contactoEmergencia"
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-            }
-            @if(!isCliente){
-              <div class="col-6">
-                <nz-form-item>
-                  <nz-form-label nzFor="descripcionPersonal"
-                    >Descripcion personal</nz-form-label
-                  >
-                  <nz-form-control [nzSpan]="24">
-                    <input
-                      nz-input
-                      name="descripcionPersonal"
-                      type="text"
-                      formControlName="descripcionPersonal"
+                      formControlName="apellido"
                     />
                   </nz-form-control>
                 </nz-form-item>
               </div>
               <div class="col-6">
                 <nz-form-item>
-                  <nz-form-label nzFor="tarifaHora"
-                    >Tarifa hora</nz-form-label
-                  >
+                  <nz-form-label nzFor="telefono">Telefono</nz-form-label>
                   <nz-form-control [nzSpan]="24">
                     <input
                       nz-input
-                      name="tarifaHora"
+                      name="telefono"
                       type="text"
-                      formControlName="tarifaHora"
+                      formControlName="telefono"
                     />
                   </nz-form-control>
                 </nz-form-item>
               </div>
-            }
-            <div class="col-6 d-flex justify-content-center align-items-center">
-              <button
-                nz-button
-                nzSize="large"
-                nzType="primary"
-                (click)="actualizarDatosPerfil()"
-              >
-                Guardar datos
-              </button>
+              <div class="col-6">
+                <nz-form-item>
+                  <nz-form-label nzFor="domicilio">Domicilio</nz-form-label>
+                  <nz-form-control [nzSpan]="24">
+                    <input
+                      nz-input
+                      name="domicilio"
+                      type="text"
+                      formControlName="domicilio"
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-6">
+                <nz-form-item>
+                  <nz-form-label nzFor="email">Email</nz-form-label>
+                  <nz-form-control [nzSpan]="24">
+                    <input
+                      nz-input
+                      name="email"
+                      type="email"
+                      formControlName="email"
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              @if(isCliente){
+                <div class="col-6">
+                  <nz-form-item>
+                    <nz-form-label nzFor="nombreContactoEmergencia"
+                      >Nombre contacto de emergencia</nz-form-label
+                    >
+                    <nz-form-control [nzSpan]="24">
+                      <input
+                        nz-input
+                        name="nombreContactoEmergencia"
+                        type="text"
+                        formControlName="nombreContactoEmergencia"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-6">
+                  <nz-form-item>
+                    <nz-form-label nzFor="contactoEmergencia"
+                      >Telefono contacto de emergencia</nz-form-label
+                    >
+                    <nz-form-control [nzSpan]="24">
+                      <input
+                        nz-input
+                        name="contactoEmergencia"
+                        type="text"
+                        formControlName="contactoEmergencia"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              }
+              @if(!isCliente){
+                <div class="col-6">
+                  <nz-form-item>
+                    <nz-form-label nzFor="descripcionPersonal"
+                      >Descripcion personal</nz-form-label
+                    >
+                    <nz-form-control [nzSpan]="24">
+                      <input
+                        nz-input
+                        name="descripcionPersonal"
+                        type="text"
+                        formControlName="descripcionPersonal"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-6">
+                  <nz-form-item>
+                    <nz-form-label nzFor="tarifaHora"
+                      >Tarifa hora</nz-form-label
+                    >
+                    <nz-form-control [nzSpan]="24">
+                      <input
+                        nz-input
+                        name="tarifaHora"
+                        type="text"
+                        formControlName="tarifaHora"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              }
+              <div class="col-6 d-flex justify-content-center align-items-center">
+                <button
+                  nz-button
+                  nzSize="large"
+                  nzType="primary"
+                  (click)="actualizarDatosPerfil()"
+                >
+                  Guardar datos
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-    </div>
-  </div>
-  @if(isCliente){
-  <div class="row">
-    <nz-divider nzText="Mis mascotas"></nz-divider>
-    <div class="d-flex justify-content-center">
-      <div class="row row-cols-auto justify-content-center">
-        @for (m of mascotas; track m._id) {
-        <div class="col">
-          <app-card-mascota
-            [mascota]="m"
-            (recargarMascotas)="recargarMascotas()"
-          ></app-card-mascota>
-        </div>
-        }
-        <div class="col">
-          <!-- card para agregar -->
-          <nz-card
-            style="
-              width: 300px;
-              height: 365px;
-              margin-top: 15px;
-              border-radius: 20px;
-            "
-            [nzBodyStyle]="{
-              height: '100%',
-              border: '1px dashed orange',
-              'border-radius': '20px'
-            }"
-          >
-            <div
-              class="row justify-content-center align-items-center"
-              style="height: 100%"
-            >
-              <button class="add-button" (click)="showModal()">
-                <span nz-icon nzType="plus" nzTheme="outline"></span>
-              </button>
-            </div>
-          </nz-card>
-        </div>
+          </form>
       </div>
     </div>
-  </div>
-  <app-nueva-mascota (recargarMascotas)="recargarMascotas()"></app-nueva-mascota>
+  } @else {
+    <nz-spin [nzSize]="'large'"></nz-spin>
+  }
+  @if(isCliente){
+    @if(!loadingMascotas){
+      <div class="row">
+        <nz-divider nzText="Mis mascotas"></nz-divider>
+        <div class="d-flex justify-content-center">
+          <div class="row row-cols-auto justify-content-center">
+            @for (m of mascotas; track m._id) {
+            <div class="col">
+              <app-card-mascota
+                [mascota]="m"
+                (recargarMascotas)="recargarMascotas()"
+              ></app-card-mascota>
+            </div>
+            }
+            <div class="col">
+              <!-- card para agregar -->
+              <nz-card
+                style="
+                  width: 300px;
+                  height: 365px;
+                  margin-top: 15px;
+                  border-radius: 20px;
+                "
+                [nzBodyStyle]="{
+                  height: '100%',
+                  border: '1px dashed orange',
+                  'border-radius': '20px'
+                }"
+              >
+                <div
+                  class="row justify-content-center align-items-center"
+                  style="height: 100%"
+                >
+                  <button class="add-button" (click)="showModal()">
+                    <span nz-icon nzType="plus" nzTheme="outline"></span>
+                  </button>
+                </div>
+              </nz-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-nueva-mascota (recargarMascotas)="recargarMascotas()"></app-nueva-mascota>
+    } @else {
+      <nz-spin [nzSize]="'large'"></nz-spin>
+    }
   }
 } @else {
   <h2>Aun no ha sido aprobado por un administrador!</h2>

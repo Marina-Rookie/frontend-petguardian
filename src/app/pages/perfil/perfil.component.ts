@@ -40,6 +40,8 @@ export class PerfilComponent implements OnInit {
   mascotas: any = [];
   url: string = '';
   urlPerfil: string = '';
+  loadingPerfil: boolean = false;
+  loadingMascotas: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -66,14 +68,17 @@ export class PerfilComponent implements OnInit {
   }
 
   buscarDatosPerfil() {
+    this.loadingPerfil = true;
     if (this.isCliente) {
       this.clienteService.getById(this.idUsuario).subscribe({
         next: (data) => {
           console.log(data);
           this.setDatosformPerfilCliente(data);
+          this.loadingPerfil = false;
         },
         error: (error) => {
           console.log(error);
+          this.loadingPerfil = false;
         },
       });
     } else {
@@ -81,9 +86,11 @@ export class PerfilComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.setDatosformPerfilCuidador(data);
+          this.loadingPerfil = false;
         },
         error: (error) => {
           console.log(error);
+          this.loadingPerfil = false;
         },
       });
     }
@@ -174,10 +181,6 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  guardarMascota(mascota: any): void {
-    console.log(mascota);
-  }
-
   showModal(): void {
     console.log('showModal');
     this.modalService.setMascotaEditModal(null);
@@ -185,13 +188,16 @@ export class PerfilComponent implements OnInit {
   }
 
   getMascotasPorUsuario() {
+    this.loadingMascotas = true;
     this.mascotaService.getMascotasPorCliente(this.idUsuario).subscribe({
       next: (data) => {
         console.log(data);
         this.mascotas = data;
+        this.loadingMascotas = false;
       },
       error: (error) => {
         console.log(error);
+        this.loadingMascotas = false;
       },
     });
   }
