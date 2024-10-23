@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
-import { Observable, Observer } from 'rxjs';
-import { ApiService } from '../../services/api.service';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { TipoMascota } from '../../models/TipoMascota';
 import {
   FormBuilder,
@@ -128,23 +126,42 @@ export class NuevaMascotaComponent implements OnInit {
   submitForm() {
     const nuevaMascota = this.formMascota.value;
     nuevaMascota.usuario = this.localStorageService.getIdUsuario();
-    this.mascotaService.post(nuevaMascota).subscribe({
-      next: (data: any) => {
-        console.log(data);
-        this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
-          next: (data) => {
-            console.log('Imagen subida con éxito');
-          },
-          error: (error) => {
-            console.log('Error al subir la imagen');
-          },
-        });
-        this.msg.success('Mascota creada con éxito');
-      },
-      error: (error) => {
-        this.msg.error('Error al crear la mascota');
-      },
-    });
+    console.log(this.mascota);
+    if(this.mascota == null) {
+      this.mascotaService.post(nuevaMascota).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
+            next: (data) => {
+              console.log('Imagen subida con éxito');
+            },
+            error: (error) => {
+              console.log('Error al subir la imagen');
+            },
+          });
+          this.msg.success('Mascota creada con éxito');
+        },
+        error: (error) => {
+          this.msg.error('Error al crear la mascota');
+        },
+      });
+    } else {
+      console.log('Actualizando mascota');
+      this.mascotaService.put(nuevaMascota, this.mascota._id).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
+            next: (data) => {
+              console.log('Imagen subida con éxito');
+            },
+            error: (error) => {
+              console.log('Error al subir la imagen');
+            },
+          });
+          this.msg.success('Mascota actualizada con éxito');
+        }
+      });
+    }
     this.handleCancel();
   }
 
