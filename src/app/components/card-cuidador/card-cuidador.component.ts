@@ -20,10 +20,13 @@ import { ModalService } from '../../services/shared/modals.service';
 })
 export class CardCuidadorComponent {
   @Input() cuidador: Cuidador = new Cuidador('', '', '', '', '', '', 0, '');
-
+  urlPerfil: string = 'https://res.cloudinary.com/dddkkhrih/image/upload/v1729643117/fsn7sjzhcpzwo3qccpud.jpg';
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
+    if(this.cuidador.imagenPerfil != '' && this.cuidador.imagenPerfil != null) {
+      this.urlPerfil = this.cuidador.imagenPerfil;
+    }
   }
 
   showModal(): void {

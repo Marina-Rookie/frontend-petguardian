@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { CardCuidadorComponent } from '../../components/card-cuidador/card-cuidador.component';
-import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { Cuidador } from '../../models/Cuidador';
 import { CuidadorService } from '../../services/cuidador.service';

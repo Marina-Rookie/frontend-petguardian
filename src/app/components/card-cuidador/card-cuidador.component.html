@@ -3,14 +3,6 @@
         nzTitle="{{cuidador.nombre}} {{cuidador.apellido}}"
         nzDescription="{{cuidador.descripcionPersonal}} "
       ></nz-card-meta>
-      <!-- <p class="mt-2">
-        <span nz-icon nzType="phone" nzTheme="outline" class="mr-2"></span>
-        {{cuidador.telefono}}
-      </p>
-      <p>
-        <span nz-icon nzType="mail" nzTheme="outline" class="mr-2"></span>
-        {{cuidador.email}}
-      </p> -->
       <p class="mt-2">
         <span nz-icon nzType="dollar" nzTheme="outline" class="mr-2"></span>
         {{cuidador.tarifaHora}}
@@ -29,7 +21,7 @@
     nz-image
     width="200px"
     height="200px"
-    nzSrc="https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg?w=1380&t=st=1722090776~exp=1722091376~hmac=5c5f1247a6ddb9f00241b262f4e3d34787ae45e1496f2728e6925cc36887694f"
+    nzSrc="{{urlPerfil}}"
     alt=""
   />
 </ng-template>
