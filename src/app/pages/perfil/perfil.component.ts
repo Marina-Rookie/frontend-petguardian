@@ -15,6 +15,7 @@ import { NgZorroModule } from '../../ngzorro.module';
 import { MascotaService } from '../../services/mascota.service';
 import { CuidadorService } from '../../services/cuidador.service';
 import { ClienteService } from '../../services/cliente.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-perfil',
@@ -42,6 +43,7 @@ export class PerfilComponent implements OnInit {
   urlPerfil: string = '';
   loadingPerfil: boolean = false;
   loadingMascotas: boolean = false;
+  urlApi: string = environment.url_server;
 
   constructor(
     private fb: FormBuilder,
@@ -56,7 +58,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUsuario = this.localStorageService.getIdUsuario();
-    this.url = 'http://localhost:3000/api/usuarios/upload/' + this.idUsuario;
+    this.url = this.urlApi + 'usuarios/upload/' + this.idUsuario;
     this.isCliente = this.localStorageService.getIsCliente();
     this.isCuidadorPendiente =
       this.localStorageService.getIsCuidadorPendiente();
