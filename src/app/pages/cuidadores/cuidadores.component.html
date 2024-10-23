@@ -4,7 +4,7 @@
   </h2>
   <nz-divider></nz-divider>
   @if (!loading) {
-    <div class="row row-cols-auto">
+    <div class="row row-cols-auto justify-content-center">
       @for (cuidador of cuidadores; track cuidador._id) {
         <div class="col">
           <app-card-cuidador [cuidador]="cuidador"></app-card-cuidador>
