@@ -2,61 +2,65 @@
   <h2>
     Tus reservas
   </h2>
-  <div class="mt-4">
-    <nz-table [nzData]="reservas">
-      <thead>
-        <tr>
-          <th>Fecha Inicio</th>
-          <th>Fecha Fin</th>
-          <th>Estado</th>
-          <th>Cuidador</th>
-          <th>Telefono</th>
-          <th>Mascotas</th>
-          <th>Precio</th>
-          <th>Puntuacion</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (reserva of reservas; track reserva._id) {
+  @if (!loading) {
+    <div class="mt-4">
+      <nz-table [nzData]="reservas">
+        <thead>
           <tr>
-            <td>{{reserva.fechaInicio | date: 'dd-MM-yyyy'}}</td>
-            <td>{{reserva.fechaFin | date: 'dd-MM-yyyy'}}</td>
-            <td>
-              @if (reserva.estado.estado == 'Cancelada' || reserva.estado.estado == 'No aprobada') {
-                <nz-badge nzStatus="error"></nz-badge>
-              }
-              @if (reserva.estado.estado == 'Pendiente') {
-                <nz-badge nzStatus="processing"></nz-badge>
-              }
-              @if (reserva.estado.estado == 'Finalizada' || reserva.estado.estado == 'Aprobada') {
-                <nz-badge nzStatus="success"></nz-badge>
-              }
-              {{reserva.estado.estado}}</td>
-            <td>{{reserva.cuidador.nombre}} {{reserva.cuidador.apellido}}</td>
-            <td>{{reserva.cuidador.telefono}}</td>
-            <td>@for(m of reserva.mascotas; track m){
-                {{m.nombre}}
-            }
-            </td>
-            <td>${{reserva.tarifaTurno * reserva.contadorTurnos}}</td>
-            <td class="text-center">
-              5
-              <span nz-icon nzType="star" nzTheme="outline"></span>
-            </td>
-            <td class="text-center">
-              @if (reserva.estado.estado == 'Finalizada') {
-                <button nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
-              }
-              @if (reserva.estado.estado == 'Pendiente') {
-                <button nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
-              }
-            </td>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+            <th>Cuidador</th>
+            <th>Telefono</th>
+            <th>Mascotas</th>
+            <th>Precio</th>
+            <th>Puntuacion</th>
+            <th>Acciones</th>
           </tr>
-        }
-      </tbody>
-    </nz-table>
-  </div>
+        </thead>
+        <tbody>
+          @for (reserva of reservas; track reserva._id) {
+            <tr>
+              <td>{{reserva.fechaInicio | date: 'dd-MM-yyyy'}}</td>
+              <td>{{reserva.fechaFin | date: 'dd-MM-yyyy'}}</td>
+              <td>
+                @if (reserva.estado.estado == 'Cancelada' || reserva.estado.estado == 'No aprobada') {
+                  <nz-badge nzStatus="error"></nz-badge>
+                }
+                @if (reserva.estado.estado == 'Pendiente') {
+                  <nz-badge nzStatus="processing"></nz-badge>
+                }
+                @if (reserva.estado.estado == 'Finalizada' || reserva.estado.estado == 'Aprobada') {
+                  <nz-badge nzStatus="success"></nz-badge>
+                }
+                {{reserva.estado.estado}}</td>
+              <td>{{reserva.cuidador.nombre}} {{reserva.cuidador.apellido}}</td>
+              <td>{{reserva.cuidador.telefono}}</td>
+              <td>@for(m of reserva.mascotas; track m){
+                  {{m.nombre}}
+              }
+              </td>
+              <td>${{reserva.tarifaTurno * reserva.contadorTurnos}}</td>
+              <td class="text-center">
+                5
+                <span nz-icon nzType="star" nzTheme="outline"></span>
+              </td>
+              <td class="text-center">
+                @if (reserva.estado.estado == 'Finalizada') {
+                  <button nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
+                }
+                @if (reserva.estado.estado == 'Pendiente') {
+                  <button nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+    </div>
+  } @else {
+    <nz-spin></nz-spin>
+  }
 </div>
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñar cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>

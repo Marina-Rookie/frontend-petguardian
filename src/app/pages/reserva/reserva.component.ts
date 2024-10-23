@@ -21,6 +21,7 @@ export class ReservaComponent {
   comentario = '';
   idCliente: string = '';
   reservas: Reserva[] = [];
+  loading: boolean = false;
 
   constructor(private service: ReservaService,
     private localStorageService: LocalStorageService
@@ -32,13 +33,16 @@ export class ReservaComponent {
   }
 
   getReservas(): void {
+    this.loading = true;
     this.service.getReservasPorCliente(this.idCliente).subscribe({
       next: (data: Reserva[]) => {
         console.log(data);
         this.reservas = data;
+        this.loading = false;
       },
       error: (error: any) => {
         console.error(error);
+        this.loading = false;
       }
      });
   }
