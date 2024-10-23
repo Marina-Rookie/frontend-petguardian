@@ -8,6 +8,7 @@ export class Cuidador {
     descripcionPersonal: string;
     tarifaHora: number;
     imagenPerfil: string;
+    promedioPuntuacion: number = 0;
 
     constructor(_id: string, nombre: string, apellido: string, telefono: string, email: string, descripcionPersonal: string, tarifaHora: number, imagenPerfil: string) {
         this._id = _id;

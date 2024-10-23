@@ -1,11 +1,15 @@
-<nz-card style="width:300px; height: 400px;" class="m-3" [nzCover]="coverTemplate">
+<nz-card style="width:300px; height: 450px;" class="m-3" [nzCover]="coverTemplate">
   <nz-card-meta
         nzTitle="{{cuidador.nombre}} {{cuidador.apellido}}"
-        nzDescription="{{cuidador.descripcionPersonal}} "
+        nzDescription="{{cuidador.descripcionPersonal || 'Sin descripción'}}"
       ></nz-card-meta>
       <p class="mt-2">
         <span nz-icon nzType="dollar" nzTheme="outline" class="mr-2"></span>
-        {{cuidador.tarifaHora}}
+        {{cuidador.tarifaHora || 'Sin tarifa'}}
+      </p>
+      <p class="mb-2">
+        <span nz-icon nzType="star" nzTheme="outline" class="mr-2"></span>
+        {{cuidador.promedioPuntuacion || 'Sin puntuación'}}
       </p>
       <div class="row justify-content-center mt-3">
       <button nz-button nzType="primary" [nzSize]="'large'" class="buttons" (click)="showModal()">

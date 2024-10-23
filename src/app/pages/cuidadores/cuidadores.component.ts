@@ -4,11 +4,12 @@ import { CardCuidadorComponent } from '../../components/card-cuidador/card-cuida
 import { CommonModule } from '@angular/common';
 import { Cuidador } from '../../models/Cuidador';
 import { CuidadorService } from '../../services/cuidador.service';
+import { NgZorroModule } from '../../ngzorro.module';
 
 @Component({
   selector: 'app-cuidadores',
   standalone: true,
-  imports: [NzGridModule, CardCuidadorComponent, CommonModule],
+  imports: [NgZorroModule, CardCuidadorComponent, CommonModule],
   templateUrl: './cuidadores.component.html',
   styleUrl: './cuidadores.component.scss',
 })
