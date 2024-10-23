@@ -19,7 +19,11 @@
       <nz-form-item>
         <nz-form-control [nzSpan]="24">
           <button nz-button nzType="primary" [disabled]="loginForm.invalid" class="login-button" type="submit">
-            Iniciar sesion
+            @if (!loading) {
+              Iniciar sesión
+            } @else {
+              <i nz-icon nzType="loading" nzTheme="outline"></i>
+            }
           </button>
         </nz-form-control>
         <nz-form-control [nzSpan]="24" class="text-center mt-2">
@@ -67,7 +71,12 @@
       <nz-form-item>
         <nz-form-control [nzSpan]="24">
           <button nz-button nzType="primary" class="login-button" type="submit">
-            Registrate
+            
+            @if (!loading) {
+              Registrate
+            } @else {
+              <i nz-icon nzType="loading" nzTheme="outline"></i>
+            }
           </button>
         </nz-form-control>
         <nz-form-control [nzSpan]="24" class="text-center mt-2">

@@ -1,27 +1,20 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/localstorage.service';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { LoginService } from '../../services/login.service';
+import { NgZorroModule } from '../../ngzorro.module';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-    NzCardModule,
+    NgZorroModule,
     CommonModule,
-    FormsModule,
-    NzCheckboxModule
+    FormsModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -30,13 +23,15 @@ export class LoginComponent {
   formLogin: boolean = true;
   registerForm: FormGroup = new FormGroup({});
   loginForm: FormGroup = new FormGroup({});
-  checked = false;
+  checked: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private service: LoginService,
     private localStorage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private msg: NzMessageService
   ) {
     this.localStorage.crearValues();
   }
@@ -61,22 +56,36 @@ export class LoginComponent {
   }
 
   onSubmitRegister(): void {
+    this.loading = true;
     if (this.registerForm.valid) {
       this.service.post(this.registerForm.value).subscribe({
         next: (data: any) => {
+          this.loading = false;
           console.log(data);
           this.setItemsAndNavigate(data);
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.loading = false;
+          this.msg.error('Error al registrar usuario');
         },
       });
     }
   }
 
   onSubmitLogin(): void {
+    this.loading = true;
     if (this.loginForm.valid) {
       this.service.login(this.loginForm.value).subscribe({
         next: (data: any) => {
+          this.loading = false;
           console.log(data);
           this.setItemsAndNavigate(data);
+        },
+        error: (error: any) => {
+          this.loading = false;
+          console.log(error);
+          this.msg.error('Usuario o contraseña incorrectos');
         },
       });
     }
