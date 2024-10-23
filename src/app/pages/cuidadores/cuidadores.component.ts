@@ -15,6 +15,7 @@ import { NgZorroModule } from '../../ngzorro.module';
 })
 export class CuidadoresComponent implements OnInit {
   cuidadores: Cuidador[] = [];
+  loading: boolean = false;
 
   constructor(private cuidadorService: CuidadorService) {}
 
@@ -23,8 +24,16 @@ export class CuidadoresComponent implements OnInit {
   }
 
   getCuidadores() {
-    this.cuidadorService.getCuidadoresHabilitados().subscribe((cuidadores) => {
-      this.cuidadores = cuidadores;
+    this.loading = true;
+    this.cuidadorService.getCuidadoresHabilitados().subscribe({
+      next: (cuidadores) => {
+        this.cuidadores = cuidadores;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.loading = false;
+      },
     });
   }
 }

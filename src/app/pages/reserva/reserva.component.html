@@ -59,7 +59,7 @@
       </nz-table>
     </div>
   } @else {
-    <nz-spin></nz-spin>
+    <nz-spin [nzSize]="'large'"></nz-spin>
   }
 </div>
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñar cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">

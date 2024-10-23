@@ -3,11 +3,15 @@
     Cuidadores
   </h2>
   <nz-divider></nz-divider>
-  <div class="row row-cols-auto">
-    @for (cuidador of cuidadores; track cuidador._id) {
-      <div class="col">
-        <app-card-cuidador [cuidador]="cuidador"></app-card-cuidador>
-      </div>
-    }
-  </div>
+  @if (!loading) {
+    <div class="row row-cols-auto">
+      @for (cuidador of cuidadores; track cuidador._id) {
+        <div class="col">
+          <app-card-cuidador [cuidador]="cuidador"></app-card-cuidador>
+        </div>
+      }
+    </div>
+  } @else {
+    <nz-spin [nzSize]="'large'"></nz-spin>
+  }
 </div>
