@@ -68,8 +68,8 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 }
-@else {
-  <app-login></app-login>
+@if(!userIsLogged()) {
+  <router-outlet></router-outlet>
 }
 
 
