@@ -7,7 +7,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideNzIcons } from './icons-provider';
-import { ca_ES, es_ES, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { es_ES, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import ca from '@angular/common/locales/ca';
 import { FormsModule } from '@angular/forms';
