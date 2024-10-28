@@ -29,36 +29,42 @@
                 </button>
               </li>
             }
-            <li>
-              <button mat-button class="sidenav-item" routerLink="/perfil">
-                <div>
-                  <span nz-icon nzType="user" nzTheme="outline" class="nz-icon"></span>
-                </div>
-                <div>
-                  <span>Perfil</span>
-                </div>
-              </button>
-            </li>
-            <li>
-              <button mat-button class="sidenav-item" routerLink="/reservas">
-                <div>
-                  <span nz-icon nzType="book" nzTheme="outline"  class="nz-icon"></span>
-                </div>
-                <div>
-                  <span>Tus reservas</span>
-                </div>
-              </button>
-            </li>
-            <li>
-              <button mat-button class="sidenav-item" routerLink="/cuidadores">
-                <div>
-                  <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
-                </div>
-                <div>
-                  <span>Cuidadores</span>
-                </div>
-              </button>
-            </li>
+            @if (localstorage.getIsCliente() || localstorage.getIsCuidador()) {
+              <li>
+                <button mat-button class="sidenav-item" routerLink="/perfil">
+                  <div>
+                    <span nz-icon nzType="user" nzTheme="outline" class="nz-icon"></span>
+                  </div>
+                  <div>
+                    <span>Perfil</span>
+                  </div>
+                </button>
+              </li>
+            }
+            @if (localstorage.getIsCliente()) {
+              <li>
+                <button mat-button class="sidenav-item" routerLink="/reservas">
+                  <div>
+                    <span nz-icon nzType="book" nzTheme="outline"  class="nz-icon"></span>
+                  </div>
+                  <div>
+                    <span>Tus reservas</span>
+                  </div>
+                </button>
+              </li>
+            }
+            @if (localstorage.getIsCliente()) {
+              <li>
+                <button mat-button class="sidenav-item" routerLink="/cuidadores">
+                  <div>
+                    <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
+                  </div>
+                  <div>
+                    <span>Cuidadores</span>
+                  </div>
+                </button>
+              </li>
+            }
             <li>
               <button mat-button class="sidenav-item" routerLink="/login">
                 <div>

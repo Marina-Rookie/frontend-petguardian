@@ -29,6 +29,10 @@ export class LocalStorageService {
     return localStorage.getItem('rol') === 'Cuidador Pendiente';
   }
 
+  getIsCuidador() {
+    return localStorage.getItem('rol') === 'Cuidador Habilitado' || localStorage.getItem('rol') === 'Cuidador Pendiente';
+  }
+
   getIsAdmin() {
     return localStorage.getItem('rol') === 'Administrador';
   }
