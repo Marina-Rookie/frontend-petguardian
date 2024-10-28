@@ -36,12 +36,10 @@ export class ReservaComponent {
     this.loading = true;
     this.service.getReservasPorCliente(this.idCliente).subscribe({
       next: (data: Reserva[]) => {
-        console.log(data);
         this.reservas = data;
         this.loading = false;
       },
       error: (error: any) => {
-        console.error(error);
         this.loading = false;
       }
      });
@@ -52,19 +50,16 @@ export class ReservaComponent {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
   cancelarReserva(reserva: Reserva): void {
     this.service.cancelarReserva(reserva._id).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.getReservas();
       },
       error: (error: any) => {

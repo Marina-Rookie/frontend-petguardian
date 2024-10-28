@@ -1,0 +1,23 @@
+<nz-table #cuidadores [nzData]="cuidadoresPendientes" [nzBordered]="true">
+  <thead>
+    <tr>
+      <th>Nombre Cuidador</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of cuidadores.data; track $index) {
+      <tr>
+        <td>{{ data.nombre }} {{data.apellido}}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.telefono }}</td>
+        <td>
+          <button nz-button nzType="primary" (click)="aprobar(data)" class="ml-4">Aprobar</button>
+          <button nz-button nzType="default" (click)="rechazar(data)">Rechazar</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>

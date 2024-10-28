@@ -63,7 +63,6 @@ export class ModalReservaComponent {
   }
 
   getTurnosDisponibles() {
-    console.log(this.turnosDisponibles);
     if (
       this.formReserva.get('fechaInicio') &&
       this.formReserva.get('fechaFin')
@@ -73,9 +72,7 @@ export class ModalReservaComponent {
         fechaInicio: this.formReserva.get('fechaInicio')?.value,
         fechaFin: this.formReserva.get('fechaFin')?.value,
       };
-      console.log(body);
       this.turnoService.postTurnosDisponiblidad(body).subscribe((res: any) => {
-        console.log(res);
         this.turnosDisponibles = res;
       });
     }
@@ -99,7 +96,6 @@ export class ModalReservaComponent {
   }
 
   handleOk(): void {
-    console.log(this.formReserva.value);
     this.postFormReserva();
     this.modalService.hideReservaModal();
   }

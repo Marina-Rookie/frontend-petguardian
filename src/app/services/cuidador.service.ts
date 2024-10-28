@@ -19,4 +19,16 @@ export class CuidadorService extends ApiService<Cuidador>{
   getCuidadoresHabilitados(): Observable<Cuidador[]> {
     return this.http.get<Cuidador[]>(`${this.authURL}usuarios/cuidadores-habilitados`);
   }
+
+  getCuidadoresPendientes(): Observable<Cuidador[]> {
+    return this.http.get<Cuidador[]>(`${this.authURL}usuarios/cuidadores-pendientes`);
+  }
+
+  habilitarCuidador(id: string): Observable<Cuidador> {
+    return this.http.put<Cuidador>(`${this.authURL}usuarios/habilitar-cuidador/${id}`, {});
+  }
+
+  desaprobarCuidador(id: string): Observable<Cuidador> {
+    return this.http.put<Cuidador>(`${this.authURL}usuarios/desaprobar-cuidador/${id}`, {});
+  }
 }

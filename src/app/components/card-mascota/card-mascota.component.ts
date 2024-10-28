@@ -39,12 +39,10 @@ export class CardMascotaComponent implements OnInit {
   eliminarMascota() {
     this.service.delete(this.mascota._id).subscribe({
       next: (data) => {
-        console.log(data);
         this.msg.success('Mascota eliminada con éxito');
         this.recargarMascotas.emit(true);
       },
       error: (error) => {
-        console.log(error);
         this.msg.error('Error al eliminar la mascota');
       },
     });

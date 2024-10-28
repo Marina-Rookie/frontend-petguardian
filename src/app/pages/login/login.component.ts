@@ -61,11 +61,9 @@ export class LoginComponent {
       this.service.post(this.registerForm.value).subscribe({
         next: (data: any) => {
           this.loading = false;
-          console.log(data);
           this.setItemsAndNavigate(data);
         },
         error: (error: any) => {
-          console.log(error);
           this.loading = false;
           this.msg.error('Error al registrar usuario');
         },
@@ -79,12 +77,10 @@ export class LoginComponent {
       this.service.login(this.loginForm.value).subscribe({
         next: (data: any) => {
           this.loading = false;
-          console.log(data);
           this.setItemsAndNavigate(data);
         },
         error: (error: any) => {
           this.loading = false;
-          console.log(error);
           this.msg.error('Usuario o contraseña incorrectos');
         },
       });
@@ -92,7 +88,6 @@ export class LoginComponent {
   }
 
   setItemsAndNavigate(data: any): void {
-    console.log(data);
     this.localStorage.setItem('token', data['token']);
     console.log(data['token']);
     this.localStorage.setItem('idUsuario', data['idUsuario']);

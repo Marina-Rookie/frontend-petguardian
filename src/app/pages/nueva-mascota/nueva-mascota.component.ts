@@ -92,7 +92,6 @@ export class NuevaMascotaComponent implements OnInit {
         this.etapasVida = data;
       },
       error: (error) => {
-        console.log(error);
       },
     });
   }
@@ -103,13 +102,11 @@ export class NuevaMascotaComponent implements OnInit {
         this.tiposMascota = data;
       },
       error: (error) => {
-        console.log(error);
       },
     });
   }
 
   beforeUpload = (file: NzUploadFile): boolean => {
-    console.log('Before upload');
 
     this.fileList = [file];
     this.formData.append('file', file as any);
@@ -117,20 +114,16 @@ export class NuevaMascotaComponent implements OnInit {
   };
 
   handleChange(info: { file: NzUploadFile }): void {
-    console.log('handleChange');
     if (info.file.status === 'removed') {
-      console.log('removed');
     }
   }
 
   submitForm() {
     const nuevaMascota = this.formMascota.value;
     nuevaMascota.usuario = this.localStorageService.getIdUsuario();
-    console.log(this.mascota);
     if(this.mascota == null) {
       this.mascotaService.post(nuevaMascota).subscribe({
         next: (data: any) => {
-          console.log(data);
           this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
             next: (data) => {
               console.log('Imagen subida con éxito');
@@ -149,7 +142,6 @@ export class NuevaMascotaComponent implements OnInit {
       console.log('Actualizando mascota');
       this.mascotaService.put(nuevaMascota, this.mascota._id).subscribe({
         next: (data: any) => {
-          console.log(data);
           this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
             next: (data) => {
               console.log('Imagen subida con éxito');

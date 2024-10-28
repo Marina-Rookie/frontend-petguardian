@@ -17,6 +17,18 @@
                 </div>
               </button>
             </li> -->
+            @if (localstorage.getIsAdmin()) {
+              <li>
+                <button mat-button class="sidenav-item" routerLink="/aprobar-cuidadores">
+                  <div>
+                    <span nz-icon nzType="usergroup-add" nzTheme="outline" class="nz-icon"></span>
+                  </div>
+                  <div>
+                    <span>Nuevos Cuidadores</span>
+                  </div>
+                </button>
+              </li>
+            }
             <li>
               <button mat-button class="sidenav-item" routerLink="/perfil">
                 <div>

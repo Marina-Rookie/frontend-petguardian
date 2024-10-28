@@ -74,24 +74,20 @@ export class PerfilComponent implements OnInit {
     if (this.isCliente) {
       this.clienteService.getById(this.idUsuario).subscribe({
         next: (data) => {
-          console.log(data);
           this.setDatosformPerfilCliente(data);
           this.loadingPerfil = false;
         },
         error: (error) => {
-          console.log(error);
           this.loadingPerfil = false;
         },
       });
     } else {
       this.cuidadorService.getById(this.idUsuario).subscribe({
         next: (data) => {
-          console.log(data);
           this.setDatosformPerfilCuidador(data);
           this.loadingPerfil = false;
         },
         error: (error) => {
-          console.log(error);
           this.loadingPerfil = false;
         },
       });
@@ -109,7 +105,6 @@ export class PerfilComponent implements OnInit {
       contactoEmergencia: data.contactoEmergencia ?? '',
     });
     this.urlPerfil = data.imagenPerfil;
-    console.log(this.urlPerfil);
   }
 
   setDatosformPerfilCuidador(data: any) {
@@ -161,22 +156,18 @@ export class PerfilComponent implements OnInit {
     if (this.isCliente) {
       this.clienteService.put(this.formPerfilCliente.value, this.idUsuario).subscribe({
         next: (data) => {
-          console.log(data);
           this.msg.success('Datos actualizados con éxito');
         },
         error: (error) => {
-          console.log(error);
           this.msg.error('Error al actualizar los datos');
         },
       });
     } else {
       this.cuidadorService.put(this.formPerfilCuidador.value, this.idUsuario).subscribe({
         next: (data) => {
-          console.log(data);
           this.msg.success('Datos actualizados con éxito');
         },
         error: (error) => {
-          console.log(error);
           this.msg.error('Error al actualizar los datos');
         },
       });
@@ -184,7 +175,6 @@ export class PerfilComponent implements OnInit {
   }
 
   showModal(): void {
-    console.log('showModal');
     this.modalService.setMascotaEditModal(null);
     this.modalService.showModal();
   }
@@ -193,19 +183,16 @@ export class PerfilComponent implements OnInit {
     this.loadingMascotas = true;
     this.mascotaService.getMascotasPorCliente(this.idUsuario).subscribe({
       next: (data) => {
-        console.log(data);
         this.mascotas = data;
         this.loadingMascotas = false;
       },
       error: (error) => {
-        console.log(error);
         this.loadingMascotas = false;
       },
     });
   }
 
   recargarMascotas() {
-    console.log('recargarMascotas');
     this.getMascotasPorUsuario();
   }
 }

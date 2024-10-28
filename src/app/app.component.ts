@@ -7,6 +7,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { LoginComponent } from './pages/login/login.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
+import { NgZorroModule } from './ngzorro.module';
+import { LocalStorageService } from './services/localstorage.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,9 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     RouterOutlet,
     MatSidenavModule,
-    NzIconModule,
-    NzLayoutModule,
-    NzMenuModule,
+    NgZorroModule,
     LoginComponent,
     MatButtonModule,
     RouterModule
@@ -26,7 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class AppComponent {
   isCollapsed = false;
-  constructor() {}
+
+  constructor(public localstorage: LocalStorageService) {}
 
   userIsLogged(): boolean {
     return localStorage.getItem('token') != undefined;
