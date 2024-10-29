@@ -42,8 +42,14 @@
           </td>
           <td>${{ reserva.tarifaTurno * reserva.contadorTurnos }}</td>
           <td class="text-center">
-            5
-            <span nz-icon nzType="star" nzTheme="outline"></span>
+            @if (reserva.estado.estado == 'Pendiente') {
+            <button nz-button nzType="primary" nzSize="small" (click)="aprobarReserva(reserva._id)">
+              Aprobar
+            </button>
+            <button nz-button nzType="default" nzSize="small" (click)="rechazarReserva(reserva._id)">
+              Rechazar
+            </button>
+            }
           </td>
           <td class="text-center"></td>
         </tr>

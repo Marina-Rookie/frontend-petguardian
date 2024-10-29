@@ -27,4 +27,12 @@ export class ReservaService extends ApiService<Reserva>{
   cancelarReserva(idReserva: string): Observable<any> {
     return this.http.put<any>(`${this.authURL}reservas/cancelar/${idReserva}`, {});
   }
+
+  aprobarReserva(idReserva: string): Observable<any> {
+    return this.http.put<any>(`${this.authURL}reservas/aprobar/${idReserva}`, {});
+  }
+
+  rechazarReserva(idReserva: string): Observable<any> {
+    return this.http.put<any>(`${this.authURL}reservas/rechazar/${idReserva}`, {});
+  }
 }
