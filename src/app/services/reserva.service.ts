@@ -20,6 +20,10 @@ export class ReservaService extends ApiService<Reserva>{
     return this.http.get<Reserva[]>(`${this.authURL}reservas/reservasPorCliente/${idCliente}`);
   }
 
+  getReservasPorCuidador(idCuidador: string): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`${this.authURL}reservas/reservasPorCuidador/${idCuidador}`);
+  }
+
   cancelarReserva(idReserva: string): Observable<any> {
     return this.http.put<any>(`${this.authURL}reservas/cancelar/${idReserva}`, {});
   }

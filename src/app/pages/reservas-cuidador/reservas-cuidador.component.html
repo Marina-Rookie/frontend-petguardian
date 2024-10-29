@@ -1,0 +1,57 @@
+<div class="row">
+  <h2>Tus reservas</h2>
+  <nz-divider></nz-divider>
+  @if (!loading) {
+  <div class="mt-4">
+    <nz-table [nzData]="reservas">
+      <thead>
+        <tr>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Estado</th>
+          <th>Nombre Cliente</th>
+          <th>Telefono Cliente</th>
+          <th>Mascotas</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (reserva of reservas; track reserva._id) {
+        <tr>
+          <td>{{ reserva.fechaInicio | date : "dd-MM-yyyy" }}</td>
+          <td>{{ reserva.fechaFin | date : "dd-MM-yyyy" }}</td>
+          <td>
+            @if (reserva.estado.estado == 'Cancelada' || reserva.estado.estado
+            == 'No aprobada') {
+            <nz-badge nzStatus="error"></nz-badge>
+            } @if (reserva.estado.estado == 'Pendiente') {
+            <nz-badge nzStatus="processing"></nz-badge>
+            } @if (reserva.estado.estado == 'Finalizada' ||
+            reserva.estado.estado == 'Aprobada') {
+            <nz-badge nzStatus="success"></nz-badge>
+            }
+            {{ reserva.estado.estado }}
+          </td>
+          <td>{{ reserva.cliente.nombre }} {{reserva.cliente.apellido}}</td>
+          <td>{{ reserva.cliente.telefono }}</td>
+          <td>
+            @for(m of reserva.mascotas; track m){
+            {{ m.nombre }}
+            }
+          </td>
+          <td>${{ reserva.tarifaTurno * reserva.contadorTurnos }}</td>
+          <td class="text-center">
+            5
+            <span nz-icon nzType="star" nzTheme="outline"></span>
+          </td>
+          <td class="text-center"></td>
+        </tr>
+        }
+      </tbody>
+    </nz-table>
+  </div>
+  } @else {
+  <nz-spin [nzSize]="'large'"></nz-spin>
+  }
+</div>

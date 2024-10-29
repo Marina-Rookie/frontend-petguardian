@@ -41,9 +41,9 @@
                 </button>
               </li>
             }
-            @if (localstorage.getIsCliente()) {
+            @if (localstorage.getIsCliente() || localstorage.getIsCuidadorHabilitado()) {
               <li>
-                <button mat-button class="sidenav-item" routerLink="/reservas">
+                <button mat-button class="sidenav-item" routerLink="{{localstorage.getIsCliente() ? '/reservas' : '/reservas-cuidador'}}">
                   <div>
                     <span nz-icon nzType="book" nzTheme="outline"  class="nz-icon"></span>
                   </div>
