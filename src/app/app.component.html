@@ -1,25 +1,15 @@
 @if (userIsLogged()) {
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer mode="side" [opened]="true">
+    <mat-sidenav #drawer mode="side" [opened]="!isMobile || drawerOpened" (closedStart)="drawerOpened = false">
       <div class="menu-items">
         <div class="logo mt-4 p-2">
-          <img src="../assets/logo3.png" alt="logo" style="height: 128px; width: 160px;"/>
+          <img src="../assets/logo3.png" alt="logo" style="height: 128px; width: 160px;" />
         </div>
         <nav>
           <ul>
-            <!-- <li>
-              <button mat-button class="sidenav-item" routerLink="/dashboard">
-                <div>
-                  <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
-                </div>
-                <div>
-                  <span>Inicio</span>
-                </div>
-              </button>
-            </li> -->
             @if (localstorage.getIsAdmin()) {
               <li>
-                <button mat-button class="sidenav-item" routerLink="/aprobar-cuidadores">
+                <button mat-button class="sidenav-item" routerLink="/aprobar-cuidadores" (click)="closeSidenavIfMobile()">
                   <div>
                     <span nz-icon nzType="usergroup-add" nzTheme="outline" class="nz-icon"></span>
                   </div>
@@ -31,7 +21,7 @@
             }
             @if (localstorage.getIsCliente() || localstorage.getIsCuidador()) {
               <li>
-                <button mat-button class="sidenav-item" routerLink="/perfil">
+                <button mat-button class="sidenav-item" routerLink="/perfil" (click)="closeSidenavIfMobile()">
                   <div>
                     <span nz-icon nzType="user" nzTheme="outline" class="nz-icon"></span>
                   </div>
@@ -43,9 +33,9 @@
             }
             @if (localstorage.getIsCliente() || localstorage.getIsCuidadorHabilitado()) {
               <li>
-                <button mat-button class="sidenav-item" routerLink="{{localstorage.getIsCliente() ? '/reservas' : '/reservas-cuidador'}}">
+                <button mat-button class="sidenav-item" routerLink="{{localstorage.getIsCliente() ? '/reservas' : '/reservas-cuidador'}}" (click)="closeSidenavIfMobile()">
                   <div>
-                    <span nz-icon nzType="book" nzTheme="outline"  class="nz-icon"></span>
+                    <span nz-icon nzType="book" nzTheme="outline" class="nz-icon"></span>
                   </div>
                   <div>
                     <span>Tus reservas</span>
@@ -55,7 +45,7 @@
             }
             @if (localstorage.getIsCliente()) {
               <li>
-                <button mat-button class="sidenav-item" routerLink="/cuidadores">
+                <button mat-button class="sidenav-item" routerLink="/cuidadores" (click)="closeSidenavIfMobile()">
                   <div>
                     <span nz-icon nzType="home" nzTheme="outline" class="nz-icon"></span>
                   </div>
@@ -66,7 +56,7 @@
               </li>
             }
             <li>
-              <button mat-button class="sidenav-item" routerLink="/login">
+              <button mat-button class="sidenav-item" routerLink="/login" (click)="closeSidenavIfMobile()">
                 <div>
                   <span nz-icon nzType="logout" nzTheme="outline" class="nz-icon"></span>
                 </div>
@@ -80,6 +70,9 @@
       </div>
     </mat-sidenav>
     <mat-sidenav-content>
+      <button mat-icon-button (click)="drawer.toggle()" class="toggle-button">
+        <span nz-icon nzType="menu" nzTheme="outline"></span>
+      </button>
       <div class="contenedor">
         <router-outlet></router-outlet>
       </div>
@@ -89,5 +82,3 @@
 @if(!userIsLogged()) {
   <router-outlet></router-outlet>
 }
-
-

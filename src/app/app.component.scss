@@ -57,3 +57,11 @@ padding: 0px;
   padding: 50px;
   background-color: #ffff;
 }
+
+@media (max-width: 768px) {
+  .contenedor {
+    margin: 20px;
+    padding: 20px;
+    width: calc(100vw - 40px);
+  }
+}
