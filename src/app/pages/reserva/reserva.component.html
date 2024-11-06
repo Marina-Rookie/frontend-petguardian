@@ -3,7 +3,12 @@
     Tus reservas
   </h2>
   <nz-divider></nz-divider>
-  @if (!loading) {
+  
+  <!-- Spinner de carga -->
+  <nz-spin [nzSize]="'large'" *ngIf="loading"></nz-spin>
+
+  <!-- Vista de tabla para pantallas grandes -->
+  @if(!loading && !isMobile){
     <div class="mt-4">
       <nz-table [nzData]="reservas">
         <thead>
@@ -12,66 +17,82 @@
             <th>Fecha Fin</th>
             <th>Estado</th>
             <th>Cuidador</th>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <th>Mascotas</th>
             <th>Precio</th>
-            <th>Puntuacion</th>
+            <th>Puntuación</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          @for (reserva of reservas; track reserva._id) {
+          @for (reserva of reservas; track $index) {
             <tr>
-              <td>{{reserva.fechaInicio | date: 'dd-MM-yyyy'}}</td>
-              <td>{{reserva.fechaFin | date: 'dd-MM-yyyy'}}</td>
+              <td>{{ reserva.fechaInicio | date: 'dd-MM-yyyy' }}</td>
+              <td>{{ reserva.fechaFin | date: 'dd-MM-yyyy' }}</td>
               <td>
-                @if (reserva.estado.estado == 'Cancelada' || reserva.estado.estado == 'No aprobada') {
-                  <nz-badge nzStatus="error"></nz-badge>
-                }
-                @if (reserva.estado.estado == 'Pendiente') {
-                  <nz-badge nzStatus="processing"></nz-badge>
-                }
-                @if (reserva.estado.estado == 'Finalizada' || reserva.estado.estado == 'Aprobada') {
-                  <nz-badge nzStatus="success"></nz-badge>
-                }
-                {{reserva.estado.estado}}</td>
-              <td>{{reserva.cuidador.nombre}} {{reserva.cuidador.apellido}}</td>
-              <td>{{reserva.cuidador.telefono}}</td>
-              <td>@for(m of reserva.mascotas; track m){
-                  {{m.nombre}}
-              }
+                <nz-badge [nzStatus]="getStatus(reserva.estado.estado)"></nz-badge>
+                {{ reserva.estado.estado }}
               </td>
-              <td>${{reserva.tarifaTurno * reserva.contadorTurnos}}</td>
+              <td>{{ reserva.cuidador.nombre }} {{ reserva.cuidador.apellido }}</td>
+              <td>{{ reserva.cuidador.telefono }}</td>
+              <td>@for(m of reserva.mascotas; track m){
+                {{m.nombre}}
+              }
+            </td>
+              <td>$ {{ reserva.tarifaTurno * reserva.contadorTurnos }}</td>
               <td class="text-center">
                 5
                 <span nz-icon nzType="star" nzTheme="outline"></span>
               </td>
               <td class="text-center">
-                @if (reserva.estado.estado == 'Finalizada') {
-                  <button nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
-                }
-                @if (reserva.estado.estado == 'Pendiente') {
-                  <button nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
-                }
+                <button *ngIf="reserva.estado.estado == 'Finalizada'" nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
+                <button *ngIf="reserva.estado.estado == 'Pendiente'" nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
               </td>
             </tr>
           }
         </tbody>
       </nz-table>
     </div>
-  } @else {
-    <nz-spin [nzSize]="'large'"></nz-spin>
   }
+
+  <!-- Vista de tarjetas para pantallas móviles -->
+   @if (!loading && isMobile) {
+     <div class="mt-4">
+      @for (reserva of reservas; track $index) {
+        <div class="mb-3">
+          <nz-card [nzTitle]="'Reserva de ' + reserva.cuidador.nombre + ' ' + reserva.cuidador.apellido">
+            <p><strong>Fecha Inicio:</strong> {{ reserva.fechaInicio | date: 'dd-MM-yyyy' }}</p>
+            <p><strong>Fecha Fin:</strong> {{ reserva.fechaFin | date: 'dd-MM-yyyy' }}</p>
+            <p><strong>Estado:    </strong> 
+              <nz-badge [nzStatus]="getStatus(reserva.estado.estado)"></nz-badge>{{ reserva.estado.estado }}
+            </p>
+            <p><strong>Teléfono cuidador:</strong> {{ reserva.cuidador.telefono }}</p>
+            <p><strong>Mascotas:</strong> @for(m of reserva.mascotas; track m){
+                {{m.nombre}}
+            }</p>
+            <p><strong>Precio:</strong> ${{ reserva.tarifaTurno * reserva.contadorTurnos }}</p>
+            <p><strong>Puntuación:</strong> 5 <span nz-icon nzType="star" nzTheme="outline"></span></p>
+            <div class="text-center">
+              <button *ngIf="reserva.estado.estado == 'Finalizada'" nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
+              <button *ngIf="reserva.estado.estado == 'Pendiente'" nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
+            </div>
+          </nz-card>
+        </div>
+      }
+     </div>
+   }
+
+  <!-- Modal para reseña -->
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñar cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <div>
+        <strong>Puntuación:</strong>
+        <nz-rate [(ngModel)]="puntuacion" [nzAllowHalf]="true"></nz-rate>
+      </div>
+      <div class="mt-2">
+        <strong>Comentario:</strong>
+        <nz-input [(ngModel)]="comentario"></nz-input>
+      </div>
+    </ng-container>
+  </nz-modal>
 </div>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñar cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <ng-container *nzModalContent>
-    <div>
-      Puntuacion:
-      <nz-rate [(ngModel)]="puntuacion" [nzAllowHalf]="true"></nz-rate>
-    </div>
-    <div class="mt-2">
-      Comentario:
-      <nz-input [(ngModel)]="comentario" ></nz-input>
-    </div>
-  </ng-container>
-</nz-modal>

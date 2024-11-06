@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService } from '../../services/localstorage.service';
@@ -15,21 +15,27 @@ import { NgZorroModule } from '../../ngzorro.module';
   styleUrl: './reserva.component.scss'
 })
 export class ReservaComponent {
-
   isVisible = false;
   puntuacion = 0;
   comentario = '';
   idCliente: string = '';
   reservas: Reserva[] = [];
   loading: boolean = false;
+  isMobile: boolean = window.innerWidth <= 768;
 
-  constructor(private service: ReservaService,
+  constructor(
+    private service: ReservaService,
     private localStorageService: LocalStorageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.idCliente = this.localStorageService.getIdUsuario();
     this.getReservas();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 768;
   }
 
   getReservas(): void {
@@ -42,7 +48,22 @@ export class ReservaComponent {
       error: (error: any) => {
         this.loading = false;
       }
-     });
+    });
+  }
+
+  getStatus(estado: string): string {
+    switch (estado) {
+      case 'Cancelada':
+      case 'No aprobada':
+        return 'error';
+      case 'Pendiente':
+        return 'processing';
+      case 'Finalizada':
+      case 'Aprobada':
+        return 'success';
+      default:
+        return 'default';
+    }
   }
 
   openModal(reserva: Reserva): void {
@@ -59,12 +80,8 @@ export class ReservaComponent {
 
   cancelarReserva(reserva: Reserva): void {
     this.service.cancelarReserva(reserva._id).subscribe({
-      next: (data: any) => {
-        this.getReservas();
-      },
-      error: (error: any) => {
-        console.error(error);
-      }
+      next: () => this.getReservas(),
+      error: (error: any) => console.error(error)
     });
   }
 }
