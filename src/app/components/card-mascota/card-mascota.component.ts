@@ -29,6 +29,7 @@ export class CardMascotaComponent implements OnInit {
 
   ngOnInit(): void {
     this.idMascota = this.mascota._id;
+    this.mascota.urlImagen = this.mascota.urlImagen ? this.mascota.urlImagen : 'https://res.cloudinary.com/dddkkhrih/image/upload/v1729643117/fsn7sjzhcpzwo3qccpud.jpg';
   }
 
   editMascota() {
