@@ -91,10 +91,12 @@
                 </nz-form-item>
               </div>
             }
-            <div class="col-6 mt-3 d-flex justify-content-center align-items-center">
-              <button nz-button nzSize="large" nzType="primary" (click)="actualizarDatosPerfil()" class="w-100">
-                Guardar datos
-              </button>
+            <div class="row mt-3 d-flex justify-content-center align-items-center">
+              <div class="col-3 col-sm-6 col-md-3">
+                <button nz-button nzSize="large" nzType="primary" (click)="actualizarDatosPerfil()" class="w-100">
+                  Guardar datos
+                </button>
+              </div>
             </div>
           </div>
         </form>
@@ -105,26 +107,41 @@
   }
   @if(isCliente) {
     @if(!loadingMascotas) {
-      <div class="row">
+      <div class="container">
         <nz-divider nzText="Mis mascotas"></nz-divider>
-        <div class="d-flex justify-content-center flex-wrap">
-          <div class="row row-cols-2 row-cols-md-auto justify-content-center">
-            @for (m of mascotas; track m._id) {
-              <div class="col mb-3">
-                <app-card-mascota [mascota]="m" (recargarMascotas)="recargarMascotas()"></app-card-mascota>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10">
+            @if (isMobile) {
+              <!-- Botón para agregar mascota en vista móvil -->
+              <div class="col-12 mb-3">
+                <button nz-button nzType="primary" nzBlock (click)="showModal()">
+                  <span nz-icon nzType="plus"></span> Agregar mascota
+                </button>
               </div>
             }
-            <div class="col mb-3">
-              <nz-card
-                style="width: 100%; max-width: 300px; height: 365px; margin-top: 15px; border-radius: 20px;"
-                [nzBodyStyle]="{ height: '100%', border: '1px dashed orange', 'border-radius': '20px' }"
-              >
-                <div class="row justify-content-center align-items-center" style="height: 100%">
-                  <button class="add-button w-100" (click)="showModal()">
-                    <span nz-icon nzType="plus" nzTheme="outline"></span>
-                  </button>
+            <div class="row row-cols-2 row-cols-md-auto justify-content-center">
+              <!-- Tarjetas de mascotas -->
+              @for (m of mascotas; track m._id) {
+                <div class="col">
+                  <app-card-mascota [mascota]="m" (recargarMascotas)="recargarMascotas()"></app-card-mascota>
                 </div>
-              </nz-card>
+              }
+
+              @if (!isMobile) {
+                <!-- Botón para agregar mascota -->
+                <div class="col">
+                  <nz-card
+                    class="card-agregar"
+                    [nzBodyStyle]="{ height: '100%', border: '1px dashed orange', 'border-radius': '20px' }"
+                  >
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100%">
+                      <button class="add-button" (click)="showModal()">
+                        <span nz-icon nzType="plus" nzTheme="outline"></span>
+                      </button>
+                    </div>
+                  </nz-card>
+                </div>
+              }
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CardMascotaComponent } from '../../components/card-mascota/card-mascota.component';
 import { NuevaMascotaComponent } from '../nueva-mascota/nueva-mascota.component';
 import { CommonModule } from '@angular/common';
@@ -33,6 +33,7 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class PerfilComponent implements OnInit {
   isVisible = false;
+  isMobile: boolean = false;
   formPerfilCliente: FormGroup = new FormGroup({});
   formPerfilCuidador: FormGroup = new FormGroup({});
   idUsuario: string = '';
@@ -57,6 +58,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkScreenSize();
     this.idUsuario = this.localStorageService.getIdUsuario();
     this.url = this.urlApi + 'usuarios/upload/' + this.idUsuario;
     this.isCliente = this.localStorageService.getIsCliente();
@@ -194,5 +196,14 @@ export class PerfilComponent implements OnInit {
 
   recargarMascotas() {
     this.getMascotasPorUsuario();
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
   }
 }
