@@ -2,3 +2,17 @@
   border-radius: 50%;
   margin: 5px;
 }
+
+.card-mascota {
+  width: 300px;
+  height: 365px;
+  margin-top: 15px;
+  border-radius: 20px;
+}
+
+
+@media (min-width: 769px) and (max-width: 1500px) {
+  .card-mascota {
+    width: 250px;
+  }
+}
