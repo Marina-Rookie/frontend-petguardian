@@ -51,6 +51,7 @@ export class LoginComponent {
       password: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
       cuidador: [false, [Validators.required]],
     });
   }
