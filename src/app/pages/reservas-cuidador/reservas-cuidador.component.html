@@ -72,7 +72,7 @@
 
             <div class="text-center mt-3">
               @if (reserva.estado.estado == 'Pendiente') {
-                <button nz-button nzType="primary" nzSize="small" (click)="aprobarReserva(reserva._id)">
+                <button nz-button nzType="primary" nzSize="small" (click)="aprobarReserva(reserva._id)" style="margin-right: 10px;">
                   Aprobar
                 </button>
                 <button nz-button nzType="default" nzSize="small" (click)="rechazarReserva(reserva._id)">
