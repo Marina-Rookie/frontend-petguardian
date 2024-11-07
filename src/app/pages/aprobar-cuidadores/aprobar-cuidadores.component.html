@@ -1,7 +1,7 @@
 <h2>Cuidadores pendientes de aprobación</h2>
 <nz-divider></nz-divider>
 
-<!-- Vista de tabla para pantallas grandes -->
+<!-- Tabla para pc -->
 <div class="d-none d-md-block">
   <nz-table #cuidadores [nzData]="cuidadoresPendientes" [nzBordered]="true">
     <thead>
@@ -28,7 +28,7 @@
   </nz-table>
 </div>
 
-<!-- Vista de tarjetas para dispositivos móviles -->
+<!-- Cards en  mobile -->
 <div class="d-md-none">
   @for (data of cuidadores.data; track $index) {
     <nz-card class="mb-3" nzBordered>
