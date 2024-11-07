@@ -59,4 +59,19 @@ export class ReservasCuidadorComponent {
       }
     });
   }
+
+  getStatusBadge(estado: string): string {
+    switch (estado) {
+      case 'Cancelada':
+      case 'No aprobada':
+        return 'error';
+      case 'Pendiente':
+        return 'processing';
+      case 'Finalizada':
+      case 'Aprobada':
+        return 'success';
+      default:
+        return 'default';
+    }
+  }
 }
