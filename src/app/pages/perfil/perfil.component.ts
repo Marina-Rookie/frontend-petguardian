@@ -106,7 +106,7 @@ export class PerfilComponent implements OnInit {
       nombreContactoEmergencia: data.nombreContactoEmergencia ?? '',
       contactoEmergencia: data.contactoEmergencia ?? '',
     });
-    this.urlPerfil = data.imagenPerfil;
+    this.urlPerfil = data.imagenPerfil ? data.imagenPerfil : 'https://res.cloudinary.com/dddkkhrih/image/upload/v1729643117/fsn7sjzhcpzwo3qccpud.jpg';
   }
 
   setDatosformPerfilCuidador(data: any) {
@@ -119,7 +119,7 @@ export class PerfilComponent implements OnInit {
       descripcionPersonal: data.descripcionPersonal ?? '',
       tarifaHora: data.tarifaHora ?? '',
     });
-    this.urlPerfil = data.imagenPerfil;
+    this.urlPerfil = data.imagenPerfil ? data.imagenPerfil : 'https://res.cloudinary.com/dddkkhrih/image/upload/v1729643117/fsn7sjzhcpzwo3qccpud.jpg';
   }
 
   initForm() {

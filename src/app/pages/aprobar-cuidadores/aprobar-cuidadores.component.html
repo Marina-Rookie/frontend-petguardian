@@ -1,27 +1,50 @@
-<h2>
-  Cuidadores pendientes de aprobacion
-</h2>
+<h2>Cuidadores pendientes de aprobación</h2>
 <nz-divider></nz-divider>
-<nz-table #cuidadores [nzData]="cuidadoresPendientes" [nzBordered]="true">
-  <thead>
-    <tr>
-      <th>Nombre Cuidador</th>
-      <th>Email</th>
-      <th>Teléfono</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (data of cuidadores.data; track $index) {
+
+<!-- Vista de tabla para pantallas grandes -->
+<div class="d-none d-md-block">
+  <nz-table #cuidadores [nzData]="cuidadoresPendientes" [nzBordered]="true">
+    <thead>
       <tr>
-        <td>{{ data.nombre }} {{data.apellido}}</td>
-        <td>{{ data.email }}</td>
-        <td>{{ data.telefono }}</td>
-        <td>
-          <button nz-button nzType="primary" (click)="aprobar(data)" class="ml-4">Aprobar</button>
-          <button nz-button nzType="default" (click)="rechazar(data)">Rechazar</button>
-        </td>
+        <th>Nombre Cuidador</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
       </tr>
-    }
-  </tbody>
-</nz-table>
+    </thead>
+    <tbody>
+      @for (data of cuidadores.data; track $index) {
+        <tr>
+          <td>{{ data.nombre }} {{ data.apellido }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.telefono }}</td>
+          <td>
+            <button nz-button nzType="primary" (click)="aprobar(data)" class="ml-4">Aprobar</button>
+            <button nz-button nzType="default" (click)="rechazar(data)">Rechazar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>
+
+<!-- Vista de tarjetas para dispositivos móviles -->
+<div class="d-md-none">
+  @for (data of cuidadores.data; track $index) {
+    <nz-card class="mb-3" nzBordered>
+      <nz-card-meta
+        [nzTitle]="data.nombre + ' ' + data.apellido"
+        [nzDescription]="data.email">
+      </nz-card-meta>
+
+      <div class="mt-2">
+        <p><strong>Teléfono:</strong> {{ data.telefono }}</p>
+      </div>
+
+      <div class="text-center mt-3">
+        <button nz-button nzType="primary" nzSize="small" (click)="aprobar(data)" style="margin-right: 8px;">Aprobar</button>
+        <button nz-button nzType="default" nzSize="small" (click)="rechazar(data)">Rechazar</button>
+      </div>
+    </nz-card>
+  }
+</div>
