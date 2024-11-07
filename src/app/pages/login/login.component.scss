@@ -2,55 +2,84 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #114357;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #F29492, #114357);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #F29492, #114357); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.login-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  min-height: 100vh;
+  background-color: #f0f2f5;
   padding: 20px;
-  max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  nz-form-item {
+
+  .login-card {
     width: 100%;
-  }
-  a {
-    color: black;
-    text-decoration: underline;
-    &:active {
-      color: black;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    ::ng-deep {
+      .ant-card-head {
+        border-bottom: none;
+        padding: 24px 24px 0;
+
+        .ant-card-head-title {
+          font-size: 24px;
+          font-weight: 600;
+          text-align: center;
+          color: #1890ff;
+        }
+      }
+
+      .ant-card-body {
+        padding: 24px;
+      }
+
+      .cover-image {
+        padding: 24px;
+        background-color: #f9f9f9;
+        text-align: center;
+
+        img {
+          max-width: 200px;
+          height: auto;
+        }
+      }
+
+      .ant-form-item {
+        margin-bottom: 24px;
+      }
+
+      .ant-input-affix-wrapper {
+        padding: 8px 11px;
+      }
+
+      .ant-btn {
+        height: 40px;
+        font-size: 16px;
+      }
+
+      .ant-divider {
+        margin: 24px 0;
+        color: rgba(0, 0, 0, 0.45);
+      }
+
+      .login-button {
+        margin-top: 8px;
+      }
+
+      .ant-checkbox-wrapper {
+        color: rgba(0, 0, 0, 0.65);
+      }
     }
   }
 }
 
-.login-button {
-  margin: auto;
-  width: 50%;
-  height: 40px;
-}
+@media (max-width: 575px) {
+  .login-container {
+    .login-card {
+      ::ng-deep {
+        .ant-card-head-title {
+          font-size: 20px;
+        }
 
-.width-47 {
-  width: 47%;
+        .cover-image img {
+          max-width: 150px;
+        }
+      }
+    }
+  }
 }
-
-.ml-auto {
-  margin-left: auto;
-}
-.mr-auto {
-  margin-right: auto;
-}
-
-

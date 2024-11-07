@@ -95,4 +95,14 @@ export class LoginComponent {
     this.localStorage.setItem('rol', data['rol']);
     this.router.navigate(['/perfil']);
   }
+
+  onStatusChange(field: string) {
+    const form = this.formLogin ? this.loginForm : this.registerForm;
+    const control = form.get(field);
+    if (control) {
+      control.markAsDirty();
+      control.updateValueAndValidity({ onlySelf: true });
+    }
+  }
+
 }

@@ -3,70 +3,123 @@
     @if(formLogin){
     <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()" nzLayout="vertical">
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzFor="username">Ingresa tu email</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="email" id="username" placeholder="Email" />
+        <nz-form-control [nzErrorTip]="emailErrorTpl">
+          <nz-input-group nzPrefixIcon="user">
+            <input nz-input formControlName="email" placeholder="Email" (nzStatusChange)="onStatusChange('email')" />
+          </nz-input-group>
+          <ng-template #emailErrorTpl let-control>
+            @if(control.dirty && control.errors?.['required']) {
+              Por favor ingresa tu email
+            } @else if(control.dirty && control.errors?.['email']) {
+              Por favor ingresa un email válido
+            }
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzFor="password">Ingresa tu contraseña</nz-form-label>
-        <nz-form-control>
-          <input nz-input type="password" formControlName="password" id="password" placeholder="Contraseña" />
+        <nz-form-control [nzErrorTip]="passwordErrorTpl">
+          <nz-input-group nzPrefixIcon="lock">
+            <input nz-input type="password" formControlName="password" placeholder="Contraseña" (nzStatusChange)="onStatusChange('password')" />
+          </nz-input-group>
+          <ng-template #passwordErrorTpl let-control>
+            @if(control.dirty && control.errors?.['required']) {
+              Por favor ingresa tu contraseña
+            } @else if(control.dirty && control.errors?.['minlength']) {
+              La contraseña debe tener al menos 6 caracteres
+            }
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-control [nzSpan]="24">
-          <button nz-button nzType="primary" [disabled]="loginForm.invalid" class="login-button" type="submit">
+        <nz-form-control>
+          <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="loginForm.invalid" class="login-button" nzBlock>
             @if (!loading) {
               Iniciar sesión
             } @else {
-              <i nz-icon nzType="loading" nzTheme="outline"></i>
+              Iniciando sesión...
             }
           </button>
         </nz-form-control>
-        <nz-form-control [nzSpan]="24" class="text-center mt-2">
-          <a (click)="formLogin = false">Clickea acá para registrarte!</a>
+      </nz-form-item>
+      
+      <nz-divider nzText="ó"></nz-divider>
+      
+      <nz-form-item>
+        <nz-form-control>
+          <a nz-button nzType="default" (click)="formLogin = false" nzBlock>Registrarse</a>
         </nz-form-control>
       </nz-form-item>
     </form>
     } @else{
     <form nz-form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()" nzLayout="vertical">
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzFor="username">Ingresa tu email</nz-form-label>
-        <nz-form-control>
-          <input nz-input id="username" formControlName="email" placeholder="Email" />
+        <nz-form-control [nzErrorTip]="emailErrorTpl">
+          <nz-input-group nzPrefixIcon="mail">
+            <input nz-input formControlName="email" placeholder="Email" (nzStatusChange)="onStatusChange('email')" />
+          </nz-input-group>
+          <ng-template #emailErrorTpl let-control>
+            @if(control.dirty && control.errors?.['required']) {
+              Por favor ingresa tu email
+            } @else if(control.dirty && control.errors?.['email']) {
+              Por favor ingresa un email válido
+            }
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzFor="telefono">Ingresa tu telefono</nz-form-label>
-        <nz-form-control>
-          <input nz-input id="telefono" formControlName="telefono" placeholder="Teléfono" />
+        <nz-form-control [nzErrorTip]="telefonoErrorTpl">
+          <nz-input-group nzPrefixIcon="phone">
+            <input nz-input formControlName="telefono" placeholder="Teléfono" (nzStatusChange)="onStatusChange('telefono')" />
+          </nz-input-group>
+          <ng-template #telefonoErrorTpl let-control>
+            @if(control.dirty && control.errors?.['required']) {
+              Por favor ingresa tu teléfono
+            } @else if(control.dirty && control.errors?.['pattern']) {
+              Por favor ingresa un teléfono válido
+            }
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzFor="password">Ingresa una contraseña</nz-form-label>
-        <nz-form-control>
-          <input nz-input type="password" formControlName="password" id="password" placeholder="Contraseña" />
+        <nz-form-control [nzErrorTip]="passwordErrorTpl">
+          <nz-input-group nzPrefixIcon="lock">
+            <input nz-input type="password" formControlName="password" placeholder="Contraseña" (nzStatusChange)="onStatusChange('password')" />
+          </nz-input-group>
+          <ng-template #passwordErrorTpl let-control>
+            @if(control.dirty && control.errors?.['required']) {
+              Por favor ingresa una contraseña
+            } @else if(control.dirty && control.errors?.['minlength']) {
+              La contraseña debe tener al menos 6 caracteres
+            }
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item nz-row nzJustify="space-between">
-        <div class="width-47 mr-auto">
-          <nz-form-label nzFor="nombre">Nombre</nz-form-label>
-          <nz-form-control>
-            <input nz-input type="text" formControlName="nombre" id="nombre" placeholder="Nombre" />
+      <nz-form-item nz-row [nzGutter]="8">
+        <nz-col [nzSpan]="12">
+          <nz-form-control [nzErrorTip]="nombreErrorTpl">
+            <input nz-input formControlName="nombre" placeholder="Nombre" (nzStatusChange)="onStatusChange('nombre')" />
+            <ng-template #nombreErrorTpl let-control>
+              @if(control.dirty && control.errors?.['required']) {
+                Por favor ingresa tu nombre
+              }
+            </ng-template>
           </nz-form-control>
-        </div>
-        <div class="width-47 ml-auto">
-          <nz-form-label nzFor="apellido">Apellido</nz-form-label>
-          <nz-form-control>
-            <input nz-input type="text" formControlName="apellido" id="apellido" placeholder="Apellido" />
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-form-control [nzErrorTip]="apellidoErrorTpl">
+            <input nz-input formControlName="apellido" placeholder="Apellido" (nzStatusChange)="onStatusChange('apellido')" />
+            <ng-template #apellidoErrorTpl let-control>
+              @if(control.dirty && control.errors?.['required']) {
+                Por favor ingresa tu apellido
+              }
+            </ng-template>
           </nz-form-control>
-        </div>
+        </nz-col>
       </nz-form-item>
 
       <nz-form-item>
@@ -76,18 +129,22 @@
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-control [nzSpan]="24">
-          <button nz-button nzType="primary" class="login-button" type="submit">
-            
+        <nz-form-control>
+          <button nz-button nzType="primary" [nzLoading]="loading" class="login-button" nzBlock>
             @if (!loading) {
-              Registrate
+              Registrarse
             } @else {
-              <i nz-icon nzType="loading" nzTheme="outline"></i>
+              Registrando...
             }
           </button>
         </nz-form-control>
-        <nz-form-control [nzSpan]="24" class="text-center mt-2">
-          <a (click)="formLogin = true">Inicia sesion</a>
+      </nz-form-item>
+      
+      <nz-divider nzText="ó"></nz-divider>
+      
+      <nz-form-item>
+        <nz-form-control>
+          <a nz-button nzType="default" (click)="formLogin = true" nzBlock>Iniciar sesión</a>
         </nz-form-control>
       </nz-form-item>
     </form>
