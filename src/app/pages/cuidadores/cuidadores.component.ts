@@ -5,22 +5,34 @@ import { CommonModule } from '@angular/common';
 import { Cuidador } from '../../models/Cuidador';
 import { CuidadorService } from '../../services/cuidador.service';
 import { NgZorroModule } from '../../ngzorro.module';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cuidadores',
   standalone: true,
-  imports: [NgZorroModule, CardCuidadorComponent, CommonModule],
+  imports: [NgZorroModule, CardCuidadorComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './cuidadores.component.html',
-  styleUrl: './cuidadores.component.scss',
+  styleUrls: ['./cuidadores.component.scss']
 })
 export class CuidadoresComponent implements OnInit {
   cuidadores: Cuidador[] = [];
+  cuidadoresFiltrados: Cuidador[] = [];
   loading: boolean = false;
+  searchForm: FormGroup;
 
-  constructor(private cuidadorService: CuidadorService) {}
+  constructor(
+    private cuidadorService: CuidadorService,
+    private fb: FormBuilder
+  ) {
+    this.searchForm = this.fb.group({
+      nombre: [''],
+      puntuacion: [null]
+    });
+  }
 
   ngOnInit() {
     this.getCuidadores();
+    this.searchForm.valueChanges.subscribe(() => this.filtrarCuidadores());
   }
 
   getCuidadores() {
@@ -28,12 +40,22 @@ export class CuidadoresComponent implements OnInit {
     this.cuidadorService.getCuidadoresHabilitados().subscribe({
       next: (cuidadores) => {
         this.cuidadores = cuidadores;
+        this.filtrarCuidadores();
         this.loading = false;
       },
       error: (error) => {
         console.error(error);
         this.loading = false;
       },
+    });
+  }
+
+  filtrarCuidadores() {
+    const { nombre, puntuacion } = this.searchForm.value;
+    this.cuidadoresFiltrados = this.cuidadores.filter(cuidador => {
+      const cumpleNombre = !nombre || cuidador.nombre.toLowerCase().includes(nombre.toLowerCase());
+      const cumplePuntuacion = puntuacion === null || cuidador.promedioPuntuacion >= puntuacion;
+      return cumpleNombre && cumplePuntuacion;
     });
   }
 }

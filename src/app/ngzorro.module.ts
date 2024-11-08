@@ -50,7 +50,8 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzImageModule } from 'ng-zorro-antd/image';
-
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 // Import all NG Zorro components
 
 @NgModule({
@@ -106,7 +107,9 @@ import { NzImageModule } from 'ng-zorro-antd/image';
     NzStatisticModule,
     NzSpaceModule,
     NzTypographyModule,
-    NzImageModule
+    NzImageModule,
+    NzEmptyModule,
+    NzInputNumberModule
   ],
 })
 export class NgZorroModule { }

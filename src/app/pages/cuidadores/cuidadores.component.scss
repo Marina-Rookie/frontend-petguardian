@@ -1,0 +1,24 @@
+.cuidadores-container {
+    padding: 20px;
+  
+    .search-form {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+  
+      nz-form-item {
+        flex: 1;
+      }
+    }
+  
+    .spinner-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+  
+    .row {
+      gap: 16px;
+    }
+  }
