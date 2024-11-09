@@ -5,8 +5,13 @@
       <nz-calendar
         [(ngModel)]="date"
         (nzSelectChange)="onDateSelect($event)"
+        (nzValueChange)="onMonthChange($event)"
         [nzDisabledDate]="disabledDate"
-      ></nz-calendar>
+      >
+      <ng-container *nzDateCell="let date">
+        <div [innerHTML]="dateCellRender(date)"></div>
+      </ng-container>
+    </nz-calendar>
     </div>
     <div nz-col [nzSpan]="12">
       <h3 nz-typography>Turnos para {{ date | date:'fullDate' }}</h3>
