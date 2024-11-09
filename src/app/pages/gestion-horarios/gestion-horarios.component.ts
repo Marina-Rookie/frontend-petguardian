@@ -6,6 +6,7 @@ import { NgZorroModule } from '../../ngzorro.module';
 import { DisponibilidadService } from '../../services/disponibilidadhoraria.service';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { FiltrarPorFechaPipe } from '../../pipes/filtrar-fecha.pipe';
+import { NzMessageService } from 'ng-zorro-antd/message';
 interface DisponibilidadHoraria {
   _id: string;
   fecha: Date;
@@ -32,7 +33,8 @@ export class GestionHorariosComponent {
 
   constructor(
     private i18n: NzI18nService,
-    private disponibilidadService: DisponibilidadService
+    private disponibilidadService: DisponibilidadService,
+    private msg: NzMessageService,
   ) {}
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class GestionHorariosComponent {
   onDateSelect(date: Date): void {
     this.date = date;
     this.turnosDisponibles = [];
-    this.generarTurnos();
+    this.generarTurnos(date);
   }
 
   getDisponiblidad() {
@@ -58,46 +60,19 @@ export class GestionHorariosComponent {
     });
   }
 
-  // generarTurnos(): void {
-  //   this.turnosDisponibles = [];
-  //   for (let i = 7; i < 22; i++) {
-  //     this.turnosDisponibles.push({ hora: i, selected: false });
-  //   }
-  // }
-
-  generarTurnos(): void {
+  generarTurnos(date: Date): void {
     this.turnosDisponibles = [];
-
-    // for (let d = new Date(hoy); d <= unMesDespues; d.setDate(d.getDate() + 1)) {
-    this.disponibilidadHoraria.forEach((disp) => {
-      const fecha = new Date(disp.fecha);
-      disp.horas.forEach((hora) => {
-        const selected = true;
-        this.turnosDisponibles.push({ fecha, hora: parseInt(hora), selected });
-      });
-    });
-
-    // for (let i = 7; i < 22; i++) {
-    //   const fecha = new Date();
-    //   const disponibilidad = this.disponibilidadHoraria.find(
-    //     disp => new Date(disp.fecha).toDateString() === fecha.toDateString()
-    //   )
-    //   const selected = disponibilidad ? disponibilidad.horas.includes(i.toString()) : false;
-    //   this.turnosDisponibles.push({ fecha, hora: i, selected });
-    // }
-    //}
-  }
-
-  onTurnoChange(turno: { hora: number; selected: boolean }): void {
-    console.log(
-      `Turno ${turno.hora}:00 - ${turno.hora + 1}:00 ${
-        turno.selected ? 'seleccionado' : 'deseleccionado'
-      }`
+    const disponibilidad = this.disponibilidadHoraria.find(
+      (disp) => this.compareDates(date, new Date(disp.fecha))
     );
+    for (let i = 7; i < 22; i++) {
+      const selected = disponibilidad ? disponibilidad.horas.includes(i.toString()) : false;
+      this.turnosDisponibles.push({ fecha: date, hora: i, selected });
+    }
   }
 
   disabledDate = (current: Date): boolean => {
-    return current < new Date();
+    return current <= new Date();
   };
 
   guardarTurnos(): void {
@@ -115,13 +90,15 @@ export class GestionHorariosComponent {
     };
 
     console.log(nuevaDisponibilidad);
-    this.disponibilidadService.postTurnos(nuevaDisponibilidad).subscribe(
-      (response) => {
-        console.log(response);
+    this.disponibilidadService.postTurnos(nuevaDisponibilidad).subscribe({
+      next: (response) => {
+        this.msg.success('Turnos guardados correctamente');
+        this.getDisponiblidad();
       },
-      (error) => {
-        console.error(error);
-      }
+      error: (error) => {
+        this.msg.error('Error al guardar los turnos');
+      },
+    }
     );
   }
 
@@ -131,7 +108,6 @@ export class GestionHorariosComponent {
       date.getFullYear() === this.currentYear
     ) {
     for (const disp of this.disponibilidadHoraria) {
-      console.log(disp);
       if (this.compareDates(date, new Date(disp.fecha))) {
         //console.log('entro')
         const horasSeleccionadas = disp.horas.join(', ');

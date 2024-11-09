@@ -17,7 +17,7 @@ export class DisponibilidadService extends ApiService<any> {
   }
 
   postTurnos(entity: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}disponibilidadCuidador/update`, entity);
+    return this.http.post<any>(`${this.baseUrl}/update`, entity);
   }
 
 }
