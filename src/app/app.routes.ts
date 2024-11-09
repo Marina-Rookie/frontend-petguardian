@@ -7,7 +7,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { AuthGuardService } from './services/auth/auth.guard';
 import { AprobarCuidadoresComponent } from './pages/aprobar-cuidadores/aprobar-cuidadores.component';
 import { ReservasCuidadorComponent } from './pages/reservas-cuidador/reservas-cuidador.component';
-import { GestionHorariosComponent } from './components/pages/gestion-horarios/gestion-horarios.component';
+import { GestionHorariosComponent } from './pages/gestion-horarios/gestion-horarios.component';
 
 export const routes: Routes = [
   { path: 'cuidadores', component: CuidadoresComponent, canActivate: [AuthGuardService]},

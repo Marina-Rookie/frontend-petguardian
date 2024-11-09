@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgZorroModule } from '../../../ngzorro.module';
+import { NgZorroModule } from '../../ngzorro.module';
 import { en_US, es_ES, NzI18nService } from 'ng-zorro-antd/i18n';
-import { DisponibilidadService } from '../../../services/disponibilidadhoraria.service';
-import { LocalStorageService } from '../../../services/localstorage.service';
+import { DisponibilidadService } from '../../services/disponibilidadhoraria.service';
+import { LocalStorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-gestion-horarios',
