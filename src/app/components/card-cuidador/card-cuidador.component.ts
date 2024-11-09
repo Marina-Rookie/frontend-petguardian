@@ -5,6 +5,7 @@ import { Cuidador } from '../../models/Cuidador';
 import { NgZorroModule } from '../../ngzorro.module';
 import { ModalReservaComponent } from '../modal-reserva/modal-reserva.component';
 import { ModalService } from '../../services/shared/modals.service';
+import { ModalReseniaComponent } from '../modal-resenia/modal-resenia.component';
 
 @Component({
   selector: 'app-card-cuidador',
@@ -13,7 +14,8 @@ import { ModalService } from '../../services/shared/modals.service';
     NgZorroModule,
     CommonModule,
     RouterModule,
-    ModalReservaComponent
+    ModalReservaComponent,
+    ModalReseniaComponent
   ],
   templateUrl: './card-cuidador.component.html',
   styleUrl: './card-cuidador.component.scss',
@@ -31,5 +33,9 @@ export class CardCuidadorComponent {
 
   showModal(): void {
     this.modalService.showReservaModal();
+  }
+
+  showModalResenias(): void {
+    this.modalService.showReseniasModal();
   }
 }

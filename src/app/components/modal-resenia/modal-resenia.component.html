@@ -1,0 +1,11 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñas del cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  @for (resenia of resenias; track $index) {
+    <nz-card>
+      <p>{{ resenia.comentario }}</p>
+      <p>{{ resenia.puntuacion }}</p>
+    </nz-card>
+  }
+  @if(resenias.length === 0) {
+    <nz-empty [nzNotFoundContent]="'El cuidador aun no ha recibido reseñas'"></nz-empty>
+  }
+</nz-modal>

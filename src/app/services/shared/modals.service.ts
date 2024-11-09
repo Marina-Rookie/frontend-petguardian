@@ -14,6 +14,9 @@ export class ModalService {
   private mascotaEditModal = new BehaviorSubject<any>(null);
   mascotaEditModal$ = this.mascotaEditModal.asObservable();
 
+  private reseniasModal = new BehaviorSubject<boolean>(false);
+  reseniasModal$ = this.reseniasModal.asObservable();
+
   showModal() {
     this.isVisibleSubject.next(true);
   }
@@ -32,5 +35,13 @@ export class ModalService {
 
   hideReservaModal() {
     this.isVisibleModalReserva.next(false);
+  }
+
+  showReseniasModal() {
+    this.reseniasModal.next(true);
+  }
+
+  hideReseniasModal() {
+    this.reseniasModal.next(false);
   }
 }
