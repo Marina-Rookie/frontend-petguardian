@@ -16,6 +16,7 @@ import { MascotaService } from '../../services/mascota.service';
 import { CuidadorService } from '../../services/cuidador.service';
 import { ClienteService } from '../../services/cliente.service';
 import { environment } from '../../../environments/environment.prod';
+import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-perfil',
@@ -68,6 +69,12 @@ export class PerfilComponent implements OnInit {
     this.buscarDatosPerfil();
     if (this.isCliente) {
       this.getMascotasPorUsuario();
+    }
+  }
+
+  uploadFotoPerfil(file: NzUploadChangeParam){
+    if (file.type === 'success') {
+      this.urlPerfil = file.file.response.usuario.imagenPerfil;
     }
   }
 
