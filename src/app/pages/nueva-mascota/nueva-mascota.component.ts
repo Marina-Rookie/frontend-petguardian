@@ -17,6 +17,7 @@ import { NgZorroModule } from '../../ngzorro.module';
 import { MascotaService } from '../../services/mascota.service';
 import { EtapasVidaService } from '../../services/etapasvida.service';
 import { TiposMascotaService } from '../../services/tiposmascota.service';
+import { Mascota } from '../../models/Mascota';
 
 @Component({
   selector: 'app-nueva-mascota',
@@ -35,14 +36,14 @@ export class NuevaMascotaComponent implements OnInit {
   @Input() idMascota: number = 0;
   @Output() recargarMascotas: EventEmitter<any> = new EventEmitter<any>();
   loading = false;
-  avatarUrl?: string;
-  mascota: any;
+  mascota: Mascota = {} as Mascota;
   tiposMascota: TipoMascota[] = [];
   etapasVida: EtapaVida[] = [];
   formMascota: FormGroup = new FormGroup({});
   isVisible = false;
   fileList: NzUploadFile[] = [];
   formData: FormData = new FormData();
+  urlFallback = 'https://via.placeholder.com/300';
 
   constructor(
     private msg: NzMessageService,
@@ -113,11 +114,6 @@ export class NuevaMascotaComponent implements OnInit {
     return false; // Evita la carga automática
   };
 
-  handleChange(info: { file: NzUploadFile }): void {
-    if (info.file.status === 'removed') {
-    }
-  }
-
   submitForm() {
     const nuevaMascota = this.formMascota.value;
     nuevaMascota.usuario = this.localStorageService.getIdUsuario();
@@ -126,6 +122,8 @@ export class NuevaMascotaComponent implements OnInit {
         next: (data: any) => {
           this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
             next: (data) => {
+              console.log(data);
+              this.mascota = data.mascota;
               console.log('Imagen subida con éxito');
             },
             error: (error) => {
@@ -142,8 +140,9 @@ export class NuevaMascotaComponent implements OnInit {
       console.log('Actualizando mascota');
       this.mascotaService.put(nuevaMascota, this.mascota._id).subscribe({
         next: (data: any) => {
-          this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
+          this.mascotaService.postImagenMascota(this.mascota._id, this.formData).subscribe({
             next: (data) => {
+              this.mascota = data.mascota;
               console.log('Imagen subida con éxito');
             },
             error: (error) => {

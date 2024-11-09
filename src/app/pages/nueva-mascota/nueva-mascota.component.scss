@@ -1,6 +1,10 @@
-:host ::ng-deep .avatar-uploader > .ant-upload {
-  width: 200px;
-  height: 200px;
-  margin-left: 25%;
+img {
+  border-radius: 50%;
 }
 
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 80%;
+  height: 250px;
+  margin-left: 5%;
+  margin-top: 15px;
+}

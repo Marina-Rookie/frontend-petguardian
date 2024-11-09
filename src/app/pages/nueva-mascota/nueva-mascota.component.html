@@ -9,23 +9,19 @@
     <div class="row">
       <form [formGroup]="formMascota">
         <div class="row">
-          <div class="col" style="display: flex; align-items: center">
+          <div class="col d-flex flex-column align-items-center justify-content-center">
+            <img nz-image width="150px" height="150px" [nzSrc]="mascota?.urlImagen || urlFallback" alt=""/>
             <nz-upload
               class="avatar-uploader"
               nzName="avatar"
               [(nzFileList)]="fileList"
+              [nzFileType]="'image/png,image/jpeg'"
+              [nzShowUploadList]="false"
               [nzBeforeUpload]="beforeUpload"
-              (nzChange)="handleChange($event)"
             >
-              <ng-container *ngIf="!avatarUrl">
-                <!-- <span
-                  class="upload-icon"
-                  nz-icon
-                  nzType="loading ? 'loading' : 'plus'"
-                ></span> -->
+              <ng-container>
                 <div class="ant-upload-text">Cargar Foto</div>
               </ng-container>
-              <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
             </nz-upload>
           </div>
           <div class="col">
