@@ -3,7 +3,7 @@
     Tus reservas
   </h2>
   <nz-divider></nz-divider>
-  
+
   <!-- Spinner de carga -->
   <nz-spin [nzSize]="'large'" *ngIf="loading"></nz-spin>
 
@@ -41,8 +41,12 @@
             </td>
               <td>$ {{ reserva.tarifaTurno * reserva.contadorTurnos }}</td>
               <td class="text-center">
-                5
-                <span nz-icon nzType="star" nzTheme="outline"></span>
+                @if (reserva.resenia?.puntuacion) {
+                  <span nz-icon nzType="star" nzTheme="outline"></span>
+                  {{reserva.resenia?.puntuacion}}
+                } @else {
+                  Sin reseñar
+                }
               </td>
               <td class="text-center">
                 <button *ngIf="reserva.estado.estado == 'Finalizada'" nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
@@ -63,7 +67,7 @@
           <nz-card [nzTitle]="'Reserva de ' + reserva.cuidador.nombre + ' ' + reserva.cuidador.apellido">
             <p><strong>Fecha Inicio:</strong> {{ reserva.fechaInicio | date: 'dd-MM-yyyy' }}</p>
             <p><strong>Fecha Fin:</strong> {{ reserva.fechaFin | date: 'dd-MM-yyyy' }}</p>
-            <p><strong>Estado:    </strong> 
+            <p><strong>Estado:    </strong>
               <nz-badge [nzStatus]="getStatus(reserva.estado.estado)"></nz-badge>{{ reserva.estado.estado }}
             </p>
             <p><strong>Teléfono cuidador:</strong> {{ reserva.cuidador.telefono }}</p>
@@ -91,7 +95,7 @@
       </div>
       <div class="mt-2">
         <strong>Comentario:</strong>
-        <nz-input [(ngModel)]="comentario"></nz-input>
+        <textarea rows="4" nz-input [(ngModel)]="comentario"></textarea>
       </div>
     </ng-container>
   </nz-modal>

@@ -2,6 +2,7 @@ import { Cliente } from "./Cliente";
 import { Cuidador } from "./Cuidador";
 import { Estado } from "./Estado";
 import { Mascota } from "./Mascota";
+import { Resenia } from "./Resenia";
 
 export interface Reserva {
   _id: string;
@@ -12,6 +13,7 @@ export interface Reserva {
   cliente: Cliente;
   mascotas: Mascota[];
   estado: Estado;
+  resenia?: Resenia;
   contadorTurnos: number;
   numeroReserva: number;
   comentario: string;
