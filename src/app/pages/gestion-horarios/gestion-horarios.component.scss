@@ -6,3 +6,12 @@
 [nz-form] {
   max-width: 600px;
 }
+.turnos-dia {
+  font-size: 15px;
+}
+
+@media (max-width: 800px) {
+  .turnos-dia {
+    font-size: 5px;
+  }
+}
