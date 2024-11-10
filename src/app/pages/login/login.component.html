@@ -43,9 +43,9 @@
           </button>
         </nz-form-control>
       </nz-form-item>
-      
+
       <nz-divider nzText="ó"></nz-divider>
-      
+
       <nz-form-item>
         <nz-form-control>
           <a nz-button nzType="default" (click)="formLogin = false" nzBlock>Registrarse</a>
@@ -130,7 +130,7 @@
 
       <nz-form-item>
         <nz-form-control>
-          <button nz-button nzType="primary" [nzLoading]="loading" class="login-button" nzBlock>
+          <button nz-button nzType="primary" [nzLoading]="loading" class="login-button" nzBlock [disabled]="registerForm.invalid">
             @if (!loading) {
               Registrarse
             } @else {
@@ -139,9 +139,9 @@
           </button>
         </nz-form-control>
       </nz-form-item>
-      
+
       <nz-divider nzText="ó"></nz-divider>
-      
+
       <nz-form-item>
         <nz-form-control>
           <a nz-button nzType="default" (click)="formLogin = true" nzBlock>Iniciar sesión</a>
