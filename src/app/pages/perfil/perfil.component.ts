@@ -39,6 +39,7 @@ export class PerfilComponent implements OnInit {
   formPerfilCuidador: FormGroup = new FormGroup({});
   idUsuario: string = '';
   isCliente: boolean = false;
+  isAdmin: boolean = false;
   isCuidadorPendiente: boolean = false;
   mascotas: any = [];
   url: string = '';
@@ -63,6 +64,7 @@ export class PerfilComponent implements OnInit {
     this.idUsuario = this.localStorageService.getIdUsuario();
     this.url = this.urlApi + 'usuarios/upload/' + this.idUsuario;
     this.isCliente = this.localStorageService.getIsCliente();
+    this.isAdmin = this.localStorageService.getIsAdmin();
     this.isCuidadorPendiente =
       this.localStorageService.getIsCuidadorPendiente();
     this.initForm();

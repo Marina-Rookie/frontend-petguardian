@@ -73,7 +73,7 @@
                 </nz-form-item>
               </div>
             }
-            @if(!isCliente) {
+            @if(!isCliente && !isAdmin) {
               <div class="col-12 col-sm-6">
                 <nz-form-item>
                   <nz-form-label nzFor="descripcionPersonal">Descripción personal</nz-form-label>
