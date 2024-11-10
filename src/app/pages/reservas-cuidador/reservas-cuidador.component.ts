@@ -4,11 +4,13 @@ import { ReservaService } from '../../services/reserva.service';
 import { Reserva } from '../../models/Reserva';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reservas-cuidador',
   standalone: true,
-  imports: [NgZorroModule],
+  imports: [NgZorroModule, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './reservas-cuidador.component.html',
   styleUrl: './reservas-cuidador.component.scss',
 })
@@ -16,6 +18,10 @@ export class ReservasCuidadorComponent {
   loading: boolean = false;
   reservas: Reserva[] = [];
   idCuidador: string = '';
+  isVisible = false;
+  comentario: string = '';
+  puntuacion: number = 0;
+  reservaSeleccionada: Reserva = {} as Reserva;
 
   constructor(
     private service: ReservaService,
@@ -85,5 +91,22 @@ export class ReservasCuidadorComponent {
       default:
         return 'default';
     }
+  }
+
+  openModal(reserva: Reserva): void {
+    this.isVisible = true;
+    if(reserva.resenia) {
+      this.comentario = reserva.resenia.comentario;
+      this.puntuacion = reserva.resenia.puntuacion;
+    }
+    this.reservaSeleccionada = reserva;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 }
