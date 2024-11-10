@@ -9,23 +9,32 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   standalone: true,
   imports: [NgZorroModule],
   templateUrl: './aprobar-cuidadores.component.html',
-  styleUrl: './aprobar-cuidadores.component.scss'
+  styleUrl: './aprobar-cuidadores.component.scss',
 })
 export class AprobarCuidadoresComponent implements OnInit {
   cuidadoresPendientes: Cuidador[] = [];
 
-  constructor(private service: CuidadorService, private msg: NzMessageService) {
-  }
+  constructor(
+    private service: CuidadorService,
+    private msg: NzMessageService
+  ) {}
 
   ngOnInit() {
     this.getCuidadoresPendientes();
   }
 
   getCuidadoresPendientes() {
-    this.service.getCuidadoresPendientes().subscribe((cuidadores: Cuidador[]) => {
-      this.cuidadoresPendientes = cuidadores;
+    this.service.getCuidadoresPendientes().subscribe({
+      next: (cuidadores: Cuidador[]) => {
+        this.cuidadoresPendientes = cuidadores;
+      },
+      error: (error) => {
+        this.msg.error('Error al cargar los cuidadores pendientes');
+        this.cuidadoresPendientes = [];
+      },
     });
   }
+  
   aprobar(cuidador: Cuidador) {
     this.service.habilitarCuidador(cuidador._id).subscribe(() => {
       this.getCuidadoresPendientes();
