@@ -44,6 +44,11 @@
                       Rechazar
                     </button>
                   }
+                  @if(reserva.estado.estado == 'Aprobada') {
+                    <button nz-button nzType="default" nzSize="small" (click)="anularReserva(reserva._id)">
+                      Anular
+                    </button>
+                  }
                 </td>
               </tr>
             }
@@ -60,7 +65,7 @@
               [nzTitle]="'Reserva de ' + reserva.cliente.nombre + ' ' + reserva.cliente.apellido"
               [nzDescription]="'Desde: ' + (reserva.fechaInicio | date: 'dd-MM-yyyy') + ' hasta ' + (reserva.fechaFin | date: 'dd-MM-yyyy')">
             </nz-card-meta>
-            
+
             <div>
               <p><strong>Estado:</strong> <nz-badge [nzStatus]="getStatusBadge(reserva.estado.estado)"></nz-badge> {{ reserva.estado.estado }}</p>
               <p><strong>Teléfono Cliente:</strong> {{ reserva.cliente.telefono }}</p>

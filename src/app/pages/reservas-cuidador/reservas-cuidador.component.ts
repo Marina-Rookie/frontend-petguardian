@@ -60,6 +60,18 @@ export class ReservasCuidadorComponent {
     });
   }
 
+  anularReserva(idReserva: string) {
+    this.service.anularReserva(idReserva).subscribe({
+      next: (res) => {
+        this.msg.success('Reserva anulada');
+        this.getReservas();
+      },
+      error: (err) => {
+        this.msg.error('Error al anular la reserva');
+      }
+    });
+  }
+
   getStatusBadge(estado: string): string {
     switch (estado) {
       case 'Cancelada':
