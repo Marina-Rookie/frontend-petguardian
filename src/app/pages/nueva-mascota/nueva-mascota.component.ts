@@ -40,7 +40,7 @@ export class NuevaMascotaComponent implements OnInit {
   isVisible = false;
   fileList: NzUploadFile[] = [];
   formData: FormData = new FormData();
-  urlFallback = 'https://via.placeholder.com/300';
+  urlImagen: string = 'https://via.placeholder.com/300';
 
   constructor(
     private msg: NzMessageService,
@@ -64,8 +64,10 @@ export class NuevaMascotaComponent implements OnInit {
         this.formMascota.patchValue(mascota);
         this.formMascota.controls['tipoMascota'].setValue(mascota.tipoMascota._id);
         this.formMascota.controls['etapaVida'].setValue(mascota.etapaVida._id);
+        if (mascota.urlImagen) this.urlImagen = mascota.urlImagen;
       } else {
         this.formMascota.reset();
+        this.urlImagen = 'https://via.placeholder.com/300';
       }
     });
     this.getTiposMascota();
@@ -151,5 +153,6 @@ export class NuevaMascotaComponent implements OnInit {
 
   handleCancel(): void {
     this.modalService.hideModal();
+    this.urlImagen = 'https://via.placeholder.com/300';
   }
 }
