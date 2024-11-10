@@ -50,7 +50,7 @@
                     </button>
                   }
                   @if (reserva.estado.estado == 'Finalizada' && reserva.resenia) {
-                    <button nz-button nzType="default" (click)="openModal(reserva)">
+                    <button nz-button nzType="default" (click)="openModal(reserva)" style="width: 120px;">
                       Ver reseña
                     </button>
                   }
@@ -95,7 +95,7 @@
                 </button>
               }
               @if (reserva.estado.estado == 'Finalizada' && reserva.resenia) {
-                <button nz-button nzType="default" (click)="openModal(reserva)">
+                <button nz-button nzType="default" (click)="openModal(reserva)" style="width: 120px;">
                   Ver reseña
                 </button>
               }
