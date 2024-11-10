@@ -1,63 +1,65 @@
-<nz-modal
-  [(nzVisible)]="isVisible"
-  nzTitle="Solicitar una reserva para el cuidador {{ cuidador.nombre }} {{
-    cuidador.apellido
-  }}"
-  nzWidth="700px"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
->
-  <ng-container *nzModalContent>
-    <div class="row">
-      <form [formGroup]="formReserva">
-        <nz-form-item>
-          <nz-form-label nzFor="fechaInicio">Fecha Inicio</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="fechaInicio" type="date" formControlName="fechaInicio" (change)="getTurnosDisponibles()" />
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzFor="fechaFin">Fecha Fin</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <input nz-input name="fechaFin" type="date" formControlName="fechaFin" (change)="getTurnosDisponibles()"/>
-          </nz-form-control>
-        </nz-form-item>
-        @if(turnosDisponibles.length > 0) {
+@if(isVisible) {
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Solicitar una reserva para el cuidador {{ cuidador.nombre }} {{
+      cuidador.apellido
+    }}"
+    nzWidth="700px"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+  >
+    <ng-container *nzModalContent>
+      <div class="row">
+        <form [formGroup]="formReserva">
           <nz-form-item>
-            <nz-form-label nzFor="turno">Turno</nz-form-label>
+            <nz-form-label nzFor="fechaInicio">Fecha Inicio</nz-form-label>
             <nz-form-control [nzSpan]="24">
-              <nz-select nzPlaceHolder="Seleccione el turno de la reserva" formControlName="horaTurno">
-                @for (turno of turnosDisponibles; track turno) {
-                <nz-option [nzLabel]="turno" [nzValue]="turno"></nz-option>
-                }
-              </nz-select>
+              <input nz-input name="fechaInicio" type="date" formControlName="fechaInicio" (change)="getTurnosDisponibles()" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label nzFor="mascotas">Mascotas</nz-form-label>
+            <nz-form-label nzFor="fechaFin">Fecha Fin</nz-form-label>
             <nz-form-control [nzSpan]="24">
-              <nz-select
-                nzMode="multiple"
-                nzPlaceHolder="Seleccione las mascotas de la reserva"
-                formControlName="mascotas"
-              >
-                @for (m of mascotas; track m) {
-                <nz-option
-                  [nzLabel]="m.nombre"
-                  [nzValue]="m._id"
-                ></nz-option>
-                }
-              </nz-select>
+              <input nz-input name="fechaFin" type="date" formControlName="fechaFin" (change)="getTurnosDisponibles()"/>
             </nz-form-control>
           </nz-form-item>
-          <nz-form-item>
-            <nz-form-label nzFor="comentarios">Comentarios</nz-form-label>
-            <nz-form-control [nzSpan]="24">
-              <textarea nz-input type="text" formControlName="comentario"></textarea>
-            </nz-form-control>
-          </nz-form-item>
-        }
-      </form>
-    </div>
-  </ng-container>
-</nz-modal>
+          @if(turnosDisponibles.length > 0) {
+            <nz-form-item>
+              <nz-form-label nzFor="turno">Turno</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <nz-select nzPlaceHolder="Seleccione el turno de la reserva" formControlName="horaTurno">
+                  @for (turno of turnosDisponibles; track turno) {
+                  <nz-option [nzLabel]="turno" [nzValue]="turno"></nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="mascotas">Mascotas</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <nz-select
+                  nzMode="multiple"
+                  nzPlaceHolder="Seleccione las mascotas de la reserva"
+                  formControlName="mascotas"
+                >
+                  @for (m of mascotas; track m) {
+                  <nz-option
+                    [nzLabel]="m.nombre"
+                    [nzValue]="m._id"
+                  ></nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="comentarios">Comentarios</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <textarea nz-input type="text" formControlName="comentario"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          }
+        </form>
+      </div>
+    </ng-container>
+  </nz-modal>
+}

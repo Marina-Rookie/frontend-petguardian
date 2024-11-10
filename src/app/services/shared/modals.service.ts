@@ -17,6 +17,12 @@ export class ModalService {
   private reseniasModal = new BehaviorSubject<boolean>(false);
   reseniasModal$ = this.reseniasModal.asObservable();
 
+  private cuidadorReseniasModal = new BehaviorSubject<any>(null);
+  cuidadorReseniasModal$ = this.cuidadorReseniasModal.asObservable();
+
+  private cuidadorReservaModal = new BehaviorSubject<any>(null);
+  cuidadorReservaModal$ = this.cuidadorReservaModal.asObservable();
+
   showModal() {
     this.isVisibleSubject.next(true);
   }
@@ -37,11 +43,19 @@ export class ModalService {
     this.isVisibleModalReserva.next(false);
   }
 
+  setCuidadorReseniasModal(cuidador: any) {
+    this.cuidadorReseniasModal.next(cuidador);
+  }
+
   showReseniasModal() {
     this.reseniasModal.next(true);
   }
 
   hideReseniasModal() {
     this.reseniasModal.next(false);
+  }
+
+  setCuidadorReservaModal(cuidador: any) {
+    this.cuidadorReservaModal.next(cuidador);
   }
 }

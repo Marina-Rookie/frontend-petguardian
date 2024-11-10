@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { CardCuidadorComponent } from '../../components/card-cuidador/card-cuidador.component';
 import { CommonModule } from '@angular/common';
-import { Cuidador } from '../../models/Cuidador';
-import { CuidadorService } from '../../services/cuidador.service';
-import { NgZorroModule } from '../../ngzorro.module';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CardCuidadorComponent } from '../../components/card-cuidador/card-cuidador.component';
+import { Cuidador } from '../../models/Cuidador';
+import { NgZorroModule } from '../../ngzorro.module';
+import { CuidadorService } from '../../services/cuidador.service';
 
 @Component({
   selector: 'app-cuidadores',

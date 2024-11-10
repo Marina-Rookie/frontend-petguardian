@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Cuidador } from '../../models/Cuidador';
 import { Resenia } from '../../models/Resenia';
@@ -13,18 +13,22 @@ import { ModalService } from '../../services/shared/modals.service';
   templateUrl: './modal-resenia.component.html',
   styleUrl: './modal-resenia.component.scss'
 })
-export class ModalReseniaComponent {
+export class ModalReseniaComponent implements OnInit {
 
-  @Input() cuidador: Cuidador = new Cuidador('', '', '', '', '', '', 0, '');
+  cuidador = {} as Cuidador;
   resenias: Resenia[] = [];
   isVisible = false;
 
-  constructor(private reseniaService: ReseniaService, private msg: NzMessageService, private modalService: ModalService) { }
+  constructor(private reseniaService: ReseniaService, private modalService: ModalService) { }
 
   ngOnInit(): void {
     this.modalService.reseniasModal$.subscribe((isVisible) => {
       this.isVisible = isVisible;
-      if(isVisible) this.getResenias();
+    });
+    this.modalService.cuidadorReseniasModal$.subscribe((cuidador) => {
+      if (cuidador === null) return;
+      this.cuidador = cuidador;
+      this.getResenias();
     });
   }
 

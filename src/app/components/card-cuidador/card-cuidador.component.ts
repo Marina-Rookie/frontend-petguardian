@@ -33,9 +33,11 @@ export class CardCuidadorComponent {
 
   showModal(): void {
     this.modalService.showReservaModal();
+    this.modalService.setCuidadorReservaModal(this.cuidador);
   }
 
   showModalResenias(): void {
     this.modalService.showReseniasModal();
+    this.modalService.setCuidadorReseniasModal(this.cuidador);
   }
 }

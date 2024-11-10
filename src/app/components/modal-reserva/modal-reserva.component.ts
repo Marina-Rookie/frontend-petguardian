@@ -1,7 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { NgZorroModule } from '../../ngzorro.module';
-import { ModalService } from '../../services/shared/modals.service';
-import { ApiService } from '../../services/api.service';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,11 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LocalStorageService } from '../../services/localstorage.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { TurnosService } from '../../services/turnos.service';
+import { NgZorroModule } from '../../ngzorro.module';
+import { LocalStorageService } from '../../services/localstorage.service';
 import { MascotaService } from '../../services/mascota.service';
 import { ReservaService } from '../../services/reserva.service';
+import { ModalService } from '../../services/shared/modals.service';
+import { TurnosService } from '../../services/turnos.service';
 
 @Component({
   selector: 'app-modal-reserva',
@@ -23,8 +22,7 @@ import { ReservaService } from '../../services/reserva.service';
   styleUrl: './modal-reserva.component.scss',
 })
 export class ModalReservaComponent {
-  @Input() cuidador: any = {};
-
+  cuidador: any = {};
   formReserva: FormGroup = new FormGroup({});
   isVisible = false;
   turnosDisponibles = [];
@@ -46,8 +44,12 @@ export class ModalReservaComponent {
     this.modalService.isVisibleModalReserva$.subscribe((isVisible) => {
       this.isVisible = isVisible;
     });
-    this.formInit();
-    this.getMascotasUsuario();
+    this.modalService.cuidadorReservaModal$.subscribe((cuidador) => {
+      if(cuidador === null) return;
+      this.cuidador = cuidador;
+      this.formInit();
+      this.getMascotasUsuario();
+    });
   }
 
   formInit() {
