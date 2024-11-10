@@ -1,5 +1,4 @@
-@if(isVisible) {
-  <nz-modal
+<nz-modal
     [(nzVisible)]="isVisible"
     nzTitle="Solicitar una reserva para el cuidador {{ cuidador.nombre }} {{
       cuidador.apellido
@@ -7,6 +6,7 @@
     nzWidth="700px"
     (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk()"
+    [nzOkDisabled]="formReserva.invalid"
   >
     <ng-container *nzModalContent>
       <div class="row">
@@ -62,4 +62,4 @@
       </div>
     </ng-container>
   </nz-modal>
-}
+
