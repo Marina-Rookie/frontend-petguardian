@@ -33,9 +33,6 @@ import { Mascota } from '../../models/Mascota';
 })
 export class NuevaMascotaComponent implements OnInit {
 
-  @Input() idMascota: number = 0;
-  @Output() recargarMascotas: EventEmitter<any> = new EventEmitter<any>();
-  loading = false;
   mascota: Mascota = {} as Mascota;
   tiposMascota: TipoMascota[] = [];
   etapasVida: EtapaVida[] = [];
@@ -131,6 +128,7 @@ export class NuevaMascotaComponent implements OnInit {
             },
           });
           this.msg.success('Mascota creada con éxito');
+          this.modalService.triggerRecargarMascotas();
         },
         error: (error) => {
           this.msg.error('Error al crear la mascota');
@@ -150,6 +148,7 @@ export class NuevaMascotaComponent implements OnInit {
             },
           });
           this.msg.success('Mascota actualizada con éxito');
+          this.modalService.triggerRecargarMascotas();
         }
       });
     }
@@ -162,6 +161,5 @@ export class NuevaMascotaComponent implements OnInit {
 
   handleCancel(): void {
     this.modalService.hideModal();
-    this.recargarMascotas.emit(true);
   }
 }

@@ -23,6 +23,9 @@ export class ModalService {
   private cuidadorReservaModal = new BehaviorSubject<any>(null);
   cuidadorReservaModal$ = this.cuidadorReservaModal.asObservable();
 
+  private recargarMascotasSubject = new BehaviorSubject<boolean>(false);
+  recargarMascotas$ = this.recargarMascotasSubject.asObservable();
+
   showModal() {
     this.isVisibleSubject.next(true);
   }
@@ -57,5 +60,9 @@ export class ModalService {
 
   setCuidadorReservaModal(cuidador: any) {
     this.cuidadorReservaModal.next(cuidador);
+  }
+
+  triggerRecargarMascotas() {
+    this.recargarMascotasSubject.next(true);
   }
 }
