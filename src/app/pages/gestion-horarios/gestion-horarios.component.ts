@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
+import { es_ES, NzI18nService } from 'ng-zorro-antd/i18n';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NgZorroModule } from '../../ngzorro.module';
 import { DisponibilidadService } from '../../services/disponibilidadhoraria.service';
-import { LocalStorageService } from '../../services/localstorage.service';
-import { FiltrarPorFechaPipe } from '../../pipes/filtrar-fecha.pipe';
-import { NzMessageService } from 'ng-zorro-antd/message';
 interface DisponibilidadHoraria {
   _id: string;
   fecha: Date;
@@ -38,7 +36,7 @@ export class GestionHorariosComponent {
   ) {}
 
   ngOnInit() {
-    this.i18n.setLocale(en_US);
+    this.i18n.setLocale(es_ES);
     this.getDisponiblidad();
   }
 
