@@ -84,7 +84,7 @@ export class ReservaComponent {
   handleOk(): void {
     this.isVisible = false;
     if (!this.reservaSeleccionada.resenia) {
-      const resenia = new Resenia(this.reservaSeleccionada!._id, this.puntuacion, this.comentario);
+      const resenia = new Resenia('', this.reservaSeleccionada!._id, this.puntuacion, this.comentario);
 
       this.reseniaService.post(resenia).subscribe({
         next: () => {

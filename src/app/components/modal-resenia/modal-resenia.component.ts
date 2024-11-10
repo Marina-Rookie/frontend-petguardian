@@ -23,7 +23,6 @@ export class ModalReseniaComponent {
 
   ngOnInit(): void {
     this.modalService.reseniasModal$.subscribe((isVisible) => {
-      console.log(isVisible);
       this.isVisible = isVisible;
       if(isVisible) this.getResenias();
     });
@@ -33,6 +32,7 @@ export class ModalReseniaComponent {
     this.reseniaService.getReseniasPorCuidador(this.cuidador._id).subscribe({
       next: (resenias: Resenia[]) => {
         this.resenias = resenias;
+        console.log(this.resenias)
       },
       error: (err) => {
         this.resenias = [];
