@@ -81,10 +81,22 @@
                 {{m.nombre}}
             }</p>
             <p><strong>Precio:</strong> ${{ reserva.tarifaTurno * reserva.contadorTurnos }}</p>
-            <p><strong>Puntuación:</strong> 5 <span nz-icon nzType="star" nzTheme="outline"></span></p>
+            <p><strong>Puntuación:</strong>
+              @if (reserva.resenia?.puntuacion) {
+                <span nz-icon nzType="star" nzTheme="outline"></span>
+                {{reserva.resenia?.puntuacion}}
+              } @else {
+                Sin reseñar
+              }
             <div class="text-center">
-              <button *ngIf="reserva.estado.estado == 'Finalizada'" nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
-              <button *ngIf="reserva.estado.estado == 'Pendiente'" nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
+                @if (reserva.estado.estado == 'Finalizada') {
+                  <button nz-button nzType="default" (click)="openModal(reserva)">
+                    {{reserva.resenia? 'Ver reseña' : 'Reseñar'}}
+                  </button>
+                }
+                @if(reserva.estado.estado == 'Pendiente') {
+                  <button nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
+                }
             </div>
           </nz-card>
         </div>
