@@ -73,7 +73,6 @@ export class PerfilComponent implements OnInit {
       this.getMascotasPorUsuario();
     }
     this.modalService.recargarMascotas$.subscribe((recargar) => {
-      console.log(recargar);
       if (recargar) {
         this.getMascotasPorUsuario();
       }

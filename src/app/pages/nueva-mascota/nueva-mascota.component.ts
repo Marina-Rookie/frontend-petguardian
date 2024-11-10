@@ -119,13 +119,8 @@ export class NuevaMascotaComponent implements OnInit {
         next: (data: any) => {
           this.mascotaService.postImagenMascota(data._id, this.formData).subscribe({
             next: (data) => {
-              console.log(data);
               this.mascota = data.mascota;
-              console.log('Imagen subida con éxito');
-            },
-            error: (error) => {
-              console.log('Error al subir la imagen');
-            },
+            }
           });
           this.msg.success('Mascota creada con éxito');
           this.modalService.triggerRecargarMascotas();
@@ -135,17 +130,12 @@ export class NuevaMascotaComponent implements OnInit {
         },
       });
     } else {
-      console.log('Actualizando mascota');
       this.mascotaService.put(nuevaMascota, this.mascota._id).subscribe({
         next: (data: any) => {
           this.mascotaService.postImagenMascota(this.mascota._id, this.formData).subscribe({
             next: (data) => {
               this.mascota = data.mascota;
-              console.log('Imagen subida con éxito');
-            },
-            error: (error) => {
-              console.log('Error al subir la imagen');
-            },
+            }
           });
           this.msg.success('Mascota actualizada con éxito');
           this.modalService.triggerRecargarMascotas();

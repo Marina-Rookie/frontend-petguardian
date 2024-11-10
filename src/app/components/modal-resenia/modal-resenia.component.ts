@@ -36,7 +36,6 @@ export class ModalReseniaComponent implements OnInit {
     this.reseniaService.getReseniasPorCuidador(this.cuidador._id).subscribe({
       next: (resenias: Resenia[]) => {
         this.resenias = resenias;
-        console.log(this.resenias)
       },
       error: (err) => {
         this.resenias = [];

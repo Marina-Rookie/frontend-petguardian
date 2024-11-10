@@ -50,7 +50,6 @@ export class GestionHorariosComponent {
     this.disponibilidadService.getAll().subscribe({
       next: (response) => {
         this.disponibilidadHoraria = response;
-        console.log(response);
       },
       error: (error) => {
         console.error(error);
@@ -80,14 +79,11 @@ export class GestionHorariosComponent {
         horaInicio: turno.hora,
       }));
 
-    console.log('Turnos guardados:', turnosSeleccionados);
-
     const nuevaDisponibilidad = {
       fecha: this.date,
       horarios: turnosSeleccionados,
     };
 
-    console.log(nuevaDisponibilidad);
     this.disponibilidadService.postTurnos(nuevaDisponibilidad).subscribe({
       next: (response) => {
         this.msg.success('Turnos guardados correctamente');
@@ -107,7 +103,6 @@ export class GestionHorariosComponent {
     ) {
     for (const disp of this.disponibilidadHoraria) {
       if (this.compareDates(date, new Date(disp.fecha))) {
-        //console.log('entro')
         const horasSeleccionadas = disp.horas.join(', ');
         return `
         <div class="turnos-dia">

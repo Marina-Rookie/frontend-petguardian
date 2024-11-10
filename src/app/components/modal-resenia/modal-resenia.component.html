@@ -2,7 +2,7 @@
   <nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñas del cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
       @for (resenia of resenias; track $index) {
-        <nz-card>
+        <nz-card class="mb-2">
           <div>
             <strong>Comentario: </strong>{{ resenia.comentario }}
           </div>
