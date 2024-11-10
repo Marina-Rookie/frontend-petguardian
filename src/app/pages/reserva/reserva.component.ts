@@ -5,6 +5,9 @@ import { LocalStorageService } from '../../services/localstorage.service';
 import { Reserva } from '../../models/Reserva';
 import { ReservaService } from '../../services/reserva.service';
 import { NgZorroModule } from '../../ngzorro.module';
+import { ReseniaService } from '../../services/resenia.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { Resenia } from '../../models/Resenia';
 
 
 @Component({
@@ -20,12 +23,15 @@ export class ReservaComponent {
   comentario = '';
   idCliente: string = '';
   reservas: Reserva[] = [];
+  reservaSeleccionada: Reserva = {} as Reserva;
   loading: boolean = false;
   isMobile: boolean = window.innerWidth <= 768;
 
   constructor(
     private service: ReservaService,
-    private localStorageService: LocalStorageService
+    private reseniaService: ReseniaService,
+    private localStorageService: LocalStorageService,
+    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -68,10 +74,31 @@ export class ReservaComponent {
 
   openModal(reserva: Reserva): void {
     this.isVisible = true;
+    if(reserva.resenia) {
+      this.comentario = reserva.resenia.comentario;
+      this.puntuacion = reserva.resenia.puntuacion;
+    }
+    this.reservaSeleccionada = reserva;
   }
 
   handleOk(): void {
     this.isVisible = false;
+    if (!this.reservaSeleccionada.resenia) {
+      const resenia = new Resenia(this.reservaSeleccionada!._id, this.puntuacion, this.comentario);
+
+      this.reseniaService.post(resenia).subscribe({
+        next: () => {
+          this.getReservas();
+          this.puntuacion = 0;
+          this.comentario = '';
+          this.msg.success('Reseña enviada correctamente');
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.msg.error('Ha ocurrido un error al enviar la reseña');
+        }
+      });
+    }
   }
 
   handleCancel(): void {

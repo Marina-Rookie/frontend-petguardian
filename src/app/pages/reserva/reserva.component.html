@@ -49,8 +49,14 @@
                 }
               </td>
               <td class="text-center">
-                <button *ngIf="reserva.estado.estado == 'Finalizada'" nz-button nzType="default" (click)="openModal(reserva)">Reseñar</button>
-                <button *ngIf="reserva.estado.estado == 'Pendiente'" nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
+                @if (reserva.estado.estado == 'Finalizada') {
+                  <button nz-button nzType="default" (click)="openModal(reserva)">
+                    {{reserva.resenia? 'Ver reseña' : 'Reseñar'}}
+                  </button>
+                }
+                @if(reserva.estado.estado == 'Pendiente') {
+                  <button nz-button nzType="default" nzDanger (click)="cancelarReserva(reserva)">Cancelar</button>
+                }
               </td>
             </tr>
           }
@@ -87,15 +93,15 @@
    }
 
   <!-- Modal para reseña -->
-  <nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñar cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="reservaSeleccionada.resenia? 'Reseñar cuidador' : 'Ver Reseñar'" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
       <div>
         <strong>Puntuación:</strong>
-        <nz-rate [(ngModel)]="puntuacion" [nzAllowHalf]="true"></nz-rate>
+        <nz-rate [(ngModel)]="puntuacion" [nzAllowHalf]="true" style="margin-left: 8px;" [disabled]="reservaSeleccionada.resenia? true : false"></nz-rate>
       </div>
       <div class="mt-2">
         <strong>Comentario:</strong>
-        <textarea rows="4" nz-input [(ngModel)]="comentario"></textarea>
+        <textarea rows="4" nz-input [(ngModel)]="comentario" [disabled]="reservaSeleccionada.resenia? true : false"></textarea>
       </div>
     </ng-container>
   </nz-modal>
