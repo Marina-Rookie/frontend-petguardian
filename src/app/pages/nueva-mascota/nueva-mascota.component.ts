@@ -162,6 +162,6 @@ export class NuevaMascotaComponent implements OnInit {
 
   handleCancel(): void {
     this.modalService.hideModal();
-    this.recargarMascotas.emit();
+    this.recargarMascotas.emit(true);
   }
 }
