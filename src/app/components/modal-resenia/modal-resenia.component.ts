@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { Cuidador } from '../../models/Cuidador';
 import { Resenia } from '../../models/Resenia';
 import { NgZorroModule } from '../../ngzorro.module';
@@ -18,6 +17,7 @@ export class ModalReseniaComponent implements OnInit {
   cuidador = {} as Cuidador;
   resenias: Resenia[] = [];
   isVisible = false;
+  loading = false;
 
   constructor(private reseniaService: ReseniaService, private modalService: ModalService) { }
 
@@ -33,12 +33,15 @@ export class ModalReseniaComponent implements OnInit {
   }
 
   getResenias() {
+    this.loading = true;
     this.reseniaService.getReseniasPorCuidador(this.cuidador._id).subscribe({
       next: (resenias: Resenia[]) => {
         this.resenias = resenias;
+        this.loading = false;
       },
       error: (err) => {
         this.resenias = [];
+        this.loading = false;
         console.log(err);
       }
     });

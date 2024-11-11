@@ -1,18 +1,23 @@
 @if(isVisible) {
   <nz-modal [(nzVisible)]="isVisible" nzTitle="Reseñas del cuidador" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
-      @for (resenia of resenias; track $index) {
-        <nz-card class="mb-2">
-          <div>
-            <strong>Comentario: </strong>{{ resenia.comentario }}
-          </div>
-          <div>
-            <strong>Puntuacion: </strong><span nz-icon nzType="star" nzTheme="outline"> </span>{{ resenia.puntuacion }}
-          </div>
-        </nz-card>
+      @if(!loading){
+        @for (resenia of resenias; track $index) {
+          <nz-card class="mb-2">
+            <div>
+              <strong>Comentario: </strong>{{ resenia.comentario }}
+            </div>
+            <div>
+              <strong>Puntuacion: </strong><span nz-icon nzType="star" nzTheme="outline"> </span>{{ resenia.puntuacion }}
+            </div>
+          </nz-card>
+        }
+        @if(resenias.length === 0) {
+          <nz-empty [nzNotFoundContent]="'El cuidador aun no ha recibido reseñas'"></nz-empty>
+        }
       }
-      @if(resenias.length === 0) {
-        <nz-empty [nzNotFoundContent]="'El cuidador aun no ha recibido reseñas'"></nz-empty>
+      @if(loading) {
+        <nz-spin [nzSize]="'large'"></nz-spin>
       }
     </ng-container>
   </nz-modal>

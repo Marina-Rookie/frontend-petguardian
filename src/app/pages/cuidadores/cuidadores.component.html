@@ -27,7 +27,7 @@
     </div>
   } @else {
     <div class="row row-cols-auto justify-content-center">
-      @for (cuidador of cuidadoresFiltrados; track cuidador._id) {
+      @for (cuidador of cuidadoresFiltrados; track $index) {
         <div class="col">
           <app-card-cuidador [cuidador]="cuidador"></app-card-cuidador>
         </div>
@@ -38,3 +38,5 @@
     }
   }
 </div>
+<app-modal-reserva></app-modal-reserva>
+<app-modal-resenia></app-modal-resenia>

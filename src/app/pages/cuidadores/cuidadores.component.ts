@@ -5,11 +5,13 @@ import { CardCuidadorComponent } from '../../components/card-cuidador/card-cuida
 import { Cuidador } from '../../models/Cuidador';
 import { NgZorroModule } from '../../ngzorro.module';
 import { CuidadorService } from '../../services/cuidador.service';
+import { ModalReseniaComponent } from '../../components/modal-resenia/modal-resenia.component';
+import { ModalReservaComponent } from '../../components/modal-reserva/modal-reserva.component';
 
 @Component({
   selector: 'app-cuidadores',
   standalone: true,
-  imports: [NgZorroModule, CardCuidadorComponent, CommonModule, ReactiveFormsModule],
+  imports: [NgZorroModule, CardCuidadorComponent, CommonModule, ReactiveFormsModule, ModalReseniaComponent, ModalReservaComponent],
   templateUrl: './cuidadores.component.html',
   styleUrls: ['./cuidadores.component.scss']
 })
