@@ -21,6 +21,10 @@ export class LocalStorageService {
     return localStorage.getItem('idUsuario') ?? '';
   }
 
+  getRol() {
+    return localStorage.getItem('rol') ?? '';
+  }
+
   getIsCliente() {
     return localStorage.getItem('rol') === 'Cliente';
   }
