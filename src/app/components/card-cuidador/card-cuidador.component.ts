@@ -20,9 +20,6 @@ export class CardCuidadorComponent {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-    if(this.cuidador.imagenPerfil != '' && this.cuidador.imagenPerfil != null) {
-      this.urlPerfil = this.cuidador.imagenPerfil;
-    }
   }
 
   showModal(): void {
