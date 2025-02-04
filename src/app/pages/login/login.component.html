@@ -5,7 +5,7 @@
       <nz-form-item>
         <nz-form-control [nzErrorTip]="emailErrorTpl">
           <nz-input-group nzPrefixIcon="user">
-            <input nz-input formControlName="email" placeholder="Email" (nzStatusChange)="onStatusChange('email')" />
+            <input nz-input formControlName="email" placeholder="Email" name="email" (nzStatusChange)="onStatusChange('email')" />
           </nz-input-group>
           <ng-template #emailErrorTpl let-control>
             @if(control.dirty && control.errors?.['required']) {
@@ -20,7 +20,7 @@
       <nz-form-item>
         <nz-form-control [nzErrorTip]="passwordErrorTpl">
           <nz-input-group nzPrefixIcon="lock">
-            <input nz-input type="password" formControlName="password" placeholder="Contraseña" (nzStatusChange)="onStatusChange('password')" />
+            <input nz-input type="password" formControlName="password" name="password" placeholder="Contraseña" (nzStatusChange)="onStatusChange('password')" />
           </nz-input-group>
           <ng-template #passwordErrorTpl let-control>
             @if(control.dirty && control.errors?.['required']) {
@@ -34,7 +34,7 @@
 
       <nz-form-item>
         <nz-form-control>
-          <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="loginForm.invalid" class="login-button" nzBlock>
+          <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="loginForm.invalid" class="login-button" type="submit" nzBlock>
             @if (!loading) {
               Iniciar sesión
             } @else {
