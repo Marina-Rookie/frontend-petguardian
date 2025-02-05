@@ -31,6 +31,18 @@
                 </button>
               </li>
             }
+            @if (localstorage.getIsAdmin()) {
+              <li>
+                <button mat-button class="sidenav-item" routerLink="/informes" (click)="closeSidenavIfMobile()">
+                  <div>
+                    <span nz-icon nzType="file-done" nzTheme="outline" class="nz-icon"></span>
+                  </div>
+                  <div>
+                    <span>Informes</span>
+                  </div>
+                </button>
+              </li>
+            }
             @if (localstorage.getIsCliente() || localstorage.getIsCuidadorHabilitado()) {
               <li>
                 <button mat-button class="sidenav-item" routerLink="{{localstorage.getIsCliente() ? '/reservas' : '/reservas-cuidador'}}" (click)="closeSidenavIfMobile()">

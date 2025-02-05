@@ -1,0 +1,81 @@
+<h2>Informe Cuidadores</h2>
+<nz-divider></nz-divider>
+
+<div class="filters">
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input
+      type="text"
+      nz-input
+      placeholder="Buscar"
+      [(ngModel)]="searchValue"
+    />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+
+  <div class="status-filter">
+    <span>Filtrar por estado</span>
+    <nz-select [(ngModel)]="selectedStatus" style="width: 120px">
+      <nz-option nzValue="Todos" nzLabel="Todos"></nz-option>
+      <nz-option nzValue="Pendiente" nzLabel="Pendiente"></nz-option>
+      <nz-option nzValue="Habilitado" nzLabel="Habilitado"></nz-option>
+    </nz-select>
+  </div>
+
+  <button nz-button nzType="primary" (click)="search()">FILTRAR</button>
+</div>
+
+<nz-table #basicTable [nzData]="listOfData">
+  <thead>
+    <tr>
+      <th>Fecha Registro</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Estado</th>
+      <th>Tarifa</th>
+      <th>Puntuación</th>
+      <th>Cantidad de reservas</th>
+      <th>Reservas pendientes</th>
+      <th>Reservas aprobadas</th>
+      <th>Reservas no aprobadas</th>
+      <th>Reservas canceladas</th>
+      <th>Reservas finalizadas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.fechaRegistro }}</td>
+      <td>{{ data.nombre }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.telefono }}</td>
+      <td>{{ data.estado }}</td>
+      <td>{{ data.tarifa }}</td>
+      <td>{{ data.puntuacion }}</td>
+      <td>{{ data.cantidadReservas }}</td>
+      <td>{{ data.reservasPendientes }}</td>
+      <td>{{ data.reservasAprobadas }}</td>
+      <td>{{ data.reservasNoAprobadas }}</td>
+      <td>{{ data.reservasCanceladas }}</td>
+      <td>{{ data.reservasFinalizadas }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-divider></nz-divider>
+
+<div class="statistics">
+  <h3 nz-typography>Estadísticas:</h3>
+  <ul>
+    <li>Cantidad de Cuidadores Pendientes: {{ statistics.pendientes }}</li>
+    <li>Cantidad de Cuidadores Habilitados: {{ statistics.habilitados }}</li>
+    <li>
+      Cantidad de Cuidadores No habilitados: {{ statistics.noHabilitados }}
+    </li>
+    <li>
+      Puntuación promedio de Cuidadores Habilitados:
+      {{ statistics.puntuacionPromedio }}
+    </li>
+  </ul>
+</div>

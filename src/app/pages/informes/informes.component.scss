@@ -1,0 +1,31 @@
+.filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.status-filter {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+nz-input-group {
+  width: 200px;
+}
+
+.statistics {
+  margin-top: 24px;
+}
+
+.statistics ul {
+  list-style: none;
+  padding: 0;
+}
+
+.statistics li {
+  margin-bottom: 8px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
