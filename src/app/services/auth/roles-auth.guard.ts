@@ -20,7 +20,7 @@ export class RolGuard implements CanActivate {
       return true;
     } else {
         console.log('No tienes permisos para acceder a esta página');
-      this.router.navigate(['/perfil']);
+      this.router.navigate(['/perfil/' + this.localStorageService.getIdUsuario()]);
       return false;
     }
   }

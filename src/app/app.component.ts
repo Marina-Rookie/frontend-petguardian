@@ -1,12 +1,8 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { LoginComponent } from './pages/login/login.component';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NgZorroModule } from './ngzorro.module';
 import { LocalStorageService } from './services/localstorage.service';
 @Component({
@@ -17,7 +13,6 @@ import { LocalStorageService } from './services/localstorage.service';
     RouterOutlet,
     MatSidenavModule,
     NgZorroModule,
-    LoginComponent,
     MatButtonModule,
     RouterModule
   ],

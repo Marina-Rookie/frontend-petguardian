@@ -41,7 +41,7 @@ export const routes: Routes = [
     data: { expectedRoles: ['Cuidador Habilitado'] },
   },
   {
-    path: 'perfil',
+    path: 'perfil/:id',
     component: PerfilComponent,
     canActivate: [AuthGuardService],
   },

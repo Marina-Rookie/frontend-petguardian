@@ -92,7 +92,7 @@ export class LoginComponent {
     this.localStorage.setItem('token', data['token']);
     this.localStorage.setItem('idUsuario', data['idUsuario']);
     this.localStorage.setItem('rol', data['rol']);
-    this.router.navigate(['/perfil']);
+    this.router.navigate(['/perfil/' + data['idUsuario']]);
   }
 
   onStatusChange(field: string) {

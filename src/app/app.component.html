@@ -9,7 +9,7 @@
           <ul>
             @if (localstorage.getIsCliente() || localstorage.getIsCuidador() || localstorage.getIsAdmin()) {
               <li>
-                <button mat-button class="sidenav-item" routerLink="/perfil" (click)="closeSidenavIfMobile()">
+                <button mat-button class="sidenav-item" [routerLink]="'/perfil/' + localstorage.getIdUsuario()" (click)="closeSidenavIfMobile()">
                   <div>
                     <span nz-icon nzType="user" nzTheme="outline" class="nz-icon"></span>
                   </div>

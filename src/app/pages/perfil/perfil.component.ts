@@ -17,6 +17,7 @@ import { CuidadorService } from '../../services/cuidador.service';
 import { ClienteService } from '../../services/cliente.service';
 import { environment } from '../../../environments/environment.prod';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -55,13 +56,16 @@ export class PerfilComponent implements OnInit {
     private msg: NzMessageService,
     private mascotaService: MascotaService,
     private cuidadorService: CuidadorService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
     this.checkScreenSize();
-    this.idUsuario = this.localStorageService.getIdUsuario();
+    this.route.paramMap.subscribe(params => {
+      this.idUsuario = params.get('id');
+    });
     this.url = this.urlApi + 'usuarios/upload/' + this.idUsuario;
     this.isCliente = this.localStorageService.getIsCliente();
     this.isAdmin = this.localStorageService.getIsAdmin();
