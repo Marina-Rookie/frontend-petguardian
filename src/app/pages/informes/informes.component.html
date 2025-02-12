@@ -83,16 +83,51 @@
 <nz-divider></nz-divider>
 
 <div class="statistics">
-  <h3 nz-typography>Estadísticas:</h3>
-  <ul>
-    <li>Cantidad de Cuidadores Pendientes: {{ statistics.pendientes }}</li>
-    <li>Cantidad de Cuidadores Habilitados: {{ statistics.habilitados }}</li>
-    <li>
-      Cantidad de Cuidadores No habilitados: {{ statistics.noHabilitados }}
-    </li>
-    <li>
-      Puntuación promedio de Cuidadores Habilitados:
-      {{ statistics.puntuacionPromedio }}
-    </li>
-  </ul>
+  <h3 nz-typography>Estadísticas</h3>
+  <div class="row">
+
+    <div class="col-3">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="statistics.pendientes"
+          [nzTitle]="'Cuidadores Pendientes'"
+          [nzPrefix]="prefixCuidadoresPdtes"
+        ></nz-statistic>
+        <ng-template #prefixCuidadoresPdtes><i nz-icon nzType="hourglass" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </div>
+  
+    <div class="col-3">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="statistics.habilitados"
+          [nzTitle]="'Cuidadores Habilitados'"
+          [nzPrefix]="prefixCuidadoresHabilitados"
+        ></nz-statistic>
+        <ng-template #prefixCuidadoresHabilitados><i nz-icon nzType="heart" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </div>
+  
+    <div class="col-3">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="statistics.noHabilitados"
+          [nzTitle]="'Cuidadores No Habilitados'"
+          [nzPrefix]="prefixCuidadoresNoHabilitados"
+        ></nz-statistic>
+        <ng-template #prefixCuidadoresNoHabilitados><i nz-icon nzType="eye-invisible" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </div>
+  
+    <div class="col-3">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="statistics.puntuacionPromedio"
+          [nzTitle]="'Puntuación promedio Cuidadores'"
+          [nzPrefix]="prefixPuntuacionProm"
+        ></nz-statistic>
+        <ng-template #prefixPuntuacionProm><i nz-icon nzType="star" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </div>
+  </div>
 </div>

@@ -9,6 +9,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 
 interface CaregiverData {
   id: number;
@@ -39,7 +41,9 @@ interface CaregiverData {
     NzButtonModule,
     NzTypographyModule,
     NzIconModule,
-    NzDividerModule
+    NzDividerModule,
+    NzCardModule,
+    NzStatisticModule
   ],
   templateUrl: './informes.component.html',
   styleUrl: './informes.component.scss',
