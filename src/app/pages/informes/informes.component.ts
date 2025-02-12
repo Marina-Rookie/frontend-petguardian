@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { StatsCuidadoresComponent } from '../../components/stats-cuidadores/stats-cuidadores.component';
 
 interface CaregiverData {
   id: number;
@@ -42,8 +43,7 @@ interface CaregiverData {
     NzTypographyModule,
     NzIconModule,
     NzDividerModule,
-    NzCardModule,
-    NzStatisticModule
+    StatsCuidadoresComponent
   ],
   templateUrl: './informes.component.html',
   styleUrl: './informes.component.scss',
@@ -96,13 +96,6 @@ export class InformesComponent {
       reservasFinalizadas: 1,
     },
   ];
-
-  statistics = {
-    pendientes: 2,
-    habilitados: 26,
-    noHabilitados: 7,
-    puntuacionPromedio: 4.54,
-  };
 
   constructor() {}
 
