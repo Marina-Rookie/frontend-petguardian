@@ -1,4 +1,4 @@
-<h2>Informe Cuidadores</h2>
+<h2>Informe de Cuidadores</h2>
 <nz-divider></nz-divider>
 
 <div class="filters">
@@ -29,6 +29,7 @@
 <nz-table #basicTable [nzData]="listOfData">
   <thead>
     <tr>
+      <th nzWidth="50px"></th>
       <th>Fecha Registro</th>
       <th>Nombre</th>
       <th>Email</th>
@@ -36,16 +37,15 @@
       <th>Estado</th>
       <th>Tarifa</th>
       <th>Puntuación</th>
-      <th>Cantidad de reservas</th>
-      <th>Reservas pendientes</th>
-      <th>Reservas aprobadas</th>
-      <th>Reservas no aprobadas</th>
-      <th>Reservas canceladas</th>
-      <th>Reservas finalizadas</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
+    @for (data of basicTable.data; track $index) {
+    <tr>
+      <td
+        [nzExpand]="expandSet.has(data.id)"
+        (nzExpandChange)="onExpandChange(data.id, $event)"
+      ></td>
       <td>{{ data.fechaRegistro }}</td>
       <td>{{ data.nombre }}</td>
       <td>{{ data.email }}</td>
@@ -53,13 +53,30 @@
       <td>{{ data.estado }}</td>
       <td>{{ data.tarifa }}</td>
       <td>{{ data.puntuacion }}</td>
-      <td>{{ data.cantidadReservas }}</td>
-      <td>{{ data.reservasPendientes }}</td>
-      <td>{{ data.reservasAprobadas }}</td>
-      <td>{{ data.reservasNoAprobadas }}</td>
-      <td>{{ data.reservasCanceladas }}</td>
-      <td>{{ data.reservasFinalizadas }}</td>
     </tr>
+    <tr [nzExpand]="expandSet.has(data.id)">
+      @if(data.estado === 'Pendiente') {
+        <tr style="font-size: 14px;">
+            <th style="padding-left: 60px;"></th>
+            <th>Cantidad de reservas</th>
+            <th>Reservas pendientes</th>
+            <th>Reservas aprobadas</th>
+            <th>Reservas no aprobadas</th>
+            <th>Reservas canceladas</th>
+            <th>Reservas finalizadas</th>
+          </tr>
+          <tr style="font-size: 14px;">
+            <td style="padding-left: 60px;"></td>
+            <td>{{ data.cantidadReservas }}</td>
+            <td>{{ data.reservasPendientes }}</td>
+            <td>{{ data.reservasAprobadas }}</td>
+            <td>{{ data.reservasNoAprobadas }}</td>
+            <td>{{ data.reservasCanceladas }}</td>
+            <td>{{ data.reservasFinalizadas }}</td>
+          </tr>
+      }
+    </tr>
+    }
   </tbody>
 </nz-table>
 

@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 interface CaregiverData {
+  id: number;
   fechaRegistro: string;
   nombre: string;
   email: string;
@@ -44,22 +45,51 @@ interface CaregiverData {
   styleUrl: './informes.component.scss',
 })
 export class InformesComponent {
+
+  expandSet = new Set<number>();
+
+  onExpandChange(id: number, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
+    } else {
+      this.expandSet.delete(id);
+    }
+  }
+
   searchValue = '';
   selectedStatus = 'Todos';
   listOfData: CaregiverData[] = [
     {
+      id: 1,
       fechaRegistro: '2024-08-20',
       nombre: 'Esteban Díaz',
       email: 'esteban@gmail.com',
       telefono: '3413784512',
       estado: 'Pendiente',
+      tarifa: '20 USD/h',
+      puntuacion: 4.5,
+      cantidadReservas: 10,
+      reservasPendientes: 2,
+      reservasAprobadas: 5,
+      reservasNoAprobadas: 1,
+      reservasCanceladas: 1,
+      reservasFinalizadas: 1,
     },
     {
+      id: 2,
       fechaRegistro: '2024-10-02',
       nombre: 'Marina Panatti',
       email: 'marin@outlook.com',
       telefono: '3413384555',
       estado: 'Pendiente',
+      tarifa: '18 USD/h',
+      puntuacion: 4.7,
+      cantidadReservas: 8,
+      reservasPendientes: 1,
+      reservasAprobadas: 4,
+      reservasNoAprobadas: 1,
+      reservasCanceladas: 1,
+      reservasFinalizadas: 1,
     },
   ];
 
