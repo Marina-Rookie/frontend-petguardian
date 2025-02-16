@@ -15,6 +15,7 @@
               <th>Estado</th>
               <th>Nombre Cliente</th>
               <th>Telefono Cliente</th>
+              <th>Hora turno</th>
               <th>Mascotas</th>
               <th>Precio</th>
               <th>Acciones</th>
@@ -31,6 +32,7 @@
                 </td>
                 <td>{{ reserva.cliente.nombre }} {{ reserva.cliente.apellido }}</td>
                 <td>{{ reserva.cliente.telefono }}</td>
+                <td>{{ reserva.horaTurno }}</td>
                 <td>@for(m of reserva.mascotas; track m){
                   {{m.nombre}}
                 }</td>
@@ -74,6 +76,7 @@
             <div>
               <p><strong>Estado:</strong> <nz-badge [nzStatus]="getStatusBadge(reserva.estado.estado)"></nz-badge> {{ reserva.estado.estado }}</p>
               <p><strong>Teléfono Cliente:</strong> {{ reserva.cliente.telefono }}</p>
+              <p><strong>Hora turno:</strong> {{ reserva.horaTurno }}</p>
               <p><strong>Mascotas:</strong> @for(m of reserva.mascotas; track m){
                 {{m.nombre}}
               }</p>

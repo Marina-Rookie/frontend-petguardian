@@ -58,7 +58,7 @@ export class InformesComponent {
   }
 
   searchValue = '';
-  selectedStatus = 'Todos';
+  selectedStatus = 'Habilitado';
   listCuidadores: Cuidador[] = [];
 
   constructor(
@@ -84,7 +84,8 @@ export class InformesComponent {
       },
     });
   }
+
   search(): void {
-    // Implement search logic
+
   }
 }

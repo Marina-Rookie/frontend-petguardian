@@ -17,6 +17,7 @@
             <th>Fecha Fin</th>
             <th>Estado</th>
             <th>Cuidador</th>
+            <th>Turno</th>
             <th>Teléfono</th>
             <th>Mascotas</th>
             <th>Precio</th>
@@ -34,6 +35,7 @@
                 {{ reserva.estado.estado }}
               </td>
               <td>{{ reserva.cuidador.nombre }} {{ reserva.cuidador.apellido }}</td>
+              <td>{{ reserva.horaTurno }}</td>
               <td>{{ reserva.cuidador.telefono }}</td>
               <td>@for(m of reserva.mascotas; track m){
                 {{m.nombre}}
@@ -77,6 +79,7 @@
               <nz-badge [nzStatus]="getStatus(reserva.estado.estado)"></nz-badge>{{ reserva.estado.estado }}
             </p>
             <p><strong>Teléfono cuidador:</strong> {{ reserva.cuidador.telefono }}</p>
+            <p><strong>Hora turno:</strong> {{ reserva.horaTurno }}</p>
             <p><strong>Mascotas:</strong> @for(m of reserva.mascotas; track m){
                 {{m.nombre}}
             }</p>

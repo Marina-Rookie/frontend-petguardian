@@ -10,6 +10,7 @@ export interface Reserva {
   fechaFin: string;
   tarifaTurno: number;
   cuidador: Cuidador;
+  horaTurno: number;
   cliente: Cliente;
   mascotas: Mascota[];
   estado: Estado;
