@@ -1,6 +1,8 @@
 <h2>Informe de Cuidadores</h2>
 
-<app-stats-cuidadores></app-stats-cuidadores>
+<nz-divider></nz-divider>
+
+<app-stats-cuidadores [estadisticas]="estadisticas"></app-stats-cuidadores>
 
 <nz-divider></nz-divider>
 
@@ -23,42 +25,41 @@
       <nz-option nzValue="Todos" nzLabel="Todos"></nz-option>
       <nz-option nzValue="Pendiente" nzLabel="Pendiente"></nz-option>
       <nz-option nzValue="Habilitado" nzLabel="Habilitado"></nz-option>
+      <nz-option nzValue="No Habilitado" nzLabel="No Habilitado"></nz-option>
     </nz-select>
   </div>
 
   <button nz-button nzType="primary" (click)="search()">FILTRAR</button>
 </div>
 
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #basicTable [nzData]="listCuidadores">
   <thead>
     <tr>
       <th nzWidth="50px"></th>
-      <th>Fecha Registro</th>
       <th>Nombre</th>
       <th>Email</th>
       <th>Teléfono</th>
       <th>Estado</th>
       <th>Tarifa</th>
-      <th>Puntuación</th>
+      <th>Promedio Puntuación</th>
     </tr>
   </thead>
   <tbody>
     @for (data of basicTable.data; track $index) {
     <tr>
       <td
-        [nzExpand]="expandSet.has(data.id)"
-        (nzExpandChange)="onExpandChange(data.id, $event)"
+        [nzExpand]="expandSet.has(data._id)"
+        (nzExpandChange)="onExpandChange(data._id, $event)"
       ></td>
-      <td>{{ data.fechaRegistro }}</td>
-      <td>{{ data.nombre }}</td>
+      <td>{{ data.nombre }} {{ data.apellido }}</td>
       <td>{{ data.email }}</td>
       <td>{{ data.telefono }}</td>
       <td>{{ data.estado }}</td>
       <td>{{ data.tarifa }}</td>
-      <td>{{ data.puntuacion }}</td>
+      <td>{{ data.promedioPuntuacion }}</td>
     </tr>
-    <tr [nzExpand]="expandSet.has(data.id)">
-      @if(data.estado === 'Pendiente') {
+    <tr [nzExpand]="expandSet.has(data._id)">
+      @if(data.estado === 'Habilitado') {
         <tr style="font-size: 14px;">
             <th style="padding-left: 60px;"></th>
             <th>Cantidad de reservas</th>
@@ -70,7 +71,7 @@
           </tr>
           <tr style="font-size: 14px;">
             <td style="padding-left: 60px;"></td>
-            <td>{{ data.cantidadReservas }}</td>
+            <td>{{ data.reservasTotales }}</td>
             <td>{{ data.reservasPendientes }}</td>
             <td>{{ data.reservasAprobadas }}</td>
             <td>{{ data.reservasNoAprobadas }}</td>
