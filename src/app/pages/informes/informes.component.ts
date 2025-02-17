@@ -71,7 +71,12 @@ export class InformesComponent {
   }
 
   getInformes() {
-    this.informeService.getInformesCuidadores().subscribe({
+    const filtros = {
+      nombre: this.searchValue,
+      estado: this.selectedStatus,
+    };
+
+    this.informeService.getInformesCuidadores(filtros).subscribe({
       next: (data: CuidadorInforme) => {
         this.informe = data;
         this.listCuidadores = data.cuidadores;
@@ -86,6 +91,6 @@ export class InformesComponent {
   }
 
   search(): void {
-
+    this.getInformes();
   }
 }
