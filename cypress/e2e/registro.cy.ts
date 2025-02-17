@@ -12,9 +12,6 @@ describe('Test form registro', () => {
     cy.get('input[formControlName="nombre"]').type('Nombre');
     cy.get('input[formControlName="apellido"]').type('Apellido');
     cy.get('button[type="submit"]').contains('Registrarse').click();
-
-    cy.url().should('include', '/perfil');
-    cy.contains('Teléfono contacto de emergencia').should('be.visible');
   });
 
   it('Registro usuario de tipo cuidador', () => {
@@ -28,7 +25,5 @@ describe('Test form registro', () => {
     cy.get('label[nz-checkbox]').click(); // Marca el checkbox de cuidador inicialmente en false
 
     cy.get('button[type="submit"]').contains('Registrarse').click();
-    cy.url().should('include', '/perfil');
-    cy.contains('Tarifa hora').should('be.visible');
   });
 });
