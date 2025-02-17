@@ -1,11 +1,11 @@
 describe('Test del login', () => {
   beforeEach(() => {
-    cy.visit('/login'); // Ir al login
+    cy.visit('/login');
   });
 
   it("Iniciar sesion como cuidador", () => {
-    cy.get('input[name="email"]').type("valentinlujambio@cuidador.com"); //Desp buscar mails validos pq no me acuerdo
-    cy.get('input[name="password"]').type("123456");
+    cy.get('input[name="email"]').type("cami@test.com");
+    cy.get('input[name="password"]').type("123");
     cy.get('button[type="submit"]').click();
 
     cy.url().should("include", "/perfil");
@@ -13,7 +13,7 @@ describe('Test del login', () => {
   });
 
   it('Iniciar sesion como cliente', () => {
-    cy.get('input[name="email"]').type('valentin@gmail.com'); //Desp buscar mails validos pq no me acuerdo
+    cy.get('input[name="email"]').type('ema@test.com');
     cy.get('input[name="password"]').type('123');
     cy.get('button[type="submit"]').click();
 
