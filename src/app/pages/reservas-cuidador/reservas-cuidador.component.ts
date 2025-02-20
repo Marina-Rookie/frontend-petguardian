@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [NgZorroModule, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './reservas-cuidador.component.html',
-  styleUrl: './reservas-cuidador.component.scss',
 })
 export class ReservasCuidadorComponent {
   loading: boolean = false;

@@ -19,7 +19,6 @@ import { TurnosService } from '../../services/turnos.service';
   standalone: true,
   imports: [NgZorroModule, FormsModule, ReactiveFormsModule],
   templateUrl: './modal-reserva.component.html',
-  styleUrl: './modal-reserva.component.scss',
 })
 export class ModalReservaComponent {
   cuidador: any = {};

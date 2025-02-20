@@ -9,7 +9,6 @@ import { Estadisticas } from '../../models/CuidadorInforme';
   standalone: true,
   imports: [NzCardModule, NzStatisticModule, NzIconModule],
   templateUrl: './stats-cuidadores.component.html',
-  styleUrl: './stats-cuidadores.component.scss',
 })
 export class StatsCuidadoresComponent {
 

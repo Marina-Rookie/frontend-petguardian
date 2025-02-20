@@ -9,7 +9,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   standalone: true,
   imports: [NgZorroModule],
   templateUrl: './aprobar-cuidadores.component.html',
-  styleUrl: './aprobar-cuidadores.component.scss',
 })
 export class AprobarCuidadoresComponent implements OnInit {
   cuidadoresPendientes: Cuidador[] = [];

@@ -9,8 +9,7 @@ import { ModalService } from '../../services/shared/modals.service';
   selector: 'app-modal-resenia',
   standalone: true,
   imports: [NgZorroModule],
-  templateUrl: './modal-resenia.component.html',
-  styleUrl: './modal-resenia.component.scss'
+  templateUrl: './modal-resenia.component.html'
 })
 export class ModalReseniaComponent implements OnInit {
 
