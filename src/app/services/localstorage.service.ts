@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
+
+  private secretKey: string = environment.secret_key;
 
   constructor() { }
 
@@ -14,34 +18,49 @@ export class LocalStorageService {
   }
 
   setItem(key: string, value: string) {
-    localStorage.setItem(key, value);
+    const encryptedValue = CryptoJS.AES.encrypt(value, this.secretKey).toString();
+    localStorage.setItem(key, encryptedValue);
+  }
+
+  getItem(key: string) {
+    const encryptedValue = localStorage.getItem(key);
+    try {
+      if (encryptedValue) {
+        const bytes = CryptoJS.AES.decrypt(encryptedValue, this.secretKey);
+        return bytes.toString(CryptoJS.enc.Utf8);
+      }
+    } catch(e) {
+      console.log('Error al desencriptar', e);
+      return '';
+    }
   }
 
   getIdUsuario() {
-    return localStorage.getItem('idUsuario') ?? '';
+    return this.getItem('idUsuario');
   }
 
   getRol() {
-    return localStorage.getItem('rol') ?? '';
+    return this.getItem('rol');
   }
-
+  
   getIsCliente() {
-    return localStorage.getItem('rol') === 'Cliente';
+    return this.getRol() === 'Cliente';
   }
 
   getIsCuidadorPendiente() {
-    return localStorage.getItem('rol') === 'Cuidador Pendiente';
+    return this.getRol() === 'Cuidador Pendiente';
   }
 
   getIsCuidador() {
-    return localStorage.getItem('rol') === 'Cuidador Habilitado' || localStorage.getItem('rol') === 'Cuidador Pendiente';
+    const rol = this.getRol();
+    return rol === 'Cuidador Habilitado' || rol === 'Cuidador Pendiente';
   }
 
   getIsAdmin() {
-    return localStorage.getItem('rol') === 'Administrador';
+    return this.getRol() === 'Administrador';
   }
 
   getIsCuidadorHabilitado() {
-    return localStorage.getItem('rol') === 'Cuidador Habilitado';
+    return this.getRol() === 'Cuidador Habilitado';
   }
 }

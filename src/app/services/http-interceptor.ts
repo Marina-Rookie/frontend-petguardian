@@ -1,9 +1,11 @@
 import { HttpRequest, HttpEvent, HttpResponse, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './localstorage.service';
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
 
+    const localStorage = new LocalStorageService();
     const token: string = localStorage.getItem('token') || '';
     let request = req;
 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NgZorroModule } from './ngzorro.module';
 import { LocalStorageService } from './services/localstorage.service';
 @Component({
@@ -24,12 +24,20 @@ export class AppComponent {
   isMobile: boolean = false;
   drawerOpened: boolean = true;
 
-  constructor(public localstorage: LocalStorageService) {
+  constructor(public localstorage: LocalStorageService, private router: Router) {
     this.checkScreenSize();
   }
 
   userIsLogged(): boolean {
-    return localStorage.getItem('token') != undefined;
+    return this.localstorage.getItem('token') != undefined;
+  }
+
+  isRoleValid() {
+    if(this.localstorage.getRol() == ''){
+      this.router.navigate(['/login']);
+      return false;
+    }
+    return true;
   }
 
   @HostListener('window:resize', [])
@@ -48,5 +56,21 @@ export class AppComponent {
     if (this.isMobile) {
       this.drawer.close();
     }
+  }
+
+  getIsCliente() {
+    return this.localstorage.getIsCliente();
+  }
+
+  getIsCuidador() {
+    return this.localstorage.getIsCuidador();
+  }
+
+  getIsAdmin() {
+    return this.localstorage.getIsAdmin();
+  }
+
+  getIsCuidadorHabilitado() {
+    return this.localstorage.getIsCuidadorHabilitado();
   }
 }

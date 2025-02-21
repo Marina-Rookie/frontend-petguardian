@@ -3,10 +3,9 @@ import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { LocalStorageService } from '../localstorage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RolGuard implements CanActivate {
-
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService
@@ -14,13 +13,21 @@ export class RolGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRoles = route.data['expectedRoles'] as Array<string>;
-    const userRole = this.localStorageService.getRol();
-    console.log('userRole', userRole);
+    let userRole = '';
+    try {
+      userRole = this.localStorageService.getRol();
+    } catch (error) {
+      console.log('Rol invalido');
+      this.router.navigate(['/login']);
+      return false;
+    }
     if (this.isValidRole(userRole, expectedRoles)) {
       return true;
     } else {
-        console.log('No tienes permisos para acceder a esta página');
-      this.router.navigate(['/perfil/' + this.localStorageService.getIdUsuario()]);
+      console.log('No tienes permisos para acceder a esta página');
+      this.router.navigate([
+        '/perfil/' + this.localStorageService.getIdUsuario(),
+      ]);
       return false;
     }
   }
