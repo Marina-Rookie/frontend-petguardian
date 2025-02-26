@@ -36,51 +36,52 @@
     <nz-spin [nzSize]="'large'"></nz-spin>
   </div>
 } @else {
-  <nz-table #basicTable [nzData]="listCuidadores">
-    <thead>
-      <tr>
-        <th nzWidth="50px"></th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Teléfono</th>
-        <th>Estado</th>
-        <th>Tarifa</th>
-        <th>Promedio Puntuación</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (data of basicTable.data; track $index) {
-      <tr>
-        @if(data.estado === 'Habilitado') {
-          <td style="padding: 8px;"
-            [nzExpand]="expandSet.has(data._id)"
-            (nzExpandChange)="onExpandChange(data._id, $event)"
-          ></td>
-        } @else {
-          <td style="padding: 8px;"></td>
+  <div class="table-responsive">
+    <nz-table #basicTable [nzData]="listCuidadores">
+      <thead>
+        <tr>
+          <th nzWidth="50px"></th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th>Tarifa</th>
+          <th>Promedio Puntuación</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (data of basicTable.data; track $index) {
+        <tr>
+          @if(data.estado === 'Habilitado') {
+            <td style="padding: 8px;"
+              [nzExpand]="expandSet.has(data._id)"
+              (nzExpandChange)="onExpandChange(data._id, $event)"
+            ></td>
+          } @else {
+            <td style="padding: 8px;"></td>
+          }
+          <td>{{ data.nombre }} {{ data.apellido }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.telefono }}</td>
+          <td>{{ data.estado }}</td>
+          <td>{{ data.tarifaHora }}</td>
+          <td>{{ data.promedioPuntuacion }}</td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(data._id)">
+          @if(data.estado === 'Habilitado') {
+              <tr class="second-row">
+                <th></th>
+                <th>Cantidad de reservas:  {{ data.reservasTotales }}</th>
+                <th>Reservas pendientes:  {{ data.reservasPendientes }}</th>
+                <th>Reservas aprobadas:  {{ data.reservasAprobadas }}</th>
+                <th>Reservas no aprobadas:  {{ data.reservasNoAprobadas }}</th>
+                <th>Reservas canceladas:  {{ data.reservasCanceladas }}</th>
+                <th>Reservas finalizadas:  {{ data.reservasFinalizadas }}</th>
+              </tr>
+          }
+        </tr>
         }
-        <td>{{ data.nombre }} {{ data.apellido }}</td>
-        <td>{{ data.email }}</td>
-        <td>{{ data.telefono }}</td>
-        <td>{{ data.estado }}</td>
-        <td>{{ data.tarifaHora }}</td>
-        <td>{{ data.promedioPuntuacion }}</td>
-      </tr>
-      <tr [nzExpand]="expandSet.has(data._id)">
-        @if(data.estado === 'Habilitado') {
-            <tr class="second-row">
-              <th></th>
-              <th>Cantidad de reservas:  {{ data.reservasTotales }}</th>
-              <th>Reservas pendientes:  {{ data.reservasPendientes }}</th>
-              <th>Reservas aprobadas:  {{ data.reservasAprobadas }}</th>
-              <th>Reservas no aprobadas:  {{ data.reservasNoAprobadas }}</th>
-              <th>Reservas canceladas:  {{ data.reservasCanceladas }}</th>
-              <th>Reservas finalizadas:  {{ data.reservasFinalizadas }}</th>
-            </tr>
-        }
-      </tr>
-      }
-    </tbody>
-  </nz-table>
+      </tbody>
+    </nz-table>
+  </div>
 }
-
