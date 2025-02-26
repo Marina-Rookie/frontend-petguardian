@@ -3,6 +3,9 @@
 
 <!-- Tabla para pc -->
 <div class="d-none d-md-block">
+  @if(loading) {
+  <nz-spin [nzSize]="'large'"></nz-spin>
+  } @else {
   <nz-table #cuidadores [nzData]="cuidadoresPendientes" [nzBordered]="true">
     <thead>
       <tr>
@@ -14,40 +17,67 @@
     </thead>
     <tbody>
       @for (data of cuidadores.data; track $index) {
-        <tr>
-          <td>{{ data.nombre }} {{ data.apellido }}</td>
-          <td>{{ data.email }}</td>
-          <td>{{ data.telefono }}</td>
-          <td>
-            <button nz-button nzType="primary" (click)="aprobar(data)" class="ml-4">Aprobar</button>
-            <button nz-button nzType="default" (click)="rechazar(data)">Rechazar</button>
-          </td>
-        </tr>
+      <tr>
+        <td>{{ data.nombre }} {{ data.apellido }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.telefono }}</td>
+        <td>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="aprobar(data)"
+            class="ml-4"
+          >
+            Aprobar
+          </button>
+          <button nz-button nzType="default" (click)="rechazar(data)">
+            Rechazar
+          </button>
+        </td>
+      </tr>
       }
     </tbody>
   </nz-table>
+  }
 </div>
 
 <!-- Cards en  mobile -->
 <div class="d-md-none">
-  @for (data of cuidadores.data; track $index) {
-    <nz-card class="mb-3" nzBordered>
-      <nz-card-meta
-        [nzTitle]="data.nombre + ' ' + data.apellido"
-        [nzDescription]="data.email">
-      </nz-card-meta>
+  @if(loading) {
+  <nz-spin [nzSize]="'large'"></nz-spin>
+  } @else { @for (data of cuidadoresPendientes; track $index) {
+  <nz-card class="mb-3" nzBordered>
+    <nz-card-meta
+      [nzTitle]="data.nombre + ' ' + data.apellido"
+      [nzDescription]="data.email"
+    >
+    </nz-card-meta>
 
-      <div class="mt-2">
-        <p><strong>Teléfono:</strong> {{ data.telefono }}</p>
-      </div>
+    <div class="mt-2">
+      <p><strong>Teléfono:</strong> {{ data.telefono }}</p>
+    </div>
 
-      <div class="text-center mt-3">
-        <button nz-button nzType="primary" nzSize="small" (click)="aprobar(data)" style="margin-right: 8px;">Aprobar</button>
-        <button nz-button nzType="default" nzSize="small" (click)="rechazar(data)">Rechazar</button>
-      </div>
-    </nz-card>
-  }
-  @if (cuidadoresPendientes.length === 0) {
-    <p class="text-center">No hay cuidadores pendientes de aprobación</p>
-  }
+    <div class="text-center mt-3">
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="small"
+        (click)="aprobar(data)"
+        style="margin-right: 8px"
+      >
+        Aprobar
+      </button>
+      <button
+        nz-button
+        nzType="default"
+        nzSize="small"
+        (click)="rechazar(data)"
+      >
+        Rechazar
+      </button>
+    </div>
+  </nz-card>
+  } @if (cuidadoresPendientes.length === 0) {
+  <p class="text-center">No hay cuidadores pendientes de aprobación</p>
+  } }
 </div>

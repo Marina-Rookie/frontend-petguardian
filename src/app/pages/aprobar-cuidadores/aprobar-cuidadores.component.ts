@@ -12,7 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class AprobarCuidadoresComponent implements OnInit {
   cuidadoresPendientes: Cuidador[] = [];
-
+  loading = false;
   constructor(
     private service: CuidadorService,
     private msg: NzMessageService
@@ -23,17 +23,20 @@ export class AprobarCuidadoresComponent implements OnInit {
   }
 
   getCuidadoresPendientes() {
+    this.loading = true;
     this.service.getCuidadoresPendientes().subscribe({
       next: (cuidadores: Cuidador[]) => {
         this.cuidadoresPendientes = cuidadores;
+        this.loading = false;
       },
       error: (error) => {
         this.msg.error('Error al cargar los cuidadores pendientes');
         this.cuidadoresPendientes = [];
+        this.loading = false;
       },
     });
   }
-  
+
   aprobar(cuidador: Cuidador) {
     this.service.habilitarCuidador(cuidador._id).subscribe(() => {
       this.getCuidadoresPendientes();
