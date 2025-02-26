@@ -5,7 +5,7 @@ export class Cuidador {
   email: string;
   telefono: string;
   estado: string;
-  tarifa: number;
+  tarifaHora: number;
   promedioPuntuacion: number;
   reservasTotales: number;
   reservasCanceladas: number;
@@ -21,7 +21,7 @@ export class Cuidador {
     this.email = data.email;
     this.telefono = data.telefono;
     this.estado = data.estado;
-    this.tarifa = data.tarifa;
+    this.tarifaHora = data.tarifaHora;
     this.promedioPuntuacion = data.promedioPuntuacion;
     this.reservasTotales = data.reservasTotales;
     this.reservasCanceladas = data.reservasCanceladas;

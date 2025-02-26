@@ -15,20 +15,9 @@ nz-input-group {
   width: 200px;
 }
 
-.statistics {
-  margin-top: 24px;
-}
-
-.statistics ul {
-  list-style: none;
-  padding: 0;
-}
-
-.statistics li {
-  margin-bottom: 8px;
-  color: rgba(0, 0, 0, 0.65);
-}
-
-ant-table-head {
-  font-size: 2px;
+.second-row {
+  font-size: 14px;
+  th {
+    padding: 10px;
+  }
 }

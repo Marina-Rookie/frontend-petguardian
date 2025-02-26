@@ -78,6 +78,7 @@ export class InformesComponent {
     this.informeService.getInformesCuidadores(filtros).subscribe({
       next: (data: CuidadorInforme) => {
         this.informe = data;
+        console.log(data);
         this.listCuidadores = data.cuidadores;
         this.estadisticas = data.estadisticas;
         this.loading = false;

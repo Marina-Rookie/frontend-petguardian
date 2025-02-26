@@ -51,36 +51,31 @@
     <tbody>
       @for (data of basicTable.data; track $index) {
       <tr>
-        <td
-          [nzExpand]="expandSet.has(data._id)"
-          (nzExpandChange)="onExpandChange(data._id, $event)"
-        ></td>
+        @if(data.estado === 'Habilitado') {
+          <td style="padding: 8px;"
+            [nzExpand]="expandSet.has(data._id)"
+            (nzExpandChange)="onExpandChange(data._id, $event)"
+          ></td>
+        } @else {
+          <td style="padding: 8px;"></td>
+        }
         <td>{{ data.nombre }} {{ data.apellido }}</td>
         <td>{{ data.email }}</td>
         <td>{{ data.telefono }}</td>
         <td>{{ data.estado }}</td>
-        <td>{{ data.tarifa }}</td>
+        <td>{{ data.tarifaHora }}</td>
         <td>{{ data.promedioPuntuacion }}</td>
       </tr>
       <tr [nzExpand]="expandSet.has(data._id)">
         @if(data.estado === 'Habilitado') {
-          <tr style="font-size: 14px;">
-              <th style="padding-left: 60px;"></th>
-              <th>Cantidad de reservas</th>
-              <th>Reservas pendientes</th>
-              <th>Reservas aprobadas</th>
-              <th>Reservas no aprobadas</th>
-              <th>Reservas canceladas</th>
-              <th>Reservas finalizadas</th>
-            </tr>
-            <tr style="font-size: 14px;">
-              <td style="padding-left: 60px;"></td>
-              <td>{{ data.reservasTotales }}</td>
-              <td>{{ data.reservasPendientes }}</td>
-              <td>{{ data.reservasAprobadas }}</td>
-              <td>{{ data.reservasNoAprobadas }}</td>
-              <td>{{ data.reservasCanceladas }}</td>
-              <td>{{ data.reservasFinalizadas }}</td>
+            <tr class="second-row">
+              <th></th>
+              <th>Cantidad de reservas:  {{ data.reservasTotales }}</th>
+              <th>Reservas pendientes:  {{ data.reservasPendientes }}</th>
+              <th>Reservas aprobadas:  {{ data.reservasAprobadas }}</th>
+              <th>Reservas no aprobadas:  {{ data.reservasNoAprobadas }}</th>
+              <th>Reservas canceladas:  {{ data.reservasCanceladas }}</th>
+              <th>Reservas finalizadas:  {{ data.reservasFinalizadas }}</th>
             </tr>
         }
       </tr>
