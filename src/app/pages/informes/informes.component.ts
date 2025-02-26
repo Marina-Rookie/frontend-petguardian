@@ -17,6 +17,8 @@ import {
 } from '../../models/CuidadorInforme';
 import { InformeService } from '../../services/informe.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NgZorroModule } from '../../ngzorro.module';
 
 @Component({
   selector: 'app-informes',
@@ -24,14 +26,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   imports: [
     CommonModule,
     FormsModule,
-    NzTableModule,
-    NzInputModule,
-    NzSelectModule,
-    NzButtonModule,
-    NzTypographyModule,
-    NzIconModule,
-    NzDividerModule,
-    StatsCuidadoresComponent,
+    NgZorroModule,
+    StatsCuidadoresComponent
   ],
   templateUrl: './informes.component.html',
   styleUrl: './informes.component.scss',
@@ -48,6 +44,7 @@ export class InformesComponent {
   };
 
   expandSet = new Set<string>();
+  loading = false;
 
   onExpandChange(id: string, checked: boolean): void {
     if (checked) {
@@ -71,6 +68,8 @@ export class InformesComponent {
   }
 
   getInformes() {
+    this.loading = true;
+
     const filtros = {
       nombre: this.searchValue,
       estado: this.selectedStatus,
@@ -81,16 +80,12 @@ export class InformesComponent {
         this.informe = data;
         this.listCuidadores = data.cuidadores;
         this.estadisticas = data.estadisticas;
-        console.log(data);
+        this.loading = false;
       },
       error: (error) => {
         this.msg.error('Ha ocurrido un error al obtener los informes');
-        console.error(error);
+        this.loading = false;
       },
     });
-  }
-
-  search(): void {
-    this.getInformes();
   }
 }

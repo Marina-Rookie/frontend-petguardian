@@ -22,69 +22,70 @@
   <div class="status-filter">
     <span>Filtrar por estado</span>
     <nz-select [(ngModel)]="selectedStatus" style="width: 120px">
-      <nz-option nzValue="Todos" nzLabel="Todos"></nz-option>
-      <nz-option nzValue="Pendiente" nzLabel="Pendiente"></nz-option>
       <nz-option nzValue="Habilitado" nzLabel="Habilitado"></nz-option>
       <nz-option nzValue="No Habilitado" nzLabel="No Habilitado"></nz-option>
+      <nz-option nzValue="Pendiente" nzLabel="Pendiente"></nz-option>
     </nz-select>
   </div>
 
-  <button nz-button nzType="primary" (click)="search()">FILTRAR</button>
+  <button nz-button nzType="primary" (click)="getInformes()">FILTRAR</button>
 </div>
 
-<nz-table #basicTable [nzData]="listCuidadores">
-  <thead>
-    <tr>
-      <th nzWidth="50px"></th>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Teléfono</th>
-      <th>Estado</th>
-      <th>Tarifa</th>
-      <th>Promedio Puntuación</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (data of basicTable.data; track $index) {
-    <tr>
-      <td
-        [nzExpand]="expandSet.has(data._id)"
-        (nzExpandChange)="onExpandChange(data._id, $event)"
-      ></td>
-      <td>{{ data.nombre }} {{ data.apellido }}</td>
-      <td>{{ data.email }}</td>
-      <td>{{ data.telefono }}</td>
-      <td>{{ data.estado }}</td>
-      <td>{{ data.tarifa }}</td>
-      <td>{{ data.promedioPuntuacion }}</td>
-    </tr>
-    <tr [nzExpand]="expandSet.has(data._id)">
-      @if(data.estado === 'Habilitado') {
-        <tr style="font-size: 14px;">
-            <th style="padding-left: 60px;"></th>
-            <th>Cantidad de reservas</th>
-            <th>Reservas pendientes</th>
-            <th>Reservas aprobadas</th>
-            <th>Reservas no aprobadas</th>
-            <th>Reservas canceladas</th>
-            <th>Reservas finalizadas</th>
-          </tr>
+@if(loading) {
+  <div class="mt-4 mb-4">
+    <nz-spin [nzSize]="'large'"></nz-spin>
+  </div>
+} @else {
+  <nz-table #basicTable [nzData]="listCuidadores">
+    <thead>
+      <tr>
+        <th nzWidth="50px"></th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Estado</th>
+        <th>Tarifa</th>
+        <th>Promedio Puntuación</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track $index) {
+      <tr>
+        <td
+          [nzExpand]="expandSet.has(data._id)"
+          (nzExpandChange)="onExpandChange(data._id, $event)"
+        ></td>
+        <td>{{ data.nombre }} {{ data.apellido }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.telefono }}</td>
+        <td>{{ data.estado }}</td>
+        <td>{{ data.tarifa }}</td>
+        <td>{{ data.promedioPuntuacion }}</td>
+      </tr>
+      <tr [nzExpand]="expandSet.has(data._id)">
+        @if(data.estado === 'Habilitado') {
           <tr style="font-size: 14px;">
-            <td style="padding-left: 60px;"></td>
-            <td>{{ data.reservasTotales }}</td>
-            <td>{{ data.reservasPendientes }}</td>
-            <td>{{ data.reservasAprobadas }}</td>
-            <td>{{ data.reservasNoAprobadas }}</td>
-            <td>{{ data.reservasCanceladas }}</td>
-            <td>{{ data.reservasFinalizadas }}</td>
-          </tr>
+              <th style="padding-left: 60px;"></th>
+              <th>Cantidad de reservas</th>
+              <th>Reservas pendientes</th>
+              <th>Reservas aprobadas</th>
+              <th>Reservas no aprobadas</th>
+              <th>Reservas canceladas</th>
+              <th>Reservas finalizadas</th>
+            </tr>
+            <tr style="font-size: 14px;">
+              <td style="padding-left: 60px;"></td>
+              <td>{{ data.reservasTotales }}</td>
+              <td>{{ data.reservasPendientes }}</td>
+              <td>{{ data.reservasAprobadas }}</td>
+              <td>{{ data.reservasNoAprobadas }}</td>
+              <td>{{ data.reservasCanceladas }}</td>
+              <td>{{ data.reservasFinalizadas }}</td>
+            </tr>
+        }
+      </tr>
       }
-    </tr>
-    }
-  </tbody>
-</nz-table>
+    </tbody>
+  </nz-table>
+}
 
-<nz-divider></nz-divider>
-
-<div class="statistics">
-</div>
